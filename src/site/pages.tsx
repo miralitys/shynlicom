@@ -2295,9 +2295,9 @@ export function NotFoundPage() {
       ? "https://shinymove-outcleaning.com"
       : "https://shynli.com"
   const notFoundBrand = hostname.includes("shinydeepcleaning.com")
-    ? "Shiny Deep Cleaning"
+    ? "Shynli Deep Cleaning"
     : hostname.includes("shinymove-outcleaning.com")
-      ? "Shiny Move-Out Cleaning"
+      ? "Shynli Move-Out Cleaning"
       : "Shynli Cleaning"
 
   useSeoMeta(

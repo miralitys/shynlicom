@@ -95,11 +95,11 @@ function sentenceStart(value: string) {
 function makeHubPage(seed: MoveOutIntentSeed): ShinyMoveOutSeoPageData {
   return {
     slug: seed.slug,
-    title: `${seed.label} | Shiny Move-Out Cleaning`,
+    title: `${seed.label} | Shynli Move-Out Cleaning`,
     meta: `${seed.label} for Chicagoland suburbs with checklist-based scope, access notes, add-on clarity, after-clean photos, and a fast quote path.`,
     eyebrow: seed.label,
     h1: `${seed.label} built for a clean handoff.`,
-    intro: `${sentenceStart(seed.keyword)} should make the move easier, not add another vague appointment to an already tight week. Shiny Move-Out Cleaning helps ${seed.audience} with ${seed.promise}. The visit is planned around the real situation: ${seed.situation}. Before the appointment, the customer can name the property type, condition, access notes, priorities, and add-ons so the cleaner arrives with a practical scope instead of guessing at the door.`,
+    intro: `${sentenceStart(seed.keyword)} should make the move easier, not add another vague appointment to an already tight week. Shynli Move-Out Cleaning helps ${seed.audience} with ${seed.promise}. The visit is planned around the real situation: ${seed.situation}. Before the appointment, the customer can name the property type, condition, access notes, priorities, and add-ons so the cleaner arrives with a practical scope instead of guessing at the door.`,
     intentLabel: seed.label,
     keyword: seed.keyword,
     audience: seed.audience,
@@ -114,7 +114,7 @@ function makeHubPage(seed: MoveOutIntentSeed): ShinyMoveOutSeoPageData {
       },
       {
         title: "How the quote stays honest",
-        copy: `The right price depends on the size of the home, the condition after the move, the number of bathrooms, the time window, and the add-ons requested. Shiny asks for those details before booking so a small apartment, a heavy rental turnover, and a listing clean are not treated like the same job.`,
+        copy: `The right price depends on the size of the home, the condition after the move, the number of bathrooms, the time window, and the add-ons requested. Shynli asks for those details before booking so a small apartment, a heavy rental turnover, and a listing clean are not treated like the same job.`,
         bullets: ["Home size and property type", "Light, normal, or heavy condition after moving", "Fridge, oven, cabinet, window, blind, and garage requests", "Same-week timing, remote access, pets, and parking instructions"],
       },
       {
@@ -129,7 +129,7 @@ function makeHubPage(seed: MoveOutIntentSeed): ShinyMoveOutSeoPageData {
       },
     ],
     faqs: [
-      ["Can you guarantee a deposit or sale outcome?", "No. Shiny can stand behind the covered cleaning scope and the follow-up path for included missed items, but deposit decisions, buyer opinions, and property manager judgments are outside the cleaner's control."],
+      ["Can you guarantee a deposit or sale outcome?", "No. Shynli can stand behind the covered cleaning scope and the follow-up path for included missed items, but deposit decisions, buyer opinions, and property manager judgments are outside the cleaner's control."],
       ["Does the home need to be empty?", "An empty or mostly empty home is best for move-out work. Personal items, trash, and large furniture should be removed before the visit so shelves, closets, floors, and baseboards are accessible."],
       ["Are fridge, oven, and cabinet interiors included?", "They should be selected or quoted before the visit. Calling them out early protects the appointment time and keeps the scope clear."],
       ["Can you clean when I am not there?", "Usually yes, as long as access, parking, utilities, pets, lock-up, and contact details are provided before the visit."],
@@ -276,11 +276,11 @@ function makeCityIntentPage(city: (typeof cityPages)[number], seed: MoveOutInten
     citySlug: city.slug,
     intentSlug: seed.slug,
     city,
-    title: `${city.name} ${seed.label} | Shiny Move-Out`,
+    title: `${city.name} ${seed.label} | Shynli Move-Out`,
     meta: `${seed.label} in ${city.name}, IL with empty-home checklist, access notes, quote clarity, after-clean photos, and move-day handoff support.`,
     eyebrow: `${city.name} service`,
     h1: `${city.name} ${seed.label} for a cleaner handoff.`,
-    intro: `${sentenceStart(seed.keyword)} in ${city.name} should fit the real pressure of move week. Shiny Move-Out Cleaning helps ${seed.audience} with ${seed.promise}. ${cityNote} Local requests often involve ${profile.housing}. The page focuses on the details that usually decide whether the home feels ready: empty-room surfaces, kitchen and bathroom reset, floors, closets, access notes, selected add-ons, and proof after the visit.`,
+    intro: `${sentenceStart(seed.keyword)} in ${city.name} should fit the real pressure of move week. Shynli Move-Out Cleaning helps ${seed.audience} with ${seed.promise}. ${cityNote} Local requests often involve ${profile.housing}. The page focuses on the details that usually decide whether the home feels ready: empty-room surfaces, kitchen and bathroom reset, floors, closets, access notes, selected add-ons, and proof after the visit.`,
     intentLabel: seed.label,
     keyword: seed.keyword,
     audience: seed.audience,
@@ -310,7 +310,7 @@ function makeCityIntentPage(city: (typeof cityPages)[number], seed: MoveOutInten
       },
     ],
     faqs: [
-      [`Do you clean apartments and houses in ${city.name}?`, `Yes. Shiny Move-Out Cleaning handles apartments, condos, townhomes, rentals, and houses in ${city.name} when the timing and scope can be confirmed.`],
+      [`Do you clean apartments and houses in ${city.name}?`, `Yes. Shynli Move-Out Cleaning handles apartments, condos, townhomes, rentals, and houses in ${city.name} when the timing and scope can be confirmed.`],
       ["Do I need to be there during the clean?", "Usually no. Provide access instructions, parking details, pet notes, utilities, and lock-up directions before the visit."],
       ["Can you clean inside the fridge, oven, or cabinets?", "Yes, when selected or quoted before the appointment. These items need extra time and should be named in advance."],
       ["What if a covered item is missed?", "Contact the team with the details. Covered missed checklist items should have a simple follow-up path."],
@@ -332,10 +332,10 @@ function MoveOutSeoHeader({ ctaLabel = "Start quote" }: { ctaLabel?: string }) {
   return (
     <header className="sticky top-0 z-50 border-b border-[#0b2430]/10 bg-[#f6fbff]/92 px-4 backdrop-blur-xl md:px-8">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4">
-        <a href={homeHref} className="flex min-h-11 items-center gap-3" aria-label="Shiny Move-Out Cleaning home">
+        <a href={homeHref} className="flex min-h-11 items-center gap-3" aria-label="Shynli Move-Out Cleaning home">
           <span className="grid size-10 place-items-center rounded-sm bg-[#0b2430] text-sm font-black text-[#f6fbff]">SM</span>
           <span className="leading-none">
-            <span className="block text-base font-black uppercase tracking-normal">Shiny Move-Out</span>
+            <span className="block text-base font-black uppercase tracking-normal">Shynli Move-Out</span>
             <span className="mt-1 block text-xs font-black uppercase text-[#0b7f8a]">Move-out cleaning</span>
           </span>
         </a>
@@ -396,7 +396,7 @@ function MoveOutSeoFooter() {
         <div>
           <a href={getShinyMoveOutPath()} className="flex min-h-11 items-center gap-3">
             <span className="grid size-10 place-items-center rounded-sm bg-[#22c7a9] text-sm font-black text-[#0b2430]">SM</span>
-            <span className="text-xl font-black">Shiny Move-Out Cleaning</span>
+            <span className="text-xl font-black">Shynli Move-Out Cleaning</span>
           </a>
           <p className="mt-5 max-w-sm text-sm font-bold leading-6 text-[#f6fbff]/62">
             Move-out cleaning for empty homes, lease handoffs, listing prep, final walkthroughs, and move-day timing.
@@ -530,7 +530,7 @@ function MoveOutSeoBody({ page, cityName }: { page: ShinyMoveOutSeoPageData; cit
             <p className="mb-4 text-sm font-black uppercase text-[#0b7f8a]">{cityName ? "Nearby cities" : "Service areas"}</p>
             <h2 className="max-w-3xl text-4xl font-black leading-[0.98] sm:text-5xl">Local pages connect the service to the city.</h2>
             <p className="mt-6 text-lg font-bold leading-8 text-[#486573]">
-              Shiny Move-Out Cleaning serves the same Chicagoland suburbs listed on the main Shynli service-area layer.
+              Shynli Move-Out Cleaning serves the same Chicagoland suburbs listed on the main Shynli service-area layer.
             </p>
           </div>
           <div className="grid gap-4 md:grid-cols-2">
@@ -596,7 +596,7 @@ function useMoveOutSeoMeta(page: ShinyMoveOutSeoPageData, canonicalPath: string,
       serviceType: page.keyword,
       url: `${shinyMoveOutCanonicalBase}${canonicalPath}`,
       areaServed,
-      provider: { "@type": "LocalBusiness", name: "Shiny Move-Out Cleaning", url: shinyMoveOutCanonicalBase },
+      provider: { "@type": "LocalBusiness", name: "Shynli Move-Out Cleaning", url: shinyMoveOutCanonicalBase },
       hasOfferCatalog: {
         "@type": "OfferCatalog",
         name: "Move-out cleaning options",
