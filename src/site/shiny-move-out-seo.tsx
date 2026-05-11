@@ -356,7 +356,7 @@ function MoveOutSeoHeader({ ctaLabel = "Start quote" }: { ctaLabel?: string }) {
 function MoveOutQuoteStrip({ page, cityName }: { page: ShinyMoveOutSeoPageData; cityName?: string }) {
   return (
     <div id="quote" className="border border-[#b9e5ee] bg-[#f6fbff] p-3 text-[#0b2430] shadow-[0_26px_90px_rgba(0,0,0,0.18)] md:p-4">
-      <form className="grid gap-3 lg:grid-cols-[1fr_1fr_1fr_1fr_auto] lg:items-end" onSubmit={(event) => submitQuoteForm(event, { service: page.keyword })}>
+      <form action={buildQuoteUrl({ service: page.keyword })} method="get" className="grid gap-3 lg:grid-cols-[1fr_1fr_1fr_1fr_auto] lg:items-end" onSubmit={(event) => submitQuoteForm(event, { service: page.keyword })}>
         {cityName ? <input type="hidden" name="city" value={cityName} /> : null}
         <label className="grid gap-2 text-xs font-black uppercase text-[#0b7f8a]">
           ZIP code

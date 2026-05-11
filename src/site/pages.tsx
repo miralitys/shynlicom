@@ -2257,7 +2257,12 @@ export function HomePage() {
                 Book your home cleaning
               </p>
             </div>
-            <form className="grid grid-cols-[1fr_auto] gap-2 md:min-w-[360px]" onSubmit={(event) => submitQuoteRequest(event, { zip: stickyZip, service: estimateService, bedrooms, bathrooms })}>
+            <form
+              action={buildQuoteUrl({ zip: stickyZip, service: estimateService, bedrooms, bathrooms })}
+              method="get"
+              className="grid grid-cols-[1fr_auto] gap-2 md:min-w-[360px]"
+              onSubmit={(event) => submitQuoteRequest(event, { zip: stickyZip, service: estimateService, bedrooms, bathrooms })}
+            >
               <label htmlFor="sticky-zip" className="sr-only">
                 ZIP code
               </label>

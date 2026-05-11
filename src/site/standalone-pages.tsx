@@ -1363,7 +1363,7 @@ export function ShinyDeepCleaningPage({ city }: { city?: (typeof cityPages)[numb
           </div>
           <Card className="rounded-lg border-[#e1d5c4] bg-white shadow-[0_28px_90px_rgba(27,23,37,0.12)]">
             <CardContent className="p-5 md:p-6">
-              <form className="grid gap-4" onSubmit={(event) => submitQuoteForm(event, { service: "deep-cleaning" })}>
+              <form action={buildQuoteUrl({ service: "deep-cleaning" })} method="get" className="grid gap-4" onSubmit={(event) => submitQuoteForm(event, { service: "deep-cleaning" })}>
                 <input type="hidden" name="condition" value={selectedCondition} />
                 {cityName ? <input type="hidden" name="city" value={cityName} /> : null}
                 <div className="grid gap-4 sm:grid-cols-3">
@@ -2513,7 +2513,7 @@ export function ShinyApartmentPage() {
         </div>
 
         <div id="quote" className="relative z-10 mx-4 -mt-12 max-w-7xl rounded-md border border-white/24 bg-white/92 p-3 text-[#092332] shadow-[0_24px_80px_rgba(0,0,0,0.28)] backdrop-blur-xl md:absolute md:inset-x-8 md:bottom-4 md:mx-auto md:mt-0 md:p-4">
-          <form className="grid gap-3 md:grid-cols-[1.2fr_0.85fr_0.85fr_0.9fr_auto] md:items-end" onSubmit={(event) => submitQuoteForm(event, { service: "apartment-cleaning" })}>
+          <form action={buildQuoteUrl({ service: "apartment-cleaning" })} method="get" className="grid gap-3 md:grid-cols-[1.2fr_0.85fr_0.85fr_0.9fr_auto] md:items-end" onSubmit={(event) => submitQuoteForm(event, { service: "apartment-cleaning" })}>
             <div>
               <label htmlFor="apt-zip" className="text-xs font-black uppercase text-[#1f789d]">ZIP</label>
               <Input id="apt-zip" name="zip" inputMode="numeric" placeholder="60540" className="mt-1 h-12 rounded-md border-[#b9ddea] bg-white text-base font-black" />
@@ -2840,7 +2840,7 @@ export function ShinyMoveOutPage({ city }: { city?: (typeof cityPages)[number] }
           </div>
 
           <div id="quote" className="animate-rise-delayed border border-[#b9e5ee] bg-[#f6fbff] p-3 text-[#0b2430] shadow-[0_26px_90px_rgba(0,0,0,0.28)] md:p-4">
-            <form className="grid gap-3 lg:grid-cols-[1fr_1fr_1fr_1fr_auto] lg:items-end" onSubmit={(event) => submitQuoteForm(event, { service: "move-out-cleaning" })}>
+            <form action={buildQuoteUrl({ service: "move-out-cleaning" })} method="get" className="grid gap-3 lg:grid-cols-[1fr_1fr_1fr_1fr_auto] lg:items-end" onSubmit={(event) => submitQuoteForm(event, { service: "move-out-cleaning" })}>
               {cityName ? <input type="hidden" name="city" value={cityName} /> : null}
               <label className="grid gap-2 text-xs font-black uppercase text-[#0b7f8a]">
                 ZIP code
@@ -3521,7 +3521,7 @@ export function ShinyAirbnbPage() {
           </div>
           <Card className="rounded-[28px] border-[#dddddd] bg-white shadow-[0_12px_48px_rgba(0,0,0,0.10)]">
             <CardContent className="p-5 md:p-6">
-              <form className="grid gap-4" onSubmit={(event) => submitQuoteForm(event, { service: "airbnb-cleaning" })}>
+              <form action={buildQuoteUrl({ service: "airbnb-cleaning" })} method="get" className="grid gap-4" onSubmit={(event) => submitQuoteForm(event, { service: "airbnb-cleaning" })}>
                 <div className="grid gap-4 sm:grid-cols-2">
                   <label className="grid gap-2 text-sm font-black">
                     Listing ZIP

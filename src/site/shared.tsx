@@ -532,7 +532,11 @@ export function EstimateCard({
           ))}
         </div>
 
-        <form onSubmit={(event) => submitQuoteRequest(event, { zip, city: cityName, service: selectedService, bedrooms, bathrooms })}>
+        <form
+          action={buildQuoteUrl({ zip, city: cityName, service: selectedService, bedrooms, bathrooms })}
+          method="get"
+          onSubmit={(event) => submitQuoteRequest(event, { zip, city: cityName, service: selectedService, bedrooms, bathrooms })}
+        >
           <label htmlFor={cityName ? "city-zip" : "zip"} className="mt-5 block text-sm font-black text-muted-foreground">
             ZIP code
           </label>
@@ -708,7 +712,12 @@ export function StickyBookingBar() {
             <span className="size-2 rounded-full bg-[#c9f0ff]" />
             <p className="text-center text-sm font-black uppercase tracking-[0.34em] text-white/92">Book your home cleaning</p>
           </div>
-          <form className="grid grid-cols-[1fr_auto] gap-2 md:min-w-[360px]" onSubmit={(event) => submitQuoteRequest(event, { zip, service: "home-cleaning" })}>
+          <form
+            action={buildQuoteUrl({ zip, service: "home-cleaning" })}
+            method="get"
+            className="grid grid-cols-[1fr_auto] gap-2 md:min-w-[360px]"
+            onSubmit={(event) => submitQuoteRequest(event, { zip, service: "home-cleaning" })}
+          >
             <label htmlFor="sticky-zip-page" className="sr-only">ZIP code</label>
             <Input id="sticky-zip-page" name="zip" inputMode="numeric" placeholder="ZIP code" value={zip} onChange={(event) => setZip(event.target.value)} className="h-12 rounded-md border-white/35 bg-white/12 text-base font-bold text-white placeholder:text-white/72 focus-visible:ring-white/65" />
             <Button type="submit" className="h-12 rounded-md bg-white px-5 font-black text-[#1976a3] shadow-none hover:bg-white/90 md:px-7">
