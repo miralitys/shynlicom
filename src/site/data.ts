@@ -1227,7 +1227,7 @@ export const faqSeoPages: GenericSeoPageData[] = [
   ["what-is-included-in-post-construction-cleaning", "What Is Included in Post-Construction Cleaning?", "Post-construction cleaning focuses on reachable construction dust, floors, trim, kitchens, bathrooms, shelves, cabinets when requested, and final-touch detail after renovation."],
 ].map(([slug, label, intro]) => ({
   path: `/faq/${slug}`,
-  title: `${label} | Shynli Cleaning FAQ`,
+  title: `${label} | Shynli FAQ`,
   meta: `${label} Shynli explains what to expect, what affects pricing, what to request, and how to book the right cleaning service.`,
   eyebrow: "Cleaning FAQ",
   h1: label as string,

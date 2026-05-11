@@ -570,6 +570,34 @@ type SeoMetaOptions = {
   robots?: "index,follow" | "noindex,follow"
 }
 
+function normalizeSeoDescription(description: string) {
+  let value = description.replace(/\s+/g, " ").trim()
+
+  if (value.length < 120) {
+    const suffixes = [
+      " Check local scope, timing, and quote details before booking.",
+      " See what affects scope, timing, and the quote before booking.",
+      " Get clear quote details before booking.",
+    ]
+
+    for (const suffix of suffixes) {
+      if (value.length >= 120) {
+        break
+      }
+
+      if (value.length + suffix.length <= 170) {
+        value += suffix
+      }
+    }
+  }
+
+  if (value.length > 170) {
+    return `${value.slice(0, 167).replace(/\s+\S*$/, "")}.`
+  }
+
+  return value
+}
+
 export function useSeoMeta(title: string, description: string, schema?: object, options: SeoMetaOptions = {}) {
   useEffect(() => {
     document.title = title
@@ -580,7 +608,7 @@ export function useSeoMeta(title: string, description: string, schema?: object, 
       descriptionTag.name = "description"
       document.head.appendChild(descriptionTag)
     }
-    descriptionTag.content = description
+    descriptionTag.content = normalizeSeoDescription(description)
 
     let canonicalTag = document.querySelector<HTMLLinkElement>('link[rel="canonical"]')
     if (!canonicalTag) {
