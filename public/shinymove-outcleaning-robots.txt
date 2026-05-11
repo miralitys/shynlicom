@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://shinymove-outcleaning.com/shinymove-outcleaning-sitemap.xml
