@@ -387,7 +387,7 @@ export function GenericSeoPage({ page }: { page: GenericSeoPageData }) {
             <p className="mt-6 max-w-3xl text-lg leading-8 text-white/72">{page.intro}</p>
             <p className="mt-4 text-xs font-black uppercase tracking-[0.2em] text-[#9fe3ff]/86">{heroImage.label}</p>
             <div className="mt-7 flex flex-wrap gap-3">
-              <Button asChild className="h-12 rounded-full bg-[#1f9ed6] px-6 font-black text-white hover:bg-[#168ac0]">
+              <Button asChild className="h-12 rounded-full bg-[#1976a3] px-6 font-black text-white hover:bg-[#145f85]">
                 <a href={buildQuoteUrl({ service: "home-cleaning", sourcePage: page.path })} data-source="shynli.com" data-page-type="seo-support" data-keyword-cluster={page.path} data-intent="quote">
                   Get a quote
                   <ArrowRight />
@@ -418,14 +418,14 @@ export function GenericSeoPage({ page }: { page: GenericSeoPageData }) {
         <div className="mx-auto grid max-w-7xl gap-5 lg:grid-cols-3">
           {page.sections.map((section, index) => (
             <article key={section.title} className="rounded-lg border border-[#cde5f2] bg-white p-5 shadow-sm">
-              <span className="text-sm font-black text-[#1f9ed6]">{String(index + 1).padStart(2, "0")}</span>
+              <span className="text-sm font-black text-[#1976a3]">{String(index + 1).padStart(2, "0")}</span>
               <h2 className="mt-3 text-3xl font-black leading-tight">{section.title}</h2>
               <p className="mt-4 text-sm leading-6 text-muted-foreground">{section.copy}</p>
               <Separator className="my-5" />
               <div className="grid gap-2">
                 {section.bullets.map((bullet) => (
                   <div key={bullet} className="flex items-start gap-2 text-sm font-bold">
-                    <Check className="mt-0.5 size-4 shrink-0 text-[#1f9ed6]" />
+                    <Check className="mt-0.5 size-4 shrink-0 text-[#1976a3]" />
                     {bullet}
                   </div>
                 ))}
@@ -458,7 +458,7 @@ export function GenericSeoPage({ page }: { page: GenericSeoPageData }) {
                   <div className="mt-4 grid gap-2">
                     {section.bullets.slice(0, 3).map((bullet) => (
                       <div key={`depth-${section.title}-${bullet}`} className="flex items-start gap-2 text-sm font-bold">
-                        <Check className="mt-0.5 size-4 shrink-0 text-[#1f9ed6]" />
+                        <Check className="mt-0.5 size-4 shrink-0 text-[#1976a3]" />
                         {bullet}
                       </div>
                     ))}
@@ -486,7 +486,7 @@ export function GenericSeoPage({ page }: { page: GenericSeoPageData }) {
               ["03", "Confirm extras", "Fridge, oven, cabinets, windows, blinds, or special timing."],
             ].map(([number, heading, copy]) => (
               <div key={number} className="bg-[#f7fbfd] p-5">
-                <span className="text-sm font-black text-[#1f9ed6]">{number}</span>
+                <span className="text-sm font-black text-[#1976a3]">{number}</span>
                 <h3 className="mt-3 text-xl font-black">{heading}</h3>
                 <p className="mt-2 text-sm leading-6 text-muted-foreground">{copy}</p>
               </div>
@@ -820,14 +820,14 @@ export function ServicesIndexPage() {
               <div className="grid gap-2">
                 {service.bestFor.map((item) => (
                   <div key={item} className="flex items-start gap-2 text-sm font-bold">
-                    <Check className="mt-0.5 size-4 shrink-0 text-[#1f9ed6]" />
+                    <Check className="mt-0.5 size-4 shrink-0 text-[#1976a3]" />
                     {item}
                   </div>
                 ))}
               </div>
-              <Button asChild className="mt-6 h-11 rounded-full bg-[#1f9ed6] px-5 font-black text-white hover:bg-[#168ac0]">
+              <Button asChild className="mt-6 h-11 rounded-full bg-[#1976a3] px-5 font-black text-white hover:bg-[#145f85]">
                 <a href={`/services/${service.slug}`}>
-                  View service
+                  View {service.name}
                   <ArrowRight />
                 </a>
               </Button>
@@ -944,7 +944,7 @@ export function CityPage({ city }: { city: (typeof cityPages)[number] }) {
               <p className="mt-4 text-xs font-black uppercase tracking-[0.2em] text-[#9fe3ff]/86">{heroImage.label}</p>
             ) : null}
             <div className="mt-7 flex flex-wrap gap-3">
-              <Button asChild className="h-12 rounded-full bg-[#1f9ed6] px-6 font-black text-white hover:bg-[#168ac0]">
+              <Button asChild className="h-12 rounded-full bg-[#1976a3] px-6 font-black text-white hover:bg-[#145f85]">
                 <a href="#city-quote" data-source="shynli.com" data-page-type="city" data-city={city.name} data-service="house-cleaning" data-keyword-cluster="city-house-cleaning" data-intent="quote">
                   Get a {city.name} quote
                   <ArrowRight />
@@ -975,13 +975,13 @@ export function CityPage({ city }: { city: (typeof cityPages)[number] }) {
               <div className="grid gap-2">
                 {service.checklist.map((item) => (
                   <div key={item} className="flex items-start gap-2 text-sm font-bold">
-                    <Check className="mt-0.5 size-4 shrink-0 text-[#1f9ed6]" />
+                    <Check className="mt-0.5 size-4 shrink-0 text-[#1976a3]" />
                     {item}
                   </div>
                 ))}
               </div>
               {hasCityServicePages(city.name) ? (
-                <a href={`/service-areas/${city.slug}/${service.slug}`} className="mt-5 inline-flex min-h-11 items-center gap-2 rounded-full bg-[#1f9ed6] px-4 text-sm font-black text-white transition-colors hover:bg-[#168ac0]">
+                <a href={`/service-areas/${city.slug}/${service.slug}`} className="mt-5 inline-flex min-h-11 items-center gap-2 rounded-full bg-[#1976a3] px-4 text-sm font-black text-white transition-colors hover:bg-[#145f85]">
                   View {service.title} in {city.name}
                   <ArrowRight className="size-4" />
                 </a>
@@ -1100,7 +1100,7 @@ export function CityPage({ city }: { city: (typeof cityPages)[number] }) {
                 <div className="mt-3 grid gap-2 sm:grid-cols-2">
                   {["Single-family homes", "Apartments and condos", "Townhouses", "Rental turnovers", "Move-in homes", "Move-out homes"].map((item) => (
                     <div key={item} className="flex items-start gap-2 text-sm font-bold">
-                      <Check className="mt-0.5 size-4 shrink-0 text-[#1f9ed6]" />
+                      <Check className="mt-0.5 size-4 shrink-0 text-[#1976a3]" />
                       {item}
                     </div>
                   ))}
@@ -1145,7 +1145,7 @@ export function CityPage({ city }: { city: (typeof cityPages)[number] }) {
                   <div className="mt-4 grid gap-2">
                     {group.items.map((item) => (
                       <div key={item} className="flex items-start gap-2 text-sm font-bold">
-                        <Check className="mt-0.5 size-4 shrink-0 text-[#1f9ed6]" />
+                        <Check className="mt-0.5 size-4 shrink-0 text-[#1976a3]" />
                         {item}
                       </div>
                     ))}
@@ -1250,7 +1250,7 @@ export function ServiceSeoPage({ service, city }: { service: (typeof seoServices
             </p>
             <p className="mt-4 text-xs font-black uppercase tracking-[0.2em] text-[#9fe3ff]/86">{heroImage.label}</p>
             <div className="mt-7 flex flex-wrap gap-3">
-              <Button asChild className="h-12 rounded-full bg-[#1f9ed6] px-6 font-black text-white hover:bg-[#168ac0]">
+              <Button asChild className="h-12 rounded-full bg-[#1976a3] px-6 font-black text-white hover:bg-[#145f85]">
                 <a href="#service-quote" data-source="shynli.com" data-page-type={city ? "city-service" : "service"} data-city={city?.name ?? ""} data-service={service.slug} data-keyword-cluster={`${city ? "city-" : ""}${service.slug}`} data-intent="quote">
                   Check times
                   <ArrowRight />
@@ -1294,7 +1294,7 @@ export function ServiceSeoPage({ service, city }: { service: (typeof seoServices
             {service.included.map((item) => (
               <Card key={item} className="rounded-lg border-[#cde5f2] shadow-sm">
                 <CardContent className="flex min-h-24 items-start gap-3 p-5">
-                  <Check className="mt-1 size-5 shrink-0 text-[#1f9ed6]" />
+                  <Check className="mt-1 size-5 shrink-0 text-[#1976a3]" />
                   <p className="font-black leading-6">{item}</p>
                 </CardContent>
               </Card>
@@ -1318,7 +1318,7 @@ export function ServiceSeoPage({ service, city }: { service: (typeof seoServices
             {service.bestFor.map((item) => (
               <Card key={item} className="rounded-lg border-[#cde5f2] bg-[#f7fbfd] shadow-sm">
                 <CardContent className="p-5">
-                  <Sparkles className="size-6 text-[#1f9ed6]" />
+                  <Sparkles className="size-6 text-[#1976a3]" />
                   <h3 className="mt-4 text-2xl font-black leading-tight">{item}</h3>
                   <p className="mt-3 text-sm leading-6 text-muted-foreground">
                     We plan the visit around the home, access, timing, and anything you want handled carefully.
@@ -1403,7 +1403,7 @@ export function ServiceSeoPage({ service, city }: { service: (typeof seoServices
               ["03", "Extras", "Fridge, oven, cabinets, blinds, walls, or interior windows can be added when needed."],
             ].map(([number, heading, copy]) => (
               <div key={number} className="bg-white p-5">
-                <span className="text-sm font-black text-[#1f9ed6]">{number}</span>
+                <span className="text-sm font-black text-[#1976a3]">{number}</span>
                 <h3 className="mt-3 text-xl font-black">{heading}</h3>
                 <p className="mt-2 text-sm leading-6 text-muted-foreground">{copy}</p>
               </div>
@@ -1452,7 +1452,7 @@ export function ServiceSeoPage({ service, city }: { service: (typeof seoServices
                 <div className="mt-4 flex flex-wrap gap-2">
                   {siblingServices.map((item) => (
                     <a key={item.slug} href={city ? `/service-areas/${city.slug}/${item.slug}` : `/services/${item.slug}`} className="inline-flex min-h-10 items-center rounded-full border border-[#d8e8f0] bg-[#f7fbfd] px-3 text-sm font-black hover:border-[#1976a3]">
-                      {item.name}
+                      {city ? `${city.name} ${item.name}` : item.name}
                     </a>
                   ))}
                 </div>
@@ -1694,10 +1694,10 @@ export function HomePage() {
               <Card
                 key={plan.name}
                 className={`overflow-hidden rounded-lg border-[#cde5f2] bg-white shadow-sm transition-transform hover:-translate-y-1 hover:shadow-[0_20px_60px_rgba(25,118,163,0.14)] ${
-                  index === 0 ? "ring-2 ring-[#1f9ed6]/25" : ""
+                  index === 0 ? "ring-2 ring-[#1976a3]/25" : ""
                 }`}
               >
-                <div className={`${index === 0 ? "bg-[#1f9ed6] text-white" : "bg-[#eaf7ff] text-[#1976a3]"} px-5 py-3 text-center text-sm font-black uppercase`}>
+                <div className={`${index === 0 ? "bg-[#1976a3] text-white" : "bg-[#eaf7ff] text-[#1976a3]"} px-5 py-3 text-center text-sm font-black uppercase`}>
                   {plan.ribbon}
                 </div>
                 <CardContent className="flex flex-col p-5 md:min-h-[430px]">
@@ -1710,11 +1710,11 @@ export function HomePage() {
                         setActiveChecklist(plan.checklist)
                         setIsChecklistOpen(true)
                       }}
-                      className="my-5 flex min-h-11 w-full items-center gap-3 border-y border-border py-4 text-left font-black text-[#145f85] transition-colors hover:text-[#1f9ed6]"
+                      className="my-5 flex min-h-11 w-full items-center gap-3 border-y border-border py-4 text-left font-black text-[#145f85] transition-colors hover:text-[#1976a3]"
                     >
-                      <Sparkles className="size-5 shrink-0 text-[#1f9ed6]" />
+                      <Sparkles className="size-5 shrink-0 text-[#1976a3]" />
                       <span>{plan.checklist}</span>
-                      <span className="ml-auto text-sm font-black text-[#1f9ed6] underline decoration-[#9fe3ff] underline-offset-4">Learn more</span>
+                      <span className="ml-auto text-sm font-black text-[#1976a3] underline decoration-[#9fe3ff] underline-offset-4">Learn more</span>
                     </button>
                     <div className="mt-4 space-y-3">
                       {plan.highlights.map((item) => (
@@ -1733,7 +1733,7 @@ export function HomePage() {
                       <span className="text-4xl font-black leading-none text-[#0d2633]">{plan.price}</span>
                       <span className="pb-1 text-sm font-black text-muted-foreground">/ {plan.unit}</span>
                     </div>
-                    <Button asChild className="mt-5 h-12 w-full rounded-full bg-[#1f9ed6] font-black text-white hover:bg-[#168ac0]">
+                    <Button asChild className="mt-5 h-12 w-full rounded-full bg-[#1976a3] font-black text-white hover:bg-[#145f85]">
                       <a href="#quote">
                         Start quote
                         <ArrowRight />
@@ -1920,7 +1920,7 @@ export function HomePage() {
               <p className="text-lg leading-8 text-muted-foreground">
                 Naperville is one of the main areas we serve, but it is not the whole map. Start with your ZIP and we will tell you whether we can help before asking for every home detail.
               </p>
-              <Button asChild className="mt-5 h-12 rounded-full bg-[#1f9ed6] px-6 font-black text-white hover:bg-[#168ac0]">
+              <Button asChild className="mt-5 h-12 rounded-full bg-[#1976a3] px-6 font-black text-white hover:bg-[#145f85]">
                 <a href="#quote">
                   Check my ZIP
                   <ArrowRight />
@@ -1934,7 +1934,7 @@ export function HomePage() {
                 <h3 className="text-xl font-black">Most-requested cities</h3>
                 <p className="mt-1 text-sm leading-6 text-muted-foreground">A quick look at the cities people ask us about most. You can still check the full list.</p>
               </div>
-              <Button asChild variant="outline" className="h-11 rounded-full border-[#1f9ed6] font-black text-[#1976a3] hover:bg-[#eaf7ff]">
+              <Button asChild variant="outline" className="h-11 rounded-full border-[#1976a3] font-black text-[#1976a3] hover:bg-[#eaf7ff]">
                 <a href="/service-areas">
                   View all 42 cities
                   <ArrowRight />
@@ -2009,7 +2009,7 @@ export function HomePage() {
                   <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(13,38,51,0)_36%,rgba(13,38,51,0.42)_100%)]" />
                 </div>
                 <div className="flex items-center gap-3 px-5 pt-5">
-                  <span className="text-sm font-black text-[#1f9ed6]">{step.number}</span>
+                  <span className="text-sm font-black text-[#1976a3]">{step.number}</span>
                   <span className="h-px flex-1 bg-[#cde5f2]" />
                 </div>
                 <div className="px-5 pb-5">
@@ -2039,7 +2039,7 @@ export function HomePage() {
             {reviews.map((review) => (
               <Card key={review.name} className="rounded-lg border-[#cde5f2] bg-[#f7fbfd] shadow-sm">
                 <CardContent className="p-6">
-                  <div className="flex gap-1 text-[#1f9ed6]" aria-label="Five star review">
+                  <div className="flex gap-1 text-[#1976a3]" role="img" aria-label="Five star review">
                     {Array.from({ length: 5 }).map((_, index) => (
                       <Star key={index} className="size-4 fill-current" />
                     ))}
@@ -2079,7 +2079,7 @@ export function HomePage() {
       </section>
 
       <section className="px-4 py-12 md:px-8 md:py-16">
-        <div className="mx-auto grid max-w-7xl items-center gap-5 rounded-lg bg-[#1f9ed6] p-6 text-white md:grid-cols-[1fr_auto] md:p-8">
+        <div className="mx-auto grid max-w-7xl items-center gap-5 rounded-lg bg-[#1976a3] p-6 text-white md:grid-cols-[1fr_auto] md:p-8">
           <div>
             <p className="mb-3 text-sm font-black uppercase text-white/75">Ready when your home is</p>
             <h2 className="max-w-3xl text-3xl font-black leading-[1] sm:text-4xl md:text-5xl">
@@ -2229,7 +2229,7 @@ export function HomePage() {
               type="button"
               variant="outline"
               onClick={() => setIsChecklistOpen(false)}
-              className="mt-7 h-12 w-full rounded-full border-[#1f9ed6] font-black text-[#1976a3] hover:bg-[#eaf7ff]"
+              className="mt-7 h-12 w-full rounded-full border-[#1976a3] font-black text-[#1976a3] hover:bg-[#eaf7ff]"
             >
               <ArrowRight className="rotate-180" />
               Go back
@@ -2238,15 +2238,15 @@ export function HomePage() {
         </div>
       )}
 
-      <div className="fixed inset-x-0 bottom-0 z-50 border-t border-white/25 bg-[#1f9ed6]/92 px-4 py-2 text-white shadow-[0_-18px_60px_rgba(13,38,51,0.25)] backdrop-blur-xl md:px-8 md:py-3">
+      <div className="fixed inset-x-0 bottom-0 z-50 border-t border-white/25 bg-[#1976a3]/92 px-4 py-2 text-white shadow-[0_-18px_60px_rgba(13,38,51,0.25)] backdrop-blur-xl md:px-8 md:py-3">
         <div className="mx-auto flex max-w-7xl items-center gap-3">
           <a
             href={businessPhoneHref}
-            className="relative hidden size-16 shrink-0 place-items-center rounded-full bg-[#eaf7ff] text-[#1f9ed6] shadow-[0_18px_40px_rgba(13,38,51,0.22)] transition-transform hover:scale-105 sm:grid"
+            className="relative hidden size-16 shrink-0 place-items-center rounded-full bg-[#eaf7ff] text-[#1976a3] shadow-[0_18px_40px_rgba(13,38,51,0.22)] transition-transform hover:scale-105 sm:grid"
             aria-label="Call Shynli"
           >
             <MessageCircle className="size-8" />
-            <span className="absolute -right-1 -top-1 grid size-6 place-items-center rounded-full bg-[#0d2633] text-xs font-black text-white ring-2 ring-[#1f9ed6]">
+            <span className="absolute -right-1 -top-1 grid size-6 place-items-center rounded-full bg-[#0d2633] text-xs font-black text-white ring-2 ring-[#1976a3]">
               1
             </span>
           </a>
@@ -2273,7 +2273,7 @@ export function HomePage() {
                 placeholder="ZIP code"
                 value={stickyZip}
                 onChange={(event) => setStickyZip(event.target.value)}
-                className="h-12 rounded-md border-white/35 bg-white/12 text-base font-bold text-white placeholder:text-white/72 focus-visible:ring-white/65"
+                className="h-12 rounded-md border-white bg-white text-base font-bold text-[#0d2633] placeholder:text-[#52616a] focus-visible:ring-white/65"
               />
               <Button type="submit" className="h-12 rounded-md bg-white px-5 font-black text-[#1976a3] shadow-none hover:bg-white/90 md:px-7">
                 Go
@@ -2319,7 +2319,7 @@ export function NotFoundPage() {
             The link may have changed, or the page may not be part of the live Shynli site. Start with the pages customers use most.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
-            <Button asChild className="h-12 rounded-full bg-[#1f9ed6] px-6 font-black text-white hover:bg-[#168ac0]">
+            <Button asChild className="h-12 rounded-full bg-[#1976a3] px-6 font-black text-white hover:bg-[#145f85]">
               <a href={buildQuoteUrl({ service: "home-cleaning", sourcePage: "/404" })}>
                 Get a quote
                 <ArrowRight className="size-4" />

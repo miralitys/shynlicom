@@ -119,15 +119,15 @@ export function submitQuoteForm(event: FormEvent<HTMLFormElement>, defaults: Quo
 
 export function ChecklistCell({ value }: { value: ChecklistValue }) {
   if (value === "optional") {
-    return <span className="grid place-items-center text-base font-black text-[#1976a3]" aria-label="Optional extra">+</span>
+    return <span className="grid place-items-center text-base font-black text-[#1976a3]" role="img" aria-label="Optional extra">+</span>
   }
 
   if (value === "na") {
-    return <span className="grid place-items-center text-base font-black text-muted-foreground" aria-label="Not needed">—</span>
+    return <span className="grid place-items-center text-base font-black text-muted-foreground" role="img" aria-label="Not needed">—</span>
   }
 
   return (
-    <span className={`grid place-items-center text-lg font-black ${value ? "text-[#1f9ed6]" : "text-rose-500"}`} aria-label={value ? "Included" : "Not included"}>
+    <span className={`grid place-items-center text-lg font-black ${value ? "text-[#1976a3]" : "text-rose-500"}`} role="img" aria-label={value ? "Included" : "Not included"}>
       {value ? "✓" : "×"}
     </span>
   )
@@ -156,7 +156,7 @@ export function DeepCleaningLandingBlock({ city }: { city?: (typeof cityPages)[n
               ["03", "Clear boundary", "Separate included, add-on, and not-included work."],
             ].map(([number, title, copy]) => (
               <div key={number} className="bg-[#f7fbfd] p-5">
-                <span className="text-sm font-black text-[#1f9ed6]">{number}</span>
+                <span className="text-sm font-black text-[#1976a3]">{number}</span>
                 <h3 className="mt-3 text-xl font-black">{title}</h3>
                 <p className="mt-2 text-sm leading-6 text-muted-foreground">{copy}</p>
               </div>
@@ -190,7 +190,7 @@ export function DeepCleaningLandingBlock({ city }: { city?: (typeof cityPages)[n
                   <div className="mt-5 grid gap-2">
                     {moment.items.map((item) => (
                       <div key={item} className="flex items-start gap-2 text-sm font-black">
-                        <Check className="mt-0.5 size-4 shrink-0 text-[#1f9ed6]" />
+                        <Check className="mt-0.5 size-4 shrink-0 text-[#1976a3]" />
                         {item}
                       </div>
                     ))}
@@ -230,7 +230,7 @@ export function DeepCleaningLandingBlock({ city }: { city?: (typeof cityPages)[n
                     <div className="mt-6 grid gap-3 sm:grid-cols-2">
                       {tab.items.map((item) => (
                         <div key={item} className="flex min-h-14 items-start gap-3 rounded-md border border-[#d8e8f0] bg-[#f7fbfd] p-3 text-sm font-black">
-                          <Check className="mt-0.5 size-4 shrink-0 text-[#1f9ed6]" />
+                          <Check className="mt-0.5 size-4 shrink-0 text-[#1976a3]" />
                           {item}
                         </div>
                       ))}
@@ -279,7 +279,7 @@ export function DeepCleaningLandingBlock({ city }: { city?: (typeof cityPages)[n
               <div className="mt-5 grid gap-3 sm:grid-cols-2">
                 {["Deep-clean checklist", "Included work and add-ons", "Price details", "Service-area coverage", "Home access notes", "Make-it-right promise"].map((item) => (
                   <div key={item} className="flex items-start gap-2 text-sm font-black">
-                    <Check className="mt-0.5 size-4 shrink-0 text-[#1f9ed6]" />
+                    <Check className="mt-0.5 size-4 shrink-0 text-[#1976a3]" />
                     {item}
                   </div>
                 ))}
@@ -315,7 +315,7 @@ export function AirbnbCleaningLandingBlock({ city }: { city?: (typeof cityPages)
               ["03", "Ready handoff", "Confirm what was done before the next guest arrives."],
             ].map(([number, title, copy]) => (
               <div key={number} className="bg-[#f7fbfd] p-5">
-                <span className="text-sm font-black text-[#1f9ed6]">{number}</span>
+                <span className="text-sm font-black text-[#1976a3]">{number}</span>
                 <h3 className="mt-3 text-xl font-black">{title}</h3>
                 <p className="mt-2 text-sm leading-6 text-muted-foreground">{copy}</p>
               </div>
@@ -349,7 +349,7 @@ export function AirbnbCleaningLandingBlock({ city }: { city?: (typeof cityPages)
                   <div className="mt-5 grid gap-2">
                     {moment.items.map((item) => (
                       <div key={item} className="flex items-start gap-2 text-sm font-black">
-                        <Check className="mt-0.5 size-4 shrink-0 text-[#1f9ed6]" />
+                        <Check className="mt-0.5 size-4 shrink-0 text-[#1976a3]" />
                         {item}
                       </div>
                     ))}
@@ -389,7 +389,7 @@ export function AirbnbCleaningLandingBlock({ city }: { city?: (typeof cityPages)
                     <div className="mt-6 grid gap-3 sm:grid-cols-2">
                       {tab.items.map((item) => (
                         <div key={item} className="flex min-h-14 items-start gap-3 rounded-md border border-[#d8e8f0] bg-[#f7fbfd] p-3 text-sm font-black">
-                          <Check className="mt-0.5 size-4 shrink-0 text-[#1f9ed6]" />
+                          <Check className="mt-0.5 size-4 shrink-0 text-[#1976a3]" />
                           {item}
                         </div>
                       ))}
@@ -438,7 +438,7 @@ export function AirbnbCleaningLandingBlock({ city }: { city?: (typeof cityPages)
               <div className="mt-5 grid gap-3 sm:grid-cols-2">
                 {["Turnover checklist", "Laundry plan", "Restock rules", "Access method", "Photo report", "Host contact details"].map((item) => (
                   <div key={item} className="flex items-start gap-2 text-sm font-black">
-                    <Check className="mt-0.5 size-4 shrink-0 text-[#1f9ed6]" />
+                    <Check className="mt-0.5 size-4 shrink-0 text-[#1976a3]" />
                     {item}
                   </div>
                 ))}
@@ -550,7 +550,7 @@ export function EstimateCard({
               onChange={(event) => setZip(event.target.value)}
               className="h-[52px] rounded-md bg-white text-base"
             />
-            <Button type="submit" className="h-[52px] rounded-md bg-[#1f9ed6] px-5 font-black text-white hover:bg-[#168ac0]">
+            <Button type="submit" className="h-[52px] rounded-md bg-[#1976a3] px-5 font-black text-white hover:bg-[#145f85]">
               {selectedService === "Move" ? "See move times" : "See times"}
               <ArrowRight />
             </Button>
@@ -654,7 +654,7 @@ export function BrandLink() {
           <defs>
             <linearGradient id="cityDrop" x1="15" y1="8" x2="42" y2="48" gradientUnits="userSpaceOnUse">
               <stop stopColor="#9fe3ff" />
-              <stop offset="1" stopColor="#1f9ed6" />
+              <stop offset="1" stopColor="#1976a3" />
             </linearGradient>
           </defs>
           <path d="M28 7C22 16 15 24 15 33a13 13 0 0 0 26 0C41 24 34 16 28 7Z" fill="url(#cityDrop)" />
@@ -725,15 +725,15 @@ export function StickyBookingBar() {
   const [zip, setZip] = useState("")
 
   return (
-    <div className="fixed inset-x-0 bottom-0 z-50 border-t border-white/25 bg-[#1f9ed6]/92 px-4 py-2 text-white shadow-[0_-18px_60px_rgba(13,38,51,0.25)] backdrop-blur-xl md:px-8 md:py-3">
+    <div className="fixed inset-x-0 bottom-0 z-50 border-t border-white/25 bg-[#1976a3]/92 px-4 py-2 text-white shadow-[0_-18px_60px_rgba(13,38,51,0.25)] backdrop-blur-xl md:px-8 md:py-3">
       <div className="mx-auto flex max-w-7xl items-center gap-3">
         <a
           href={businessPhoneHref}
-          className="relative hidden size-16 shrink-0 place-items-center rounded-full bg-[#eaf7ff] text-[#1f9ed6] shadow-[0_18px_40px_rgba(13,38,51,0.22)] transition-transform hover:scale-105 sm:grid"
+          className="relative hidden size-16 shrink-0 place-items-center rounded-full bg-[#eaf7ff] text-[#1976a3] shadow-[0_18px_40px_rgba(13,38,51,0.22)] transition-transform hover:scale-105 sm:grid"
           aria-label="Call Shynli"
         >
           <MessageCircle className="size-8" />
-          <span className="absolute -right-1 -top-1 grid size-6 place-items-center rounded-full bg-[#0d2633] text-xs font-black text-white ring-2 ring-[#1f9ed6]">1</span>
+          <span className="absolute -right-1 -top-1 grid size-6 place-items-center rounded-full bg-[#0d2633] text-xs font-black text-white ring-2 ring-[#1976a3]">1</span>
         </a>
         <div className="grid min-w-0 flex-1 gap-3 md:grid-cols-[1fr_auto] md:items-center">
           <div className="hidden items-center justify-center gap-4 md:flex">
@@ -747,7 +747,7 @@ export function StickyBookingBar() {
             onSubmit={(event) => submitQuoteRequest(event, { zip, service: "home-cleaning" })}
           >
             <label htmlFor="sticky-zip-page" className="sr-only">ZIP code</label>
-            <Input id="sticky-zip-page" name="zip" inputMode="numeric" placeholder="ZIP code" value={zip} onChange={(event) => setZip(event.target.value)} className="h-12 rounded-md border-white/35 bg-white/12 text-base font-bold text-white placeholder:text-white/72 focus-visible:ring-white/65" />
+            <Input id="sticky-zip-page" name="zip" inputMode="numeric" placeholder="ZIP code" value={zip} onChange={(event) => setZip(event.target.value)} className="h-12 rounded-md border-white bg-white text-base font-bold text-[#0d2633] placeholder:text-[#52616a] focus-visible:ring-white/65" />
             <Button type="submit" className="h-12 rounded-md bg-white px-5 font-black text-[#1976a3] shadow-none hover:bg-white/90 md:px-7">
               Go
               <ArrowRight className="size-4" />

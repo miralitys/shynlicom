@@ -1636,7 +1636,7 @@ export const footerColumns = [
   {
     title: "Support",
     links: [
-      ["Get quote", "https://shynlicleaningservice.com/quote"],
+      ["Get quote", "/quote"],
       ["Quote process", "/quote#start"],
       ["Pricing", "/pricing"],
       ["Checklists", "/checklists"],
