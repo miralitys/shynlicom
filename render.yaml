@@ -22,3 +22,42 @@ services:
       - path: /*
         name: Referrer-Policy
         value: strict-origin-when-cross-origin
+      - path: /assets/*
+        name: Cache-Control
+        value: public, max-age=31536000, immutable
+      - path: /clean-result.jpg
+        name: Cache-Control
+        value: public, max-age=31536000, immutable
+      - path: /cleaner-hero.jpg
+        name: Cache-Control
+        value: public, max-age=31536000, immutable
+      - path: /favicon.svg
+        name: Cache-Control
+        value: public, max-age=31536000, immutable
+      - path: /naperville-riverwalk.jpg
+        name: Cache-Control
+        value: public, max-age=31536000, immutable
+      - path: /process-access.jpg
+        name: Cache-Control
+        value: public, max-age=31536000, immutable
+      - path: /process-clean.jpg
+        name: Cache-Control
+        value: public, max-age=31536000, immutable
+      - path: /process-follow.jpg
+        name: Cache-Control
+        value: public, max-age=31536000, immutable
+      - path: /process-quote.jpg
+        name: Cache-Control
+        value: public, max-age=31536000, immutable
+      - path: /process-repeat.jpg
+        name: Cache-Control
+        value: public, max-age=31536000, immutable
+      - path: /trust-care.jpg
+        name: Cache-Control
+        value: public, max-age=31536000, immutable
+      - path: /robots.txt
+        name: Cache-Control
+        value: public, max-age=3600
+      - path: /sitemap.xml
+        name: Cache-Control
+        value: public, max-age=3600
