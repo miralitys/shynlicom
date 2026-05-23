@@ -87,16 +87,18 @@
         text-decoration: none;
       }
 
-      .initial-home-copy {
+      .initial-home-stage {
         box-sizing: border-box;
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-end;
         min-height: calc(100svh - 72px);
-        max-width: 780px;
+        margin: 0 auto;
+        max-width: 1280px;
         padding: 96px 20px 120px;
         position: relative;
         z-index: 1;
+      }
+
+      .initial-home-copy {
+        box-sizing: border-box;
       }
 
       .initial-home-eyebrow {
@@ -136,6 +138,182 @@
         margin-top: 24px;
       }
 
+      .initial-home-estimate {
+        background: rgba(255, 255, 255, 0.97);
+        border-radius: 8px;
+        box-shadow: 0 32px 90px rgba(0, 0, 0, 0.32);
+        box-sizing: border-box;
+        color: #0d2633;
+        margin-top: 32px;
+        max-width: 470px;
+        padding: 24px;
+      }
+
+      .initial-home-estimate-head {
+        align-items: flex-start;
+        display: flex;
+        gap: 20px;
+        justify-content: space-between;
+        margin-bottom: 20px;
+      }
+
+      .initial-home-estimate-kicker {
+        color: #1976a3;
+        font-size: 14px;
+        font-weight: 900;
+        margin: 0;
+        text-transform: uppercase;
+      }
+
+      .initial-home-estimate-title {
+        color: #061726;
+        font-size: 24px;
+        font-weight: 900;
+        line-height: 1.1;
+        margin: 4px 0 0;
+      }
+
+      .initial-home-estimate-icon {
+        align-items: center;
+        background: #eaf7ff;
+        border-radius: 999px;
+        color: #1976a3;
+        display: inline-flex;
+        flex: 0 0 auto;
+        font-size: 22px;
+        height: 44px;
+        justify-content: center;
+        width: 44px;
+      }
+
+      .initial-home-service-row {
+        display: grid;
+        gap: 8px;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .initial-home-service-option,
+      .initial-home-stepper-button,
+      .initial-home-submit {
+        font: inherit;
+      }
+
+      .initial-home-service-option {
+        align-items: center;
+        background: #fff;
+        border: 1px solid #cde5f2;
+        border-radius: 6px;
+        color: #061726;
+        display: flex;
+        font-size: 15px;
+        font-weight: 900;
+        justify-content: center;
+        min-height: 44px;
+      }
+
+      .initial-home-service-option.is-active {
+        background: #1976a3;
+        border-color: #1976a3;
+        color: #fff;
+      }
+
+      .initial-home-room-row {
+        display: grid;
+        gap: 8px;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        margin-top: 16px;
+      }
+
+      .initial-home-stepper {
+        background: #f5fbff;
+        border: 1px solid #cde5f2;
+        border-radius: 6px;
+        display: grid;
+        grid-template-columns: 40px 1fr 40px;
+        min-height: 48px;
+        overflow: hidden;
+      }
+
+      .initial-home-stepper-button {
+        align-items: center;
+        background: transparent;
+        border: 0;
+        color: #1976a3;
+        display: flex;
+        font-size: 18px;
+        font-weight: 900;
+        justify-content: center;
+      }
+
+      .initial-home-stepper-button:first-child {
+        border-right: 1px solid #cde5f2;
+      }
+
+      .initial-home-stepper-button:last-child {
+        border-left: 1px solid #cde5f2;
+      }
+
+      .initial-home-stepper-value {
+        align-items: center;
+        color: #061726;
+        display: flex;
+        font-size: 14px;
+        font-weight: 900;
+        justify-content: center;
+        padding: 0 8px;
+        text-align: center;
+      }
+
+      .initial-home-zip-label {
+        color: #486573;
+        display: block;
+        font-size: 14px;
+        font-weight: 900;
+        margin-top: 20px;
+      }
+
+      .initial-home-zip-row {
+        display: grid;
+        gap: 8px;
+        margin-top: 8px;
+      }
+
+      .initial-home-zip-input {
+        background: #fff;
+        border: 1px solid #cde5f2;
+        border-radius: 6px;
+        box-shadow: 0 1px 2px rgba(6, 23, 38, 0.06);
+        box-sizing: border-box;
+        color: #061726;
+        font-size: 16px;
+        height: 52px;
+        padding: 0 16px;
+        width: 100%;
+      }
+
+      .initial-home-submit {
+        align-items: center;
+        background: #1976a3;
+        border: 0;
+        border-radius: 6px;
+        color: #fff;
+        display: inline-flex;
+        font-size: 16px;
+        font-weight: 900;
+        gap: 10px;
+        height: 52px;
+        justify-content: center;
+        padding: 0 20px;
+        white-space: nowrap;
+      }
+
+      .initial-home-note {
+        color: #486573;
+        font-size: 14px;
+        line-height: 1.6;
+        margin: 16px 0 0;
+      }
+
       @media (min-width: 768px) {
         #initial-home-hero::before {
           background-position: center 32%;
@@ -145,8 +323,26 @@
           padding: 0 32px;
         }
 
-        .initial-home-copy {
+        .initial-home-stage {
           padding-left: 32px;
+          padding-right: 32px;
+        }
+
+        .initial-home-zip-row {
+          grid-template-columns: 1fr auto;
+        }
+      }
+
+      @media (min-width: 980px) {
+        .initial-home-stage {
+          align-items: end;
+          display: grid;
+          gap: 48px;
+          grid-template-columns: minmax(0, 1fr) 470px;
+        }
+
+        .initial-home-estimate {
+          margin: 0 0 48px;
         }
       }
     </style>
@@ -161,16 +357,61 @@
           </div>
           <a class="initial-home-button" href="https://shynlicleaningservice.com/quote">Get quote</a>
         </div>
-        <main class="initial-home-copy">
-          <p class="initial-home-eyebrow">Local home cleaning across Chicago's western suburbs</p>
-          <h1 class="initial-home-title">Shynli</h1>
-          <p class="initial-home-lcp">The clean-home reset handled by real people, with a quote you can understand.</p>
-          <div class="initial-home-benefits">
-            <span>Supplies included</span>
-            <span>Insured local team</span>
-            <span>No hidden fees</span>
-            <span>Make-it-right follow-up</span>
+        <main class="initial-home-stage">
+          <div class="initial-home-copy">
+            <p class="initial-home-eyebrow">Local home cleaning across Chicago's western suburbs</p>
+            <h1 class="initial-home-title">Shynli</h1>
+            <p class="initial-home-lcp">The clean-home reset handled by real people, with a quote you can understand.</p>
+            <div class="initial-home-benefits">
+              <span>Supplies included</span>
+              <span>Insured local team</span>
+              <span>No hidden fees</span>
+              <span>Make-it-right follow-up</span>
+            </div>
           </div>
+
+          <section class="initial-home-estimate" aria-label="Quick quote check">
+            <div class="initial-home-estimate-head">
+              <div>
+                <p class="initial-home-estimate-kicker">Quick quote check</p>
+                <h2 class="initial-home-estimate-title">Check cleaning times near you</h2>
+              </div>
+              <span class="initial-home-estimate-icon" aria-hidden="true">&#10023;</span>
+            </div>
+
+            <div class="initial-home-service-row" aria-label="Cleaning service type">
+              <span class="initial-home-service-option is-active">Standard</span>
+              <span class="initial-home-service-option">Deep</span>
+              <span class="initial-home-service-option">Move</span>
+            </div>
+
+            <div class="initial-home-room-row">
+              <div class="initial-home-stepper" aria-label="2 bedrooms">
+                <span class="initial-home-stepper-button" aria-hidden="true">-</span>
+                <span class="initial-home-stepper-value">2 bedrooms</span>
+                <span class="initial-home-stepper-button" aria-hidden="true">+</span>
+              </div>
+              <div class="initial-home-stepper" aria-label="2 bathrooms">
+                <span class="initial-home-stepper-button" aria-hidden="true">-</span>
+                <span class="initial-home-stepper-value">2 bathrooms</span>
+                <span class="initial-home-stepper-button" aria-hidden="true">+</span>
+              </div>
+            </div>
+
+            <form action="https://shynlicleaningservice.com/quote" method="get">
+              <input type="hidden" name="service" value="home-cleaning" />
+              <input type="hidden" name="bedrooms" value="2" />
+              <input type="hidden" name="bathrooms" value="2" />
+              <input type="hidden" name="landing_page_url" value="https://shynli.com/" />
+              <input type="hidden" name="source_page" value="shynli-home-static-shell" />
+              <label class="initial-home-zip-label" for="initial-home-zip">ZIP code</label>
+              <div class="initial-home-zip-row">
+                <input class="initial-home-zip-input" id="initial-home-zip" name="zip" inputmode="numeric" placeholder="60540" />
+                <button class="initial-home-submit" type="submit">See times <span aria-hidden="true">&rarr;</span></button>
+              </div>
+            </form>
+            <p class="initial-home-note">No card needed. We confirm your area, home details, and earliest available slot before you book.</p>
+          </section>
         </main>
       </div>
     </div>
