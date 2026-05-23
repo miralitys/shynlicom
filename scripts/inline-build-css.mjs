@@ -12,7 +12,6 @@ const stylesheets = [...html.matchAll(stylesheetPattern)]
 
 if (stylesheets.length === 0) {
   console.log("No build CSS links found to inline.")
-  process.exit(0)
 }
 
 for (const match of stylesheets) {
@@ -29,5 +28,30 @@ for (const match of stylesheets) {
   await rm(cssPath)
 }
 
+const entryScriptPattern =
+  /<script\s+type="module"\s+crossorigin\s+src="([^"]+\/index-[^"]+\.js)"><\/script>/
+const entryScriptMatch = html.match(entryScriptPattern)
+
+if (!entryScriptMatch) {
+  console.log("No build entry script found to inline.")
+} else {
+  const [scriptTag, src] = entryScriptMatch
+  const scriptPath = path.join(distDir, src.replace(/^\//, ""))
+  const script = await readFile(scriptPath, "utf8")
+  const safeScript = script
+    .replaceAll("import(`./", "import(`/assets/")
+    .replaceAll('import("./', 'import("/assets/')
+    .replaceAll("</script", "<\\/script")
+
+  html = html.replace(
+    scriptTag,
+    `<script type="module" data-inlined-build-entry="${path.basename(scriptPath)}">\n${safeScript}\n    </script>`
+  )
+}
+
 await writeFile(htmlPath, html)
-console.log(`Inlined ${stylesheets.length} build CSS file(s) into index.html.`)
+console.log(
+  `Inlined ${stylesheets.length} build CSS file(s)${
+    entryScriptMatch ? " and the build entry script" : ""
+  } into index.html.`
+)

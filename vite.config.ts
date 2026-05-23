@@ -10,6 +10,7 @@ export default defineConfig({
     allowedHosts: ["shynli.com", "www.shynli.com", "shiny.com", "www.shiny.com", "shinydeepcleaning.com", "www.shinydeepcleaning.com", "shinymove-outcleaning.com", "www.shinymove-outcleaning.com"],
   },
   build: {
+    modulePreload: false,
     rollupOptions: {
       output: {
         manualChunks(id) {
