@@ -648,7 +648,7 @@ export function useSeoMeta(title: string, description: string, schema?: object, 
 
 export function BrandLink() {
   return (
-    <a href="/" className="group flex min-h-11 items-center gap-3" aria-label="Shynli home">
+    <a href="/" className="group flex min-h-11 items-center gap-3">
       <span className="grid size-11 place-items-center rounded-full bg-white/10 ring-1 ring-white/18 transition-transform group-hover:scale-105">
         <svg viewBox="0 0 56 56" className="size-8" role="img" aria-label="Shynli">
           <defs>

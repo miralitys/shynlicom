@@ -1576,7 +1576,7 @@ export function HomePage() {
     <main className="min-h-screen overflow-hidden bg-background pb-32 text-foreground md:pb-28">
       <header className="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-[#0d2633]/72 px-4 text-white backdrop-blur-xl md:px-8">
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between">
-          <a href="#top" className="group flex min-h-11 items-center gap-3" aria-label="Shynli home">
+          <a href="#top" className="group flex min-h-11 items-center gap-3">
             <span className="grid size-11 place-items-center rounded-full bg-white/10 ring-1 ring-white/18 transition-transform group-hover:scale-105">
               <svg className="size-8" viewBox="0 0 48 48" aria-hidden="true">
                 <defs>
@@ -2099,7 +2099,7 @@ export function HomePage() {
         <div className="mx-auto max-w-7xl">
           <div className="grid gap-8 border-b border-white/12 pb-8 lg:grid-cols-[1.25fr_2fr]">
             <div>
-              <a href="#top" className="group inline-flex min-h-11 items-center gap-3" aria-label="Shynli home">
+              <a href="#top" className="group inline-flex min-h-11 items-center gap-3">
                 <span className="grid size-12 place-items-center rounded-full bg-white/10 ring-1 ring-white/18 transition-transform group-hover:scale-105">
                   <svg className="size-9" viewBox="0 0 48 48" aria-hidden="true">
                     <defs>
