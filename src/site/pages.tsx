@@ -1784,7 +1784,7 @@ export function HomePage() {
                 <TabsTrigger
                   key={service.value}
                   value={service.value}
-                  className="min-h-11 rounded-md px-2 py-3 text-xs font-black text-slate-500 shadow-none transition-all data-[state=active]:bg-white data-[state=active]:text-[#145f85] data-[state=active]:shadow-sm sm:text-sm md:px-5"
+                  className="min-h-11 rounded-md px-2 py-3 text-xs font-black text-[#486573] shadow-none transition-all data-[state=active]:bg-white data-[state=active]:text-[#145f85] data-[state=active]:shadow-sm sm:text-sm md:px-5"
                 >
                   {service.label}
                 </TabsTrigger>
@@ -2081,7 +2081,7 @@ export function HomePage() {
       <section className="px-4 py-12 md:px-8 md:py-16">
         <div className="mx-auto grid max-w-7xl items-center gap-5 rounded-lg bg-[#1976a3] p-6 text-white md:grid-cols-[1fr_auto] md:p-8">
           <div>
-            <p className="mb-3 text-sm font-black uppercase text-white/75">Ready when your home is</p>
+            <p className="mb-3 text-sm font-black uppercase text-white/95">Ready when your home is</p>
             <h2 className="max-w-3xl text-3xl font-black leading-[1] sm:text-4xl md:text-5xl">
               Ready for the house to feel clean again?
             </h2>
