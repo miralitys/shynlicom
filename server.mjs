@@ -119,8 +119,13 @@ function buildQuoteBackendPayload(lead) {
   const { firstName, lastName } = splitName(lead.fullName)
 
   return {
+    type: "shynli.com_website_contact",
+    leadType: "shynli.com website_contact",
     requestType: "call_me",
     source: "Shynli.com Callback Request",
+    origin: "https://shynli.com/",
+    sourceWebsite: "https://shynli.com/",
+    sourceDomain: "shynli.com",
     sourcePagePath: lead.sourcePage || "/",
     returnPath: lead.sourcePage || "/",
     consent: true,
