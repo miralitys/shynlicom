@@ -407,6 +407,103 @@
         margin: 16px 0 0;
       }
 
+      .static-callback-modal {
+        align-items: center;
+        animation: static-callback-fade-in 180ms ease-out;
+        background: rgba(6, 23, 38, 0.62);
+        backdrop-filter: blur(12px);
+        display: flex;
+        inset: 0;
+        justify-content: center;
+        padding: 24px;
+        position: fixed;
+        z-index: 2147483647;
+      }
+
+      .static-callback-dialog {
+        animation: static-callback-lift-in 220ms ease-out;
+        background: #fff;
+        border: 1px solid rgba(255, 255, 255, 0.7);
+        border-radius: 10px;
+        box-shadow: 0 28px 90px rgba(6, 23, 38, 0.34);
+        box-sizing: border-box;
+        color: #061726;
+        max-width: 520px;
+        padding: 32px;
+        text-align: center;
+        width: 100%;
+      }
+
+      .static-callback-icon {
+        align-items: center;
+        background: #e8f8ef;
+        border-radius: 999px;
+        box-shadow: 0 0 0 8px #f4fbf7;
+        color: #0b7a48;
+        display: inline-flex;
+        font-size: 34px;
+        font-weight: 900;
+        height: 64px;
+        justify-content: center;
+        width: 64px;
+      }
+
+      .static-callback-title {
+        color: #061726;
+        font-size: 28px;
+        font-weight: 900;
+        letter-spacing: 0;
+        line-height: 1.15;
+        margin: 24px 0 0;
+      }
+
+      .static-callback-copy {
+        color: #486573;
+        font-size: 17px;
+        font-weight: 800;
+        line-height: 1.65;
+        margin: 14px auto 0;
+        max-width: 390px;
+      }
+
+      .static-callback-close {
+        background: #1976a3;
+        border: 0;
+        border-radius: 6px;
+        color: #fff;
+        cursor: pointer;
+        font-size: 16px;
+        font-weight: 900;
+        min-height: 48px;
+        margin-top: 24px;
+        padding: 0 28px;
+      }
+
+      .static-callback-close:focus-visible {
+        outline: 4px solid #9fe3ff;
+        outline-offset: 3px;
+      }
+
+      @keyframes static-callback-fade-in {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      @keyframes static-callback-lift-in {
+        from {
+          opacity: 0;
+          transform: translateY(14px) scale(0.98);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0) scale(1);
+        }
+      }
+
       @media (min-width: 768px) {
         #initial-home-hero::before {
           background-position: center 32%;
@@ -424,6 +521,13 @@
 
         .initial-home-zip-row {
           grid-template-columns: 1fr 1fr auto;
+        }
+
+      }
+
+      @media (max-width: 767px) {
+        .static-callback-dialog {
+          padding: 28px 22px;
         }
       }
 
@@ -758,6 +862,9 @@
           }, {})
         }
 
+        var callbackSuccessMessage = "Спасибо, ваша заявка принята. Наш менеджер с вами свяжется в ближайшее время."
+        var staticCallbackPreviousOverflow = ""
+
         function showCallbackMessage(form, type, message) {
           var existing = form.querySelector("[data-static-callback-message]")
           if (!existing) {
@@ -769,6 +876,49 @@
           existing.textContent = message
           existing.style.color = type === "error" ? "#be123c" : "#166534"
           existing.style.fontWeight = "900"
+        }
+
+        function clearCallbackMessage(form) {
+          var existing = form.querySelector("[data-static-callback-message]")
+          if (existing) existing.remove()
+        }
+
+        function handleStaticCallbackModalKeydown(event) {
+          if (event.key === "Escape") closeStaticCallbackModal()
+        }
+
+        function closeStaticCallbackModal() {
+          var existing = document.querySelector("[data-static-callback-modal]")
+          if (existing) existing.remove()
+          document.body.style.overflow = staticCallbackPreviousOverflow
+          window.removeEventListener("keydown", handleStaticCallbackModalKeydown)
+        }
+
+        function showStaticCallbackModal(message) {
+          closeStaticCallbackModal()
+          staticCallbackPreviousOverflow = document.body.style.overflow
+
+          var overlay = document.createElement("div")
+          overlay.className = "static-callback-modal"
+          overlay.setAttribute("data-static-callback-modal", "true")
+          overlay.innerHTML = [
+            '<div class="static-callback-dialog" role="dialog" aria-modal="true" aria-labelledby="static-callback-title">',
+            '<div class="static-callback-icon" aria-hidden="true">✓</div>',
+            '<h2 class="static-callback-title" id="static-callback-title">Заявка принята</h2>',
+            '<p class="static-callback-copy" data-static-callback-copy></p>',
+            '<button class="static-callback-close" type="button" data-static-callback-close>Понятно</button>',
+            "</div>"
+          ].join("")
+
+          overlay.querySelector("[data-static-callback-copy]").textContent = message
+          overlay.addEventListener("click", function (event) {
+            if (event.target === overlay) closeStaticCallbackModal()
+          })
+          overlay.querySelector("[data-static-callback-close]").addEventListener("click", closeStaticCallbackModal)
+          document.body.appendChild(overlay)
+          document.body.style.overflow = "hidden"
+          window.addEventListener("keydown", handleStaticCallbackModalKeydown)
+          overlay.querySelector("[data-static-callback-close]").focus()
         }
 
         function buildPayload(form) {
@@ -794,6 +944,7 @@
           var form = event.currentTarget
           var submit = form.querySelector("button[type='submit']")
           var payload = buildPayload(form)
+          clearCallbackMessage(form)
 
           if (!payload.fullName || payload.fullName.length < 2) {
             showCallbackMessage(form, "error", "Please enter your name.")
@@ -835,7 +986,8 @@
                 landing_page_url: payload.landingPageUrl
               }, payload.attribution))
               form.reset()
-              showCallbackMessage(form, "success", "Thanks. We received your request and will call you shortly.")
+              clearCallbackMessage(form)
+              showStaticCallbackModal(callbackSuccessMessage)
             })
             .catch(function (error) {
               showCallbackMessage(form, "error", error && error.message ? error.message : "We could not send the request. Please call us instead.")

@@ -1,4 +1,5 @@
 import { type Dispatch, type FormEvent, type SetStateAction, useEffect, useState } from "react"
+import { createPortal } from "react-dom"
 import { Check, MessageCircle, Phone, ShieldCheck, Sparkles } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
@@ -65,6 +66,7 @@ type CallbackLeadFormProps = {
 }
 
 type LeadSubmitState = "idle" | "submitting" | "success" | "error"
+const callbackSuccessMessage = "Спасибо, ваша заявка принята. Наш менеджер с вами свяжется в ближайшее время."
 
 const attributionKeys = [
   "gclid",
@@ -258,6 +260,77 @@ async function sendCallbackLead(formData: FormData, defaults: QuoteParams = {}) 
   return result
 }
 
+function CallbackSuccessDialog({
+  idPrefix,
+  message,
+  open,
+  onClose,
+}: {
+  idPrefix: string
+  message: string
+  open: boolean
+  onClose: () => void
+}) {
+  useEffect(() => {
+    if (!open) {
+      return undefined
+    }
+
+    const previousOverflow = document.body.style.overflow
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        onClose()
+      }
+    }
+
+    document.body.style.overflow = "hidden"
+    window.addEventListener("keydown", handleKeyDown)
+
+    return () => {
+      document.body.style.overflow = previousOverflow
+      window.removeEventListener("keydown", handleKeyDown)
+    }
+  }, [onClose, open])
+
+  if (!open) {
+    return null
+  }
+
+  return createPortal(
+    <div
+      className="fixed inset-0 z-[90] grid place-items-center bg-[#061726]/62 px-4 py-6 backdrop-blur-md"
+      onClick={onClose}
+    >
+      <div
+        aria-labelledby={`${idPrefix}-success-title`}
+        aria-modal="true"
+        className="w-full max-w-[520px] rounded-lg border border-white/70 bg-white p-6 text-center shadow-[0_28px_90px_rgba(6,23,38,0.34)] sm:p-8"
+        onClick={(event) => event.stopPropagation()}
+        role="dialog"
+      >
+        <div className="mx-auto grid size-16 place-items-center rounded-full bg-[#e8f8ef] text-[#0b7a48] ring-8 ring-[#f4fbf7]">
+          <Check className="size-8" />
+        </div>
+        <h2 id={`${idPrefix}-success-title`} className="mt-5 text-2xl font-black tracking-normal text-[#061726]">
+          Заявка принята
+        </h2>
+        <p className="mx-auto mt-3 max-w-[390px] text-base font-bold leading-7 text-[#486573]">
+          {message}
+        </p>
+        <button
+          autoFocus
+          className="mt-6 inline-flex min-h-12 items-center justify-center rounded-md bg-[#1976a3] px-7 text-base font-black text-white transition-colors hover:bg-[#145f85] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#9fe3ff]"
+          onClick={onClose}
+          type="button"
+        >
+          Понятно
+        </button>
+      </div>
+    </div>,
+    document.body
+  )
+}
+
 export function CallbackLeadForm({
   defaults = {},
   buttonLabel = "Call me back",
@@ -267,7 +340,7 @@ export function CallbackLeadForm({
   buttonClassName = "h-12 rounded-md bg-[#1976a3] px-5 font-black text-white hover:bg-[#145f85]",
   layout = "stacked",
   idPrefix = "callback-lead",
-  successMessage = "Thanks. We received your request and will call you shortly.",
+  successMessage = callbackSuccessMessage,
   helperText = "No card needed. Leave your name and phone, and we will confirm the details by phone.",
   hideLabels = false,
 }: CallbackLeadFormProps) {
@@ -318,11 +391,12 @@ export function CallbackLeadForm({
         </Button>
       </div>
 
-      {submitState === "success" ? (
-        <p className="rounded-md border border-emerald-200 bg-emerald-50 px-3 py-2 text-sm font-bold leading-6 text-emerald-800">
-          {successMessage}
-        </p>
-      ) : null}
+      <CallbackSuccessDialog
+        idPrefix={idPrefix}
+        message={successMessage}
+        onClose={() => setSubmitState("idle")}
+        open={submitState === "success"}
+      />
       {submitState === "error" ? (
         <p className="rounded-md border border-rose-200 bg-rose-50 px-3 py-2 text-sm font-bold leading-6 text-rose-700">
           {errorMessage}
