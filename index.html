@@ -943,7 +943,7 @@
           }, {})
         }
 
-        var callbackSuccessMessage = "Спасибо, ваша заявка принята. Наш менеджер с вами свяжется в ближайшее время."
+        var callbackSuccessMessage = "Thank you, your request has been received. Our manager will contact you shortly."
         var staticCallbackPreviousOverflow = ""
 
         function showCallbackMessage(form, type, message) {
@@ -996,9 +996,9 @@
           overlay.innerHTML = [
             '<div class="static-callback-dialog" role="dialog" aria-modal="true" aria-labelledby="static-callback-title">',
             '<div class="static-callback-icon" aria-hidden="true">✓</div>',
-            '<h2 class="static-callback-large-title" id="static-callback-title">Заявка отправлена</h2>',
+            '<h2 class="static-callback-large-title" id="static-callback-title">Request sent</h2>',
             '<p class="static-callback-large-copy" data-static-callback-copy></p>',
-            '<button class="static-callback-close" type="button" data-static-callback-close>Понятно</button>',
+            '<button class="static-callback-close" type="button" data-static-callback-close>Got it</button>',
             "</div>"
           ].join("")
 

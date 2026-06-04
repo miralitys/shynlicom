@@ -68,7 +68,7 @@ type CallbackLeadFormProps = {
 }
 
 type LeadSubmitState = "idle" | "submitting" | "success" | "error"
-const callbackSuccessMessage = "Спасибо, ваша заявка принята. Наш менеджер с вами свяжется в ближайшее время."
+const callbackSuccessMessage = "Thank you, your request has been received. Our manager will contact you shortly."
 
 const attributionKeys = [
   "gclid",
@@ -314,7 +314,7 @@ function CallbackSuccessDialog({
           <Check className="size-8" />
         </div>
         <h2 id={`${idPrefix}-success-title`} className="mt-5 text-2xl font-black tracking-normal text-[#061726]">
-          Заявка принята
+          Request received
         </h2>
         <p className="mx-auto mt-3 max-w-[390px] text-base font-bold leading-7 text-[#486573]">
           {message}
@@ -325,7 +325,7 @@ function CallbackSuccessDialog({
           onClick={onClose}
           type="button"
         >
-          Понятно
+          Got it
         </button>
       </div>
     </div>,
@@ -513,10 +513,10 @@ export function CallbackLeadDialogTrigger({
                     <Check className="size-10" />
                   </div>
                   <h2 id={`${idPrefix}-dialog-title`} className="mt-7 text-4xl font-black leading-tight tracking-normal text-[#061726]">
-                    Заявка отправлена
+                    Request sent
                   </h2>
                   <p className="mx-auto mt-4 max-w-[410px] text-xl font-black leading-8 text-[#486573]">
-                    Спасибо, ваша заявка принята. Наш менеджер с вами свяжется в ближайшее время.
+                    Thank you, your request has been received. Our manager will contact you shortly.
                   </p>
                   <button
                     autoFocus
@@ -524,7 +524,7 @@ export function CallbackLeadDialogTrigger({
                     onClick={closeDialog}
                     type="button"
                   >
-                    Понятно
+                    Got it
                   </button>
                 </div>
               )}
