@@ -4,24 +4,28 @@
 
 - Domain: `shynli.com`
 - GitHub repo: `https://github.com/miralitys/shynlicom.git`
-- Hosting: Render Static Site
-- Lead destination: `https://shynlicleaningservice.com/quote`
+- Hosting: Render Web Service / Node
+- Lead intake: local callback endpoint at `/api/leads/callback`
+- Server-side forward destination: `QUOTE_SUBMIT_URL`
 
 ## Render Settings
 
 Use these settings if creating/configuring the service manually in Render:
 
-- Service type: `Static Site`
+- Service type: `Web Service`
+- Runtime: `Node`
 - Branch: `main`
 - Build Command: `npm ci && npm run build`
-- Publish Directory: `dist`
+- Start Command: `npm start`
 - Custom Domain: `shynli.com`
-- Redirect/Rewrites:
-  - Source: `/*`
-  - Destination: `/index.html`
-  - Action: `Rewrite`
 
-Render applies rewrite rules only when a matching static file does not already exist, so assets, `robots.txt`, and `sitemap.xml` should still be served directly.
+The Node server serves `dist/` directly, falls back to `dist/index.html` for app routes, and exposes `POST /api/leads/callback`.
+
+## Environment Variables
+
+- `QUOTE_SUBMIT_URL`: existing quote backend submit URL. Defaults to `https://shynlicleaningservice.com/api/quote/submit`.
+- `LEAD_WEBHOOK_URL`: optional extra webhook for raw callback leads.
+- `LEADS_FILE_PATH`: optional JSONL storage path for callback leads. Defaults to `data/callback-leads.jsonl`.
 
 ## Repository Shape
 
@@ -33,6 +37,7 @@ The GitHub repo should contain the contents of this folder at the repo root:
 - `src/`
 - `public/`
 - `render.yaml`
+- `server.mjs`
 
 Do not push the entire Obsidian vault to `miralitys/shynlicom`.
 
@@ -51,4 +56,6 @@ After Render deploys, verify:
 - `https://shynli.com/sitemap.xml`
 - `https://shynli.com/robots.txt`
 - a deep URL, for example `/service-areas/naperville/deep-cleaning`
-- quote links and quote form handoff to `https://shynlicleaningservice.com/quote`
+- callback form submission to `https://shynli.com/api/leads/callback`
+- lead storage / server-side forward to `QUOTE_SUBMIT_URL`
+- GTM / dataLayer event `lead_quote_submit`

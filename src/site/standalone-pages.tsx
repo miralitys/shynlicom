@@ -1,15 +1,13 @@
-import { useState } from "react"
 import { ArrowRight, BedDouble, CalendarCheck, Camera, Check, ClipboardCheck, KeyRound, PackageCheck, Search, ShieldCheck, Sparkles, Star, TimerReset, WashingMachine } from "lucide-react"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { businessEmail, businessPhoneDisplay, businessPhoneHref, cityHeroImages, cityList, cityPages, cityRouteNotes, serviceAreaGroups, slugifyCity } from "@/site/data"
 import { type LegalPageData, LegalLine } from "@/site/legal-pages"
 import { shinyMoveOutAllCityIntentLinks, shinyMoveOutFeaturedSeoLinks, shinyMoveOutPriorityCityIntentLinks } from "@/site/shiny-move-out-seo"
-import { buildQuoteUrl, submitQuoteForm, useSeoMeta } from "@/site/shared"
+import { CallbackLeadForm, buildQuoteUrl, useSeoMeta } from "@/site/shared"
 
 export const moveOutProof = [
   ["60 sec", "start a move-out quote"],
@@ -666,7 +664,6 @@ export const deepSiteFooterColumns = [
 ]
 
 const deepQuoteConditions = ["Light buildup", "Behind", "Heavy buildup", "Move timing"]
-const deepQuoteAddOns = ["Fridge", "Oven", "Cabinets"]
 const shinyDeepCanonicalBase = "https://shinydeepcleaning.com"
 
 const deepCityRoutePatterns = [
@@ -1232,8 +1229,7 @@ function ShinyDeepFooter({ city }: { city?: (typeof cityPages)[number] }) {
 }
 
 export function ShinyDeepCleaningPage({ city }: { city?: (typeof cityPages)[number] } = {}) {
-  const [selectedCondition, setSelectedCondition] = useState(deepQuoteConditions[0])
-  const [selectedAddOns, setSelectedAddOns] = useState<string[]>([])
+  const defaultCondition = deepQuoteConditions[0]
   const cityName = city?.name
   const pageTitle = cityName ? `${cityName} Deep Cleaning | Shynli Deep Cleaning` : "Shynli Deep Cleaning | Deep Cleaning Service"
   const pageDescription = cityName
@@ -1363,90 +1359,17 @@ export function ShinyDeepCleaningPage({ city }: { city?: (typeof cityPages)[numb
           </div>
           <Card className="rounded-lg border-[#e1d5c4] bg-white shadow-[0_28px_90px_rgba(27,23,37,0.12)]">
             <CardContent className="p-5 md:p-6">
-              <form action={buildQuoteUrl({ service: "deep-cleaning" })} method="get" className="grid gap-4" onSubmit={(event) => submitQuoteForm(event, { service: "deep-cleaning" })}>
-                <input type="hidden" name="condition" value={selectedCondition} />
-                {cityName ? <input type="hidden" name="city" value={cityName} /> : null}
-                <div className="grid gap-4 sm:grid-cols-3">
-                  <label className="grid gap-2 text-sm font-black">
-                    ZIP
-                    <Input
-                      name="zip"
-                      inputMode="numeric"
-                      defaultValue="00000"
-                      maxLength={5}
-                      onFocus={(event) => {
-                        if (event.currentTarget.value === "00000") event.currentTarget.value = ""
-                      }}
-                      onBlur={(event) => {
-                        if (!event.currentTarget.value.trim()) event.currentTarget.value = "00000"
-                      }}
-                      className="h-12 rounded-md border-[#d8cbb7] bg-[#ffffff] font-bold"
-                    />
-                  </label>
-                  <label className="grid gap-2 text-sm font-black">
-                    Bedrooms
-                    <Input name="bedrooms" inputMode="numeric" defaultValue="3" className="h-12 rounded-md border-[#d8cbb7] bg-[#ffffff] font-bold" />
-                  </label>
-                  <label className="grid gap-2 text-sm font-black">
-                    Bathrooms
-                    <Input name="bathrooms" inputMode="numeric" defaultValue="2" className="h-12 rounded-md border-[#d8cbb7] bg-[#ffffff] font-bold" />
-                  </label>
-                </div>
-                <div className="grid gap-3 sm:grid-cols-4">
-                  {deepQuoteConditions.map((item) => (
-                    <button
-                      key={item}
-                      type="button"
-                      aria-pressed={selectedCondition === item}
-                      onClick={() => setSelectedCondition(item)}
-                      className={`min-h-12 rounded-md border px-3 text-sm font-black transition-all hover:-translate-y-0.5 hover:border-[#b54437] focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-[#d7ff4f]/70 ${
-                        selectedCondition === item
-                          ? "border-[#1b1725] bg-[#1b1725] text-white shadow-[0_12px_30px_rgba(27,23,37,0.18)]"
-                          : "border-[#d8cbb7] bg-white text-[#1b1725]"
-                      }`}
-                    >
-                      {item}
-                    </button>
-                  ))}
-                </div>
-                <div className="grid gap-3 sm:grid-cols-3">
-                  {deepQuoteAddOns.map((item) => {
-                    const isSelected = selectedAddOns.includes(item)
-                    return (
-                    <label
-                      key={item}
-                      className={`flex min-h-12 cursor-pointer items-center gap-2 rounded-md border px-3 text-sm font-black transition-all hover:-translate-y-0.5 hover:border-[#b54437] ${
-                        isSelected ? "border-[#1b1725] bg-[#1b1725] text-white shadow-[0_12px_30px_rgba(27,23,37,0.16)]" : "border-[#d8cbb7] bg-white text-[#1b1725]"
-                      }`}
-                    >
-                      <input
-                        type="checkbox"
-                        name="add_ons"
-                        value={item}
-                        checked={isSelected}
-                        onChange={() => {
-                          setSelectedAddOns((current) => (
-                            current.includes(item) ? current.filter((value) => value !== item) : [...current, item]
-                          ))
-                        }}
-                        className="size-4 accent-[#d7ff4f]"
-                      />
-                      {item}
-                    </label>
-                    )
-                  })}
-                </div>
-                <p className="rounded-md bg-[#f7f2e8] px-3 py-2 text-xs font-black uppercase tracking-normal text-[#6c655d]" aria-live="polite">
-                  Selected: {selectedCondition}{selectedAddOns.length ? ` + ${selectedAddOns.join(", ")}` : " + no extras yet"}
-                </p>
-                <Button type="submit" className="h-13 rounded-full bg-[#b54437] text-base font-black text-white hover:bg-[#9f3c31]">
-                  Price this deep clean
-                  <ArrowRight />
-                </Button>
-                <p className="text-sm font-bold leading-6 text-[#6c655d]">
-                  No card to check. Final quote depends on size, condition, add-ons, access, and appointment availability.
-                </p>
-              </form>
+              <CallbackLeadForm
+                defaults={{
+                  city: cityName,
+                  service: "deep-cleaning",
+                  notes: `Deep cleaning callback. Suggested condition: ${defaultCondition}.`,
+                }}
+                buttonLabel="Call me about deep cleaning"
+                idPrefix={cityName ? "deep-city-callback" : "deep-callback"}
+                buttonClassName="h-13 rounded-full bg-[#b54437] px-6 text-base font-black text-white hover:bg-[#9f3c31]"
+                inputClassName="h-12 rounded-md border-[#d8cbb7] bg-[#ffffff] text-base font-bold"
+              />
             </CardContent>
           </Card>
         </div>
@@ -2513,38 +2436,19 @@ export function ShinyApartmentPage() {
         </div>
 
         <div id="quote" className="relative z-10 mx-4 -mt-12 max-w-7xl rounded-md border border-white/24 bg-white/92 p-3 text-[#092332] shadow-[0_24px_80px_rgba(0,0,0,0.28)] backdrop-blur-xl md:absolute md:inset-x-8 md:bottom-4 md:mx-auto md:mt-0 md:p-4">
-          <form action={buildQuoteUrl({ service: "apartment-cleaning" })} method="get" className="grid gap-3 md:grid-cols-[1.2fr_0.85fr_0.85fr_0.9fr_auto] md:items-end" onSubmit={(event) => submitQuoteForm(event, { service: "apartment-cleaning" })}>
-            <div>
-              <label htmlFor="apt-zip" className="text-xs font-black uppercase text-[#1f789d]">ZIP</label>
-              <Input id="apt-zip" name="zip" inputMode="numeric" placeholder="60540" className="mt-1 h-12 rounded-md border-[#b9ddea] bg-white text-base font-black" />
-            </div>
-            <div>
-              <label htmlFor="apt-size" className="text-xs font-black uppercase text-[#1f789d]">Apartment size</label>
-              <select id="apt-size" name="bedrooms" className="mt-1 h-12 w-full rounded-md border border-[#b9ddea] bg-white px-3 text-base font-black outline-none focus:ring-3 focus:ring-[#9fe3ff]/70">
-                <option>Studio</option>
-                <option>1 bedroom</option>
-                <option>2 bedrooms</option>
-                <option>3 bedrooms</option>
-              </select>
-            </div>
-            <div>
-              <label htmlFor="apt-clean" className="text-xs font-black uppercase text-[#1f789d]">Clean type</label>
-              <select id="apt-clean" name="service" className="mt-1 h-12 w-full rounded-md border border-[#b9ddea] bg-white px-3 text-base font-black outline-none focus:ring-3 focus:ring-[#9fe3ff]/70">
-                <option>Regular reset</option>
-                <option>Deep clean</option>
-                <option>Move-out</option>
-                <option>Move-in</option>
-              </select>
-            </div>
-            <div>
-              <label htmlFor="apt-access" className="text-xs font-black uppercase text-[#1f789d]">Access note</label>
-              <Input id="apt-access" name="access_note" placeholder="Elevator, parking, pets" className="mt-1 h-12 rounded-md border-[#b9ddea] bg-white text-base font-black" />
-            </div>
-            <Button type="submit" className="h-12 rounded-md bg-[#061923] px-7 font-black text-white shadow-none hover:bg-[#12384a]">
-              See times
-              <ArrowRight />
-            </Button>
-          </form>
+          <CallbackLeadForm
+            defaults={{
+              service: "apartment-cleaning",
+              notes: "Apartment cleaning callback from the apartment landing page.",
+            }}
+            layout="inline"
+            idPrefix="apartment-callback"
+            helperText=""
+            buttonLabel="Call me about apartment cleaning"
+            className="grid gap-3"
+            inputClassName="h-12 rounded-md border-[#b9ddea] bg-white text-base font-black"
+            buttonClassName="h-12 rounded-md bg-[#061923] px-7 font-black text-white shadow-none hover:bg-[#12384a]"
+          />
         </div>
       </section>
 
@@ -2840,29 +2744,21 @@ export function ShinyMoveOutPage({ city }: { city?: (typeof cityPages)[number] }
           </div>
 
           <div id="quote" className="animate-rise-delayed border border-[#b9e5ee] bg-[#f6fbff] p-3 text-[#0b2430] shadow-[0_26px_90px_rgba(0,0,0,0.28)] md:p-4">
-            <form action={buildQuoteUrl({ service: "move-out-cleaning" })} method="get" className="grid gap-3 lg:grid-cols-[1fr_1fr_1fr_1fr_auto] lg:items-end" onSubmit={(event) => submitQuoteForm(event, { service: "move-out-cleaning" })}>
-              {cityName ? <input type="hidden" name="city" value={cityName} /> : null}
-              <label className="grid gap-2 text-xs font-black uppercase text-[#0b7f8a]">
-                ZIP code
-                <Input name="zip" inputMode="numeric" placeholder="60540" className="h-12 rounded-sm border-[#b9e5ee] bg-white font-bold" />
-              </label>
-              <label className="grid gap-2 text-xs font-black uppercase text-[#0b7f8a]">
-                Handoff date
-                <Input name="date" type="date" className="h-12 rounded-sm border-[#b9e5ee] bg-white font-bold" />
-              </label>
-              <label className="grid gap-2 text-xs font-black uppercase text-[#0b7f8a]">
-                Place type
-                <Input name="property_type" placeholder="Apartment, condo, house" className="h-12 rounded-sm border-[#b9e5ee] bg-white font-bold" />
-              </label>
-              <label className="grid gap-2 text-xs font-black uppercase text-[#0b7f8a]">
-                Scope
-                <Input name="condition" placeholder="Empty / mostly empty" className="h-12 rounded-sm border-[#b9e5ee] bg-white font-bold" />
-              </label>
-              <Button type="submit" className="h-12 rounded-sm bg-[#19b97f] px-7 font-black text-white hover:bg-[#14a66f]">
-                Start quote
-                <ArrowRight className="size-4" />
-              </Button>
-            </form>
+            <CallbackLeadForm
+              defaults={{
+                city: cityName,
+                service: "move-out-cleaning",
+                notes: "Move-out cleaning callback from the move-out landing page.",
+              }}
+              layout="inline"
+              idPrefix={cityName ? "move-out-city-callback" : "move-out-callback"}
+              helperText=""
+              buttonLabel="Call me about move-out cleaning"
+              className="grid gap-3"
+              fieldClassName="grid gap-2 text-xs font-black uppercase text-[#0b7f8a]"
+              inputClassName="h-12 rounded-sm border-[#b9e5ee] bg-white text-base font-bold"
+              buttonClassName="h-12 rounded-sm bg-[#19b97f] px-7 font-black text-white hover:bg-[#14a66f]"
+            />
           </div>
         </div>
       </section>
@@ -3521,42 +3417,16 @@ export function ShinyAirbnbPage() {
           </div>
           <Card className="rounded-[28px] border-[#dddddd] bg-white shadow-[0_12px_48px_rgba(0,0,0,0.10)]">
             <CardContent className="p-5 md:p-6">
-              <form action={buildQuoteUrl({ service: "airbnb-cleaning" })} method="get" className="grid gap-4" onSubmit={(event) => submitQuoteForm(event, { service: "airbnb-cleaning" })}>
-                <div className="grid gap-4 sm:grid-cols-2">
-                  <label className="grid gap-2 text-sm font-black">
-                    Listing ZIP
-                    <Input name="zip" inputMode="numeric" placeholder="60540" className="h-12 rounded-full border-[#dddddd] bg-white font-bold" />
-                  </label>
-                  <label className="grid gap-2 text-sm font-black">
-                    Next turnover date
-                    <Input name="date" type="date" className="h-12 rounded-full border-[#dddddd] bg-white font-bold" />
-                  </label>
-                </div>
-                <div className="grid gap-4 sm:grid-cols-2">
-                  <label className="grid gap-2 text-sm font-black">
-                    Checkout time
-                    <Input name="checkout_time" type="time" className="h-12 rounded-full border-[#dddddd] bg-white font-bold" />
-                  </label>
-                  <label className="grid gap-2 text-sm font-black">
-                    Check-in time
-                    <Input name="checkin_time" type="time" className="h-12 rounded-full border-[#dddddd] bg-white font-bold" />
-                  </label>
-                </div>
-                <div className="grid gap-3 sm:grid-cols-3">
-                  {["Cleaning", "Linens", "Restock"].map((item) => (
-                    <button key={item} type="button" className="min-h-12 rounded-full border border-[#dddddd] bg-white px-3 text-sm font-black transition-colors first:border-[#ff385c] first:bg-[#ff385c] first:text-white hover:border-[#ff385c]">
-                      {item}
-                    </button>
-                  ))}
-                </div>
-                <Button type="submit" className="h-13 rounded-full bg-[#ff385c] text-base font-black text-white shadow-none hover:bg-[#e31c5f]">
-                  Check host availability
-                  <ArrowRight />
-                </Button>
-                <p className="text-sm font-bold leading-6 text-[#717171]">
-                  Final availability depends on location, timing, property size, linen needs, restocking, access, and whether the turnover window is realistic.
-                </p>
-              </form>
+              <CallbackLeadForm
+                defaults={{
+                  service: "airbnb-cleaning",
+                  notes: "Airbnb cleaning callback from the host landing page.",
+                }}
+                buttonLabel="Call me about turnovers"
+                idPrefix="airbnb-callback"
+                buttonClassName="h-13 rounded-full bg-[#ff385c] px-6 text-base font-black text-white shadow-none hover:bg-[#e31c5f]"
+                inputClassName="h-12 rounded-full border-[#dddddd] bg-white text-base font-bold"
+              />
             </CardContent>
           </Card>
         </div>

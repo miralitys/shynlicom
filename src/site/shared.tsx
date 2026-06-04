@@ -1,5 +1,5 @@
 import { type Dispatch, type FormEvent, type SetStateAction, useEffect, useState } from "react"
-import { ArrowRight, Check, MessageCircle, Phone, ShieldCheck, Sparkles } from "lucide-react"
+import { Check, MessageCircle, Phone, ShieldCheck, Sparkles } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
@@ -36,7 +36,7 @@ export type RoomControl = {
   setValue: Dispatch<SetStateAction<number>>
 }
 
-export const QUOTE_BASE_URL = "https://shynlicleaningservice.com/quote"
+export const CALLBACK_LEAD_ENDPOINT = "/api/leads/callback"
 
 type QuoteParams = {
   zip?: string
@@ -50,8 +50,36 @@ type QuoteParams = {
   notes?: string
 }
 
+type CallbackLeadFormProps = {
+  defaults?: QuoteParams
+  buttonLabel?: string
+  className?: string
+  fieldClassName?: string
+  inputClassName?: string
+  buttonClassName?: string
+  layout?: "stacked" | "inline"
+  idPrefix?: string
+  successMessage?: string
+  helperText?: string
+}
+
+type LeadSubmitState = "idle" | "submitting" | "success" | "error"
+
+const attributionKeys = [
+  "gclid",
+  "gbraid",
+  "wbraid",
+  "fbclid",
+  "msclkid",
+  "utm_source",
+  "utm_medium",
+  "utm_campaign",
+  "utm_content",
+  "utm_term",
+]
+
 export function buildQuoteUrl(params: QuoteParams = {}) {
-  const url = new URL(QUOTE_BASE_URL)
+  const url = new URL("/", typeof window !== "undefined" ? window.location.origin : "https://shynli.com")
   const sourcePage = params.sourcePage || (typeof window !== "undefined" ? window.location.pathname : "")
   const landingPageUrl = params.landingPageUrl || (typeof window !== "undefined" ? window.location.href : "")
   const entries: Record<string, string | number | undefined> = {
@@ -72,7 +100,9 @@ export function buildQuoteUrl(params: QuoteParams = {}) {
     }
   })
 
-  return url.toString()
+  url.hash = "quote"
+
+  return `${url.pathname}${url.search}${url.hash}`
 }
 
 export function resolveSiteHref(href: string, quoteParams: QuoteParams = {}) {
@@ -115,6 +145,190 @@ export function submitQuoteForm(event: FormEvent<HTMLFormElement>, defaults: Quo
     addOns: addOns || defaults.addOns,
     notes: notes || defaults.notes,
   })
+}
+
+function collectAttribution() {
+  if (typeof window === "undefined") {
+    return {}
+  }
+
+  const searchParams = new URLSearchParams(window.location.search)
+
+  return attributionKeys.reduce<Record<string, string>>((result, key) => {
+    const value = searchParams.get(key)
+    if (value?.trim()) {
+      result[key] = value.trim()
+    }
+
+    return result
+  }, {})
+}
+
+function normalizePhone(value: string) {
+  const digits = value.replace(/\D/g, "")
+  if (digits.length === 11 && digits.startsWith("1")) {
+    return `+${digits}`
+  }
+
+  if (digits.length === 10) {
+    return `+1${digits}`
+  }
+
+  return value.trim()
+}
+
+function isValidPhone(value: string) {
+  const digits = value.replace(/\D/g, "")
+  return digits.length === 10 || (digits.length === 11 && digits.startsWith("1"))
+}
+
+function buildLeadPayload(formData: FormData, defaults: QuoteParams = {}) {
+  const fullName = String(formData.get("fullName") ?? "").trim()
+  const phone = normalizePhone(String(formData.get("phone") ?? ""))
+  const notes = [
+    defaults.notes,
+    formData.get("notes"),
+    formData.get("property_type"),
+    formData.get("access_note"),
+    formData.get("condition"),
+    formData.get("date"),
+    formData.get("checkout_time"),
+    formData.get("checkin_time"),
+  ]
+    .map((value) => String(value ?? "").trim())
+    .filter(Boolean)
+    .join(" | ")
+
+  return {
+    fullName,
+    phone,
+    service: String(formData.get("service") ?? defaults.service ?? "").trim(),
+    zip: String(formData.get("zip") ?? defaults.zip ?? "").trim(),
+    city: String(formData.get("city") ?? defaults.city ?? "").trim(),
+    bedrooms: String(formData.get("bedrooms") ?? defaults.bedrooms ?? "").trim(),
+    bathrooms: String(formData.get("bathrooms") ?? defaults.bathrooms ?? "").trim(),
+    notes,
+    landingPageUrl: defaults.landingPageUrl || (typeof window !== "undefined" ? window.location.href : ""),
+    sourcePage: defaults.sourcePage || (typeof window !== "undefined" ? window.location.pathname : ""),
+    referrer: typeof document !== "undefined" ? document.referrer : "",
+    attribution: collectAttribution(),
+  }
+}
+
+async function sendCallbackLead(formData: FormData, defaults: QuoteParams = {}) {
+  const payload = buildLeadPayload(formData, defaults)
+
+  if (!payload.fullName || payload.fullName.length < 2) {
+    throw new Error("Please enter your name.")
+  }
+
+  if (!isValidPhone(payload.phone)) {
+    throw new Error("Please enter a valid U.S. phone number.")
+  }
+
+  const response = await fetch(CALLBACK_LEAD_ENDPOINT, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload),
+  })
+
+  const result = await response.json().catch(() => ({}))
+  if (!response.ok || result?.success === false) {
+    throw new Error(result?.message || "We could not send the request. Please call us instead.")
+  }
+
+  if (typeof window !== "undefined") {
+    const trackingWindow = window as Window & { dataLayer?: Record<string, unknown>[] }
+    trackingWindow.dataLayer = trackingWindow.dataLayer || []
+    trackingWindow.dataLayer.push({
+      event: "lead_quote_submit",
+      form_type: "callback",
+      branch: "shynli_local_callback",
+      value: 50,
+      currency: "USD",
+      service: payload.service,
+      city: payload.city,
+      source_page: payload.sourcePage,
+      landing_page_url: payload.landingPageUrl,
+      ...payload.attribution,
+    })
+  }
+
+  return result
+}
+
+export function CallbackLeadForm({
+  defaults = {},
+  buttonLabel = "Call me back",
+  className = "grid gap-3",
+  fieldClassName = "grid gap-2 text-sm font-black",
+  inputClassName = "h-12 rounded-md bg-white text-base",
+  buttonClassName = "h-12 rounded-md bg-[#1976a3] px-5 font-black text-white hover:bg-[#145f85]",
+  layout = "stacked",
+  idPrefix = "callback-lead",
+  successMessage = "Thanks. We received your request and will call you shortly.",
+  helperText = "No card needed. Leave your name and phone, and we will confirm the details by phone.",
+}: CallbackLeadFormProps) {
+  const [submitState, setSubmitState] = useState<LeadSubmitState>("idle")
+  const [errorMessage, setErrorMessage] = useState("")
+  const isSubmitting = submitState === "submitting"
+  const isInline = layout === "inline"
+  const fullNameId = `${idPrefix}-full-name`
+  const phoneId = `${idPrefix}-phone`
+
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault()
+    const form = event.currentTarget
+    setSubmitState("submitting")
+    setErrorMessage("")
+
+    try {
+      await sendCallbackLead(new FormData(form), defaults)
+      form.reset()
+      setSubmitState("success")
+    } catch (error) {
+      setErrorMessage(error instanceof Error ? error.message : "We could not send the request. Please call us instead.")
+      setSubmitState("error")
+    }
+  }
+
+  return (
+    <form action={CALLBACK_LEAD_ENDPOINT} method="post" className={className} onSubmit={handleSubmit}>
+      <input type="hidden" name="service" value={defaults.service ?? ""} />
+      <input type="hidden" name="city" value={defaults.city ?? ""} />
+      <input type="hidden" name="zip" value={defaults.zip ?? ""} />
+      <input type="hidden" name="bedrooms" value={defaults.bedrooms ?? ""} />
+      <input type="hidden" name="bathrooms" value={defaults.bathrooms ?? ""} />
+      <input type="hidden" name="notes" value={defaults.notes ?? ""} />
+
+      <div className={isInline ? "grid gap-2 sm:grid-cols-[1fr_1fr_auto] sm:items-end" : "grid gap-3"}>
+        <label htmlFor={fullNameId} className={fieldClassName}>
+          Name
+          <Input id={fullNameId} name="fullName" autoComplete="name" placeholder="Your name" className={inputClassName} disabled={isSubmitting} />
+        </label>
+        <label htmlFor={phoneId} className={fieldClassName}>
+          Phone
+          <Input id={phoneId} name="phone" autoComplete="tel" inputMode="tel" placeholder="(630) 555-0123" className={inputClassName} disabled={isSubmitting} />
+        </label>
+        <Button type="submit" className={buttonClassName} disabled={isSubmitting}>
+          {isSubmitting ? "Sending..." : buttonLabel}
+          {!isSubmitting ? <Phone className="size-4" /> : null}
+        </Button>
+      </div>
+
+      {submitState === "success" ? (
+        <p className="rounded-md border border-emerald-200 bg-emerald-50 px-3 py-2 text-sm font-bold leading-6 text-emerald-800">
+          {successMessage}
+        </p>
+      ) : null}
+      {submitState === "error" ? (
+        <p className="rounded-md border border-rose-200 bg-rose-50 px-3 py-2 text-sm font-bold leading-6 text-rose-700">
+          {errorMessage}
+        </p>
+      ) : null}
+      {helperText ? <p className="text-sm leading-6 text-muted-foreground">{helperText}</p> : null}
+    </form>
+  )
 }
 
 export function ChecklistCell({ value }: { value: ChecklistValue }) {
@@ -464,7 +678,6 @@ export function EstimateCard({
   cityName?: string
   className?: string
 }) {
-  const [zip, setZip] = useState("")
   const bedrooms = roomControls.find((control) => control.label === "bedrooms")?.value
   const bathrooms = roomControls.find((control) => control.label === "bathrooms")?.value
 
@@ -532,33 +745,13 @@ export function EstimateCard({
           ))}
         </div>
 
-        <form
-          action={buildQuoteUrl({ zip, city: cityName, service: selectedService, bedrooms, bathrooms })}
-          method="get"
-          onSubmit={(event) => submitQuoteRequest(event, { zip, city: cityName, service: selectedService, bedrooms, bathrooms })}
-        >
-          <label htmlFor={cityName ? "city-zip" : "zip"} className="mt-5 block text-sm font-black text-muted-foreground">
-            ZIP code
-          </label>
-          <div className="mt-2 grid gap-2 sm:grid-cols-[1fr_auto]">
-            <Input
-              id={cityName ? "city-zip" : "zip"}
-              name="zip"
-              inputMode="numeric"
-              placeholder="60540"
-              value={zip}
-              onChange={(event) => setZip(event.target.value)}
-              className="h-[52px] rounded-md bg-white text-base"
-            />
-            <Button type="submit" className="h-[52px] rounded-md bg-[#1976a3] px-5 font-black text-white hover:bg-[#145f85]">
-              {selectedService === "Move" ? "See move times" : "See times"}
-              <ArrowRight />
-            </Button>
-          </div>
-        </form>
-        <p className="mt-4 hidden text-sm leading-6 text-muted-foreground md:block">
-          No card needed. We confirm your area, home details, and earliest available slot before you book.
-        </p>
+        <div className="mt-5">
+          <CallbackLeadForm
+            defaults={{ city: cityName, service: selectedService, bedrooms, bathrooms }}
+            buttonLabel={selectedService === "Move" ? "Call about move clean" : "Call me back"}
+            idPrefix={cityName ? "city-callback" : "home-callback"}
+          />
+        </div>
       </CardContent>
     </Card>
   )
@@ -722,8 +915,6 @@ export function SiteFooter() {
 }
 
 export function StickyBookingBar() {
-  const [zip, setZip] = useState("")
-
   return (
     <div className="fixed inset-x-0 bottom-0 z-50 border-t border-white/25 bg-[#1976a3]/92 px-4 py-2 text-white shadow-[0_-18px_60px_rgba(13,38,51,0.25)] backdrop-blur-xl md:px-8 md:py-3">
       <div className="mx-auto flex max-w-7xl items-center gap-3">
@@ -738,21 +929,19 @@ export function StickyBookingBar() {
         <div className="grid min-w-0 flex-1 gap-3 md:grid-cols-[1fr_auto] md:items-center">
           <div className="hidden items-center justify-center gap-4 md:flex">
             <span className="size-2 rounded-full bg-[#c9f0ff]" />
-            <p className="text-center text-sm font-black uppercase tracking-[0.34em] text-white/92">Book your home cleaning</p>
+            <p className="text-center text-sm font-black uppercase tracking-[0.34em] text-white/92">Request a callback</p>
           </div>
-          <form
-            action={buildQuoteUrl({ zip, service: "home-cleaning" })}
-            method="get"
-            className="grid grid-cols-[1fr_auto] gap-2 md:min-w-[360px]"
-            onSubmit={(event) => submitQuoteRequest(event, { zip, service: "home-cleaning" })}
-          >
-            <label htmlFor="sticky-zip-page" className="sr-only">ZIP code</label>
-            <Input id="sticky-zip-page" name="zip" inputMode="numeric" placeholder="ZIP code" value={zip} onChange={(event) => setZip(event.target.value)} className="h-12 rounded-md border-white bg-white text-base font-bold text-[#0d2633] placeholder:text-[#52616a] focus-visible:ring-white/65" />
-            <Button type="submit" className="h-12 rounded-md bg-white px-5 font-black text-[#1976a3] shadow-none hover:bg-white/90 md:px-7">
-              Go
-              <ArrowRight className="size-4" />
-            </Button>
-          </form>
+          <CallbackLeadForm
+            defaults={{ service: "home-cleaning" }}
+            layout="inline"
+            idPrefix="sticky-callback"
+            helperText=""
+            buttonLabel="Send"
+            className="grid gap-2 md:min-w-[540px]"
+            fieldClassName="grid gap-1 text-[0px] font-black"
+            inputClassName="h-12 rounded-md border-white bg-white text-base font-bold text-[#0d2633] placeholder:text-[#52616a] focus-visible:ring-white/65"
+            buttonClassName="h-12 rounded-md bg-white px-5 font-black text-[#1976a3] shadow-none hover:bg-white/90 md:px-7"
+          />
         </div>
       </div>
     </div>

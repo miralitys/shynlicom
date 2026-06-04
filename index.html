@@ -423,7 +423,7 @@
         }
 
         .initial-home-zip-row {
-          grid-template-columns: 1fr auto;
+          grid-template-columns: 1fr 1fr auto;
         }
       }
 
@@ -460,7 +460,7 @@
             <span class="initial-home-mark">S</span>
             <span>Shynli</span>
           </div>
-          <a class="initial-home-button" href="https://shynlicleaningservice.com/quote">Get quote</a>
+          <a class="initial-home-button" href="/#quote">Get callback</a>
         </div>
         <main class="initial-home-stage">
           <div class="initial-home-copy">
@@ -503,19 +503,20 @@
               </div>
             </div>
 
-            <form action="https://shynlicleaningservice.com/quote" method="get">
+            <form action="/api/leads/callback" method="post">
               <input type="hidden" name="service" value="home-cleaning" />
               <input type="hidden" name="bedrooms" value="2" />
               <input type="hidden" name="bathrooms" value="2" />
               <input type="hidden" name="landing_page_url" value="https://shynli.com/" />
               <input type="hidden" name="source_page" value="shynli-home-static-shell" />
-              <label class="initial-home-zip-label" for="initial-home-zip">ZIP code</label>
+              <label class="initial-home-zip-label" for="initial-home-name">Name</label>
               <div class="initial-home-zip-row">
-                <input class="initial-home-zip-input" id="initial-home-zip" name="zip" inputmode="numeric" placeholder="60540" />
-                <button class="initial-home-submit" type="submit">See times <span aria-hidden="true">&rarr;</span></button>
+                <input class="initial-home-zip-input" id="initial-home-name" name="fullName" autocomplete="name" placeholder="Your name" />
+                <input class="initial-home-zip-input" id="initial-home-phone" name="phone" autocomplete="tel" inputmode="tel" placeholder="(630) 555-0123" />
+                <button class="initial-home-submit" type="submit">Call me back</button>
               </div>
             </form>
-            <p class="initial-home-note">No card needed. We confirm your area, home details, and earliest available slot before you book.</p>
+            <p class="initial-home-note">No card needed. Leave your name and phone, and we will confirm the details by phone.</p>
           </section>
         </main>
       </div>
@@ -526,7 +527,7 @@
             <span class="initial-home-mark">S</span>
             <span>Shynli</span>
           </div>
-          <a class="initial-home-button" href="https://shynlicleaningservice.com/quote">Get quote</a>
+          <a class="initial-home-button" href="/#quote">Get callback</a>
         </div>
         <main class="initial-page-stage">
           <div class="initial-page-copy">
@@ -542,7 +543,7 @@
               <span>Make-it-right follow-up</span>
             </div>
             <div class="initial-page-actions">
-              <a class="initial-home-button" id="initial-page-primary" href="https://shynlicleaningservice.com/quote">Check times</a>
+              <a class="initial-home-button" id="initial-page-primary" href="/#quote">Check times</a>
               <a class="initial-page-secondary-button" href="/service-areas">View service areas</a>
             </div>
           </div>
@@ -575,19 +576,20 @@
               </div>
             </div>
 
-            <form action="https://shynlicleaningservice.com/quote" method="get">
+            <form action="/api/leads/callback" method="post">
               <input type="hidden" name="service" id="initial-page-service-input" value="home-cleaning" />
               <input type="hidden" name="bedrooms" value="2" />
               <input type="hidden" name="bathrooms" value="2" />
               <input type="hidden" name="landing_page_url" id="initial-page-landing-input" value="https://shynli.com/" />
               <input type="hidden" name="source_page" id="initial-page-source-input" value="shynli-static-shell" />
-              <label class="initial-home-zip-label" for="initial-page-zip">ZIP code</label>
+              <label class="initial-home-zip-label" for="initial-page-name">Name</label>
               <div class="initial-home-zip-row">
-                <input class="initial-home-zip-input" id="initial-page-zip" name="zip" inputmode="numeric" placeholder="60540" />
-                <button class="initial-home-submit" type="submit">See times <span aria-hidden="true">&rarr;</span></button>
+                <input class="initial-home-zip-input" id="initial-page-name" name="fullName" autocomplete="name" placeholder="Your name" />
+                <input class="initial-home-zip-input" id="initial-page-phone" name="phone" autocomplete="tel" inputmode="tel" placeholder="(630) 555-0123" />
+                <button class="initial-home-submit" type="submit">Call me back</button>
               </div>
             </form>
-            <p class="initial-home-note">No card needed. We confirm your area, home details, and earliest available slot before you book.</p>
+            <p class="initial-home-note">No card needed. Leave your name and phone, and we will confirm the details by phone.</p>
           </section>
         </main>
       </div>
@@ -701,17 +703,11 @@
           }
         }
 
-        var quoteParams = new URLSearchParams()
-        quoteParams.set("service", serviceSlug || "home-cleaning")
-        quoteParams.set("landing_page_url", location.href)
-        quoteParams.set("source_page", path)
-        var quoteUrl = "https://shynlicleaningservice.com/quote?" + quoteParams.toString()
-
         setText("initial-page-eyebrow", page.eyebrow)
         setText("initial-page-title", page.title)
         setText("initial-page-copy", page.copy)
         var primary = document.getElementById("initial-page-primary")
-        if (primary) primary.setAttribute("href", quoteUrl)
+        if (primary) primary.setAttribute("href", "/#quote")
         setValue("initial-page-service-input", serviceSlug || "home-cleaning")
         setValue("initial-page-landing-input", location.href)
         setValue("initial-page-source-input", path)
@@ -724,6 +720,137 @@
           document.getElementById("initial-page-service-standard")?.classList.remove("is-active")
           document.getElementById("initial-page-service-move")?.classList.add("is-active")
         }
+      })()
+    </script>
+    <script>
+      ;(function () {
+        var attributionKeys = [
+          "gclid",
+          "gbraid",
+          "wbraid",
+          "fbclid",
+          "msclkid",
+          "utm_source",
+          "utm_medium",
+          "utm_campaign",
+          "utm_content",
+          "utm_term"
+        ]
+
+        function normalizePhone(value) {
+          var digits = String(value || "").replace(/\D/g, "")
+          if (digits.length === 11 && digits.indexOf("1") === 0) return "+" + digits
+          if (digits.length === 10) return "+1" + digits
+          return String(value || "").trim()
+        }
+
+        function isValidPhone(value) {
+          var digits = String(value || "").replace(/\D/g, "")
+          return digits.length === 10 || (digits.length === 11 && digits.indexOf("1") === 0)
+        }
+
+        function collectAttribution() {
+          var searchParams = new URLSearchParams(location.search)
+          return attributionKeys.reduce(function (result, key) {
+            var value = searchParams.get(key)
+            if (value && value.trim()) result[key] = value.trim()
+            return result
+          }, {})
+        }
+
+        function showCallbackMessage(form, type, message) {
+          var existing = form.querySelector("[data-static-callback-message]")
+          if (!existing) {
+            existing = document.createElement("p")
+            existing.setAttribute("data-static-callback-message", "true")
+            existing.className = "initial-home-note"
+            form.appendChild(existing)
+          }
+          existing.textContent = message
+          existing.style.color = type === "error" ? "#be123c" : "#166534"
+          existing.style.fontWeight = "900"
+        }
+
+        function buildPayload(form) {
+          var data = new FormData(form)
+          return {
+            fullName: String(data.get("fullName") || "").trim(),
+            phone: normalizePhone(data.get("phone") || ""),
+            service: String(data.get("service") || "home-cleaning").trim(),
+            zip: String(data.get("zip") || "").trim(),
+            city: String(data.get("city") || "").trim(),
+            bedrooms: String(data.get("bedrooms") || "").trim(),
+            bathrooms: String(data.get("bathrooms") || "").trim(),
+            notes: String(data.get("notes") || "").trim(),
+            landingPageUrl: String(data.get("landing_page_url") || location.href).trim(),
+            sourcePage: String(data.get("source_page") || location.pathname).trim(),
+            referrer: document.referrer,
+            attribution: collectAttribution()
+          }
+        }
+
+        function handleStaticCallback(event) {
+          event.preventDefault()
+          var form = event.currentTarget
+          var submit = form.querySelector("button[type='submit']")
+          var payload = buildPayload(form)
+
+          if (!payload.fullName || payload.fullName.length < 2) {
+            showCallbackMessage(form, "error", "Please enter your name.")
+            return
+          }
+
+          if (!isValidPhone(payload.phone)) {
+            showCallbackMessage(form, "error", "Please enter a valid U.S. phone number.")
+            return
+          }
+
+          if (submit) {
+            submit.disabled = true
+            submit.textContent = "Sending..."
+          }
+
+          fetch("/api/leads/callback", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload)
+          })
+            .then(function (response) {
+              return response.json().then(function (body) {
+                if (!response.ok || body.success === false) throw new Error(body.message || "We could not send the request. Please call us instead.")
+                return body
+              })
+            })
+            .then(function () {
+              window.dataLayer = window.dataLayer || []
+              window.dataLayer.push(Object.assign({
+                event: "lead_quote_submit",
+                form_type: "callback",
+                branch: "shynli_static_callback",
+                value: 50,
+                currency: "USD",
+                service: payload.service,
+                city: payload.city,
+                source_page: payload.sourcePage,
+                landing_page_url: payload.landingPageUrl
+              }, payload.attribution))
+              form.reset()
+              showCallbackMessage(form, "success", "Thanks. We received your request and will call you shortly.")
+            })
+            .catch(function (error) {
+              showCallbackMessage(form, "error", error && error.message ? error.message : "We could not send the request. Please call us instead.")
+            })
+            .finally(function () {
+              if (submit) {
+                submit.disabled = false
+                submit.textContent = "Call me back"
+              }
+            })
+        }
+
+        document.querySelectorAll("form[action='/api/leads/callback']").forEach(function (form) {
+          form.addEventListener("submit", handleStaticCallback)
+        })
       })()
     </script>
     <script type="module" src="/src/bootstrap.ts"></script>

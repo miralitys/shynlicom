@@ -3,9 +3,8 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
 import { businessEmail, businessPhoneDisplay, businessPhoneHref, cityList, cityPages, cityRouteNotes, featuredServiceAreaCities, serviceAreaGroups } from "@/site/data"
-import { buildQuoteUrl, submitQuoteForm, useSeoMeta } from "@/site/shared"
+import { CallbackLeadForm, buildQuoteUrl, useSeoMeta } from "@/site/shared"
 
 const shinyMoveOutCanonicalBase = "https://shinymove-outcleaning.com"
 
@@ -356,29 +355,21 @@ function MoveOutSeoHeader({ ctaLabel = "Start quote" }: { ctaLabel?: string }) {
 function MoveOutQuoteStrip({ page, cityName }: { page: ShinyMoveOutSeoPageData; cityName?: string }) {
   return (
     <div id="quote" className="border border-[#b9e5ee] bg-[#f6fbff] p-3 text-[#0b2430] shadow-[0_26px_90px_rgba(0,0,0,0.18)] md:p-4">
-      <form action={buildQuoteUrl({ service: page.keyword })} method="get" className="grid gap-3 lg:grid-cols-[1fr_1fr_1fr_1fr_auto] lg:items-end" onSubmit={(event) => submitQuoteForm(event, { service: page.keyword })}>
-        {cityName ? <input type="hidden" name="city" value={cityName} /> : null}
-        <label className="grid gap-2 text-xs font-black uppercase text-[#0b7f8a]">
-          ZIP code
-          <Input name="zip" inputMode="numeric" placeholder="60540" className="h-12 rounded-sm border-[#b9e5ee] bg-white font-bold" />
-        </label>
-        <label className="grid gap-2 text-xs font-black uppercase text-[#0b7f8a]">
-          Handoff date
-          <Input name="date" type="date" className="h-12 rounded-sm border-[#b9e5ee] bg-white font-bold" />
-        </label>
-        <label className="grid gap-2 text-xs font-black uppercase text-[#0b7f8a]">
-          Place type
-          <Input name="property_type" placeholder="Apartment, condo, house" className="h-12 rounded-sm border-[#b9e5ee] bg-white font-bold" />
-        </label>
-        <label className="grid gap-2 text-xs font-black uppercase text-[#0b7f8a]">
-          Condition
-          <Input name="condition" placeholder="Empty / mostly empty" className="h-12 rounded-sm border-[#b9e5ee] bg-white font-bold" />
-        </label>
-        <Button type="submit" className="h-12 rounded-sm bg-[#19b97f] px-7 font-black text-white hover:bg-[#14a66f]">
-          Check price
-          <ArrowRight className="size-4" />
-        </Button>
-      </form>
+      <CallbackLeadForm
+        defaults={{
+          city: cityName,
+          service: page.keyword,
+          notes: `Move-out SEO callback from ${page.slug}.`,
+        }}
+        layout="inline"
+        idPrefix={`move-out-seo-${page.slug}`}
+        helperText=""
+        buttonLabel="Call me back"
+        className="grid gap-3"
+        fieldClassName="grid gap-2 text-xs font-black uppercase text-[#0b7f8a]"
+        inputClassName="h-12 rounded-sm border-[#b9e5ee] bg-white text-base font-bold"
+        buttonClassName="h-12 rounded-sm bg-[#19b97f] px-7 font-black text-white hover:bg-[#14a66f]"
+      />
     </div>
   )
 }

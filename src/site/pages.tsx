@@ -4,7 +4,6 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
 import { Separator } from "@/components/ui/separator"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import {
@@ -53,6 +52,7 @@ import {
 } from "@/site/data"
 import {
   AirbnbCleaningLandingBlock,
+  CallbackLeadForm,
   ChecklistCell,
   DeepCleaningLandingBlock,
   EstimateCard,
@@ -65,7 +65,6 @@ import {
   getServiceFaqs,
   getServiceSchema,
   resolveSiteHref,
-  submitQuoteRequest,
   useSeoMeta,
   type RoomControl,
 } from "@/site/shared"
@@ -1564,7 +1563,6 @@ export function HomePage() {
   const [estimateService, setEstimateService] = useState("Standard")
   const [bedrooms, setBedrooms] = useState(2)
   const [bathrooms, setBathrooms] = useState(2)
-  const [stickyZip, setStickyZip] = useState("")
   const [isChecklistOpen, setIsChecklistOpen] = useState(false)
   const [activeChecklist, setActiveChecklist] = useState("48-point home reset")
   const roomControls = [
@@ -2254,32 +2252,20 @@ export function HomePage() {
             <div className="hidden items-center justify-center gap-4 md:flex">
               <span className="size-2 rounded-full bg-[#c9f0ff]" />
               <p className="text-center text-sm font-black uppercase tracking-[0.34em] text-white/92">
-                Book your home cleaning
+                Request a callback
               </p>
             </div>
-            <form
-              action={buildQuoteUrl({ zip: stickyZip, service: estimateService, bedrooms, bathrooms })}
-              method="get"
-              className="grid grid-cols-[1fr_auto] gap-2 md:min-w-[360px]"
-              onSubmit={(event) => submitQuoteRequest(event, { zip: stickyZip, service: estimateService, bedrooms, bathrooms })}
-            >
-              <label htmlFor="sticky-zip" className="sr-only">
-                ZIP code
-              </label>
-              <Input
-                id="sticky-zip"
-                name="zip"
-                inputMode="numeric"
-                placeholder="ZIP code"
-                value={stickyZip}
-                onChange={(event) => setStickyZip(event.target.value)}
-                className="h-12 rounded-md border-white bg-white text-base font-bold text-[#0d2633] placeholder:text-[#52616a] focus-visible:ring-white/65"
-              />
-              <Button type="submit" className="h-12 rounded-md bg-white px-5 font-black text-[#1976a3] shadow-none hover:bg-white/90 md:px-7">
-                Go
-                <ArrowRight className="size-4" />
-              </Button>
-            </form>
+            <CallbackLeadForm
+              defaults={{ service: estimateService, bedrooms, bathrooms }}
+              layout="inline"
+              idPrefix="home-sticky-callback"
+              helperText=""
+              buttonLabel="Send"
+              className="grid gap-2 md:min-w-[540px]"
+              fieldClassName="grid gap-1 text-[0px] font-black"
+              inputClassName="h-12 rounded-md border-white bg-white text-base font-bold text-[#0d2633] placeholder:text-[#52616a] focus-visible:ring-white/65"
+              buttonClassName="h-12 rounded-md bg-white px-5 font-black text-[#1976a3] shadow-none hover:bg-white/90 md:px-7"
+            />
           </div>
         </div>
       </div>

@@ -19,11 +19,11 @@ let appLoaded = false
 let appTimer: number | undefined
 
 function removeInteractionListeners() {
-  window.removeEventListener("pointerdown", loadApp)
-  window.removeEventListener("keydown", loadApp)
-  window.removeEventListener("touchstart", loadApp)
-  window.removeEventListener("wheel", loadApp)
-  window.removeEventListener("focusin", loadApp)
+  window.removeEventListener("pointerdown", handleInteraction)
+  window.removeEventListener("keydown", handleInteraction)
+  window.removeEventListener("touchstart", handleInteraction)
+  window.removeEventListener("wheel", handleInteraction)
+  window.removeEventListener("focusin", handleInteraction)
 }
 
 function loadApp() {
@@ -36,17 +36,30 @@ function loadApp() {
   void import("./main")
 }
 
+function isStaticCallbackInteraction(event: Event) {
+  const target = event.target
+  return target instanceof Element && Boolean(target.closest("form[action='/api/leads/callback']"))
+}
+
+function handleInteraction(event: Event) {
+  if (isStaticCallbackInteraction(event)) {
+    return
+  }
+
+  loadApp()
+}
+
 if (!window.__SHYNLI_BOOTSTRAP_STARTED__) {
   window.__SHYNLI_BOOTSTRAP_STARTED__ = true
 
   if (isStandaloneDomain) {
     loadApp()
   } else {
-    window.addEventListener("pointerdown", loadApp, { once: true, passive: true })
-    window.addEventListener("keydown", loadApp, { once: true })
-    window.addEventListener("touchstart", loadApp, { once: true, passive: true })
-    window.addEventListener("wheel", loadApp, { once: true, passive: true })
-    window.addEventListener("focusin", loadApp, { once: true })
+    window.addEventListener("pointerdown", handleInteraction, { passive: true })
+    window.addEventListener("keydown", handleInteraction)
+    window.addEventListener("touchstart", handleInteraction, { passive: true })
+    window.addEventListener("wheel", handleInteraction, { passive: true })
+    window.addEventListener("focusin", handleInteraction)
     appTimer = window.setTimeout(loadApp, 3600)
   }
 }
