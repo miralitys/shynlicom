@@ -52,6 +52,7 @@ import {
 } from "@/site/data"
 import {
   AirbnbCleaningLandingBlock,
+  CallbackLeadDialogTrigger,
   CallbackLeadForm,
   ChecklistCell,
   DeepCleaningLandingBlock,
@@ -1618,9 +1619,7 @@ export function HomePage() {
               <Phone className="size-4" />
               {businessPhoneDisplay}
             </a>
-            <Button asChild className="h-11 rounded-full bg-white px-5 font-black text-foreground shadow-none hover:bg-white/90">
-              <a href={buildQuoteUrl({ service: "home-cleaning" })}>Get quote</a>
-            </Button>
+            <CallbackLeadDialogTrigger className="h-11 rounded-full bg-white px-5 font-black text-foreground shadow-none hover:bg-white/90" />
           </div>
         </div>
       </header>

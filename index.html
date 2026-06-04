@@ -466,6 +466,64 @@
         max-width: 390px;
       }
 
+      .static-callback-form {
+        display: grid;
+        gap: 16px;
+        margin-top: 24px;
+        text-align: left;
+      }
+
+      .static-callback-field {
+        color: #061726;
+        display: grid;
+        font-size: 14px;
+        font-weight: 900;
+        gap: 8px;
+      }
+
+      .static-callback-input {
+        background: #fff;
+        border: 1px solid #cde5f2;
+        border-radius: 6px;
+        box-sizing: border-box;
+        color: #061726;
+        font-size: 16px;
+        font-weight: 800;
+        height: 52px;
+        padding: 0 16px;
+        width: 100%;
+      }
+
+      .static-callback-input::placeholder {
+        color: #667985;
+      }
+
+      .static-callback-error {
+        color: #be123c;
+        font-size: 14px;
+        font-weight: 900;
+        line-height: 1.55;
+        margin: 0;
+      }
+
+      .static-callback-large-title {
+        color: #061726;
+        font-size: 38px;
+        font-weight: 900;
+        letter-spacing: 0;
+        line-height: 1.12;
+        margin: 28px 0 0;
+      }
+
+      .static-callback-large-copy {
+        color: #486573;
+        font-size: 20px;
+        font-weight: 900;
+        line-height: 1.65;
+        margin: 16px auto 0;
+        max-width: 410px;
+      }
+
       .static-callback-close {
         background: #1976a3;
         border: 0;
@@ -480,6 +538,29 @@
       }
 
       .static-callback-close:focus-visible {
+        outline: 4px solid #9fe3ff;
+        outline-offset: 3px;
+      }
+
+      .static-callback-x {
+        align-items: center;
+        background: #eef6fa;
+        border: 0;
+        border-radius: 999px;
+        color: #486573;
+        cursor: pointer;
+        display: inline-flex;
+        font-size: 24px;
+        font-weight: 900;
+        height: 36px;
+        justify-content: center;
+        position: absolute;
+        right: 16px;
+        top: 16px;
+        width: 36px;
+      }
+
+      .static-callback-x:focus-visible {
         outline: 4px solid #9fe3ff;
         outline-offset: 3px;
       }
@@ -564,7 +645,7 @@
             <span class="initial-home-mark">S</span>
             <span>Shynli</span>
           </div>
-          <a class="initial-home-button" href="/#quote">Get callback</a>
+          <a class="initial-home-button" href="/#quote" data-static-callback-trigger="true">Get quote</a>
         </div>
         <main class="initial-home-stage">
           <div class="initial-home-copy">
@@ -631,7 +712,7 @@
             <span class="initial-home-mark">S</span>
             <span>Shynli</span>
           </div>
-          <a class="initial-home-button" href="/#quote">Get callback</a>
+          <a class="initial-home-button" href="/#quote" data-static-callback-trigger="true">Get quote</a>
         </div>
         <main class="initial-page-stage">
           <div class="initial-page-copy">
@@ -870,7 +951,7 @@
           if (!existing) {
             existing = document.createElement("p")
             existing.setAttribute("data-static-callback-message", "true")
-            existing.className = "initial-home-note"
+            existing.className = form.closest("[data-static-callback-modal]") ? "static-callback-error" : "initial-home-note"
             form.appendChild(existing)
           }
           existing.textContent = message
@@ -894,31 +975,66 @@
           window.removeEventListener("keydown", handleStaticCallbackModalKeydown)
         }
 
-        function showStaticCallbackModal(message) {
+        function createStaticCallbackOverlay() {
           closeStaticCallbackModal()
           staticCallbackPreviousOverflow = document.body.style.overflow
 
           var overlay = document.createElement("div")
           overlay.className = "static-callback-modal"
           overlay.setAttribute("data-static-callback-modal", "true")
+          overlay.addEventListener("click", function (event) {
+            if (event.target === overlay) closeStaticCallbackModal()
+          })
+          document.body.appendChild(overlay)
+          document.body.style.overflow = "hidden"
+          window.addEventListener("keydown", handleStaticCallbackModalKeydown)
+
+          return overlay
+        }
+
+        function renderStaticCallbackSuccess(overlay, message) {
           overlay.innerHTML = [
             '<div class="static-callback-dialog" role="dialog" aria-modal="true" aria-labelledby="static-callback-title">',
             '<div class="static-callback-icon" aria-hidden="true">✓</div>',
-            '<h2 class="static-callback-title" id="static-callback-title">Заявка принята</h2>',
-            '<p class="static-callback-copy" data-static-callback-copy></p>',
+            '<h2 class="static-callback-large-title" id="static-callback-title">Заявка отправлена</h2>',
+            '<p class="static-callback-large-copy" data-static-callback-copy></p>',
             '<button class="static-callback-close" type="button" data-static-callback-close>Понятно</button>',
             "</div>"
           ].join("")
 
           overlay.querySelector("[data-static-callback-copy]").textContent = message
-          overlay.addEventListener("click", function (event) {
-            if (event.target === overlay) closeStaticCallbackModal()
-          })
           overlay.querySelector("[data-static-callback-close]").addEventListener("click", closeStaticCallbackModal)
-          document.body.appendChild(overlay)
-          document.body.style.overflow = "hidden"
-          window.addEventListener("keydown", handleStaticCallbackModalKeydown)
           overlay.querySelector("[data-static-callback-close]").focus()
+        }
+
+        function showStaticCallbackModal(message) {
+          var overlay = document.querySelector("[data-static-callback-modal]") || createStaticCallbackOverlay()
+          renderStaticCallbackSuccess(overlay, message)
+        }
+
+        function showStaticCallbackFormModal() {
+          var overlay = createStaticCallbackOverlay()
+          overlay.innerHTML = [
+            '<div class="static-callback-dialog" role="dialog" aria-modal="true" aria-labelledby="static-callback-title">',
+            '<button class="static-callback-x" type="button" aria-label="Close" data-static-callback-close>×</button>',
+            '<p class="initial-home-estimate-kicker">Request a callback</p>',
+            '<h2 class="static-callback-title" id="static-callback-title">Get your cleaning quote by phone</h2>',
+            '<p class="static-callback-copy">Leave your full name and phone number. Our manager will call you back shortly.</p>',
+            '<form class="static-callback-form" action="/api/leads/callback" method="post" data-static-callback-modal-form>',
+            '<input type="hidden" name="service" value="home-cleaning" />',
+            '<input type="hidden" name="landing_page_url" data-static-modal-landing />',
+            '<input type="hidden" name="source_page" value="shynli-header-modal-static-shell" />',
+            '<label class="static-callback-field">Full Name<input class="static-callback-input" name="fullName" autocomplete="name" placeholder="Full Name" /></label>',
+            '<label class="static-callback-field">Phone<input class="static-callback-input" name="phone" autocomplete="tel" inputmode="tel" placeholder="Phone" /></label>',
+            '<button class="static-callback-close" type="submit">Send</button>',
+            "</form>",
+            "</div>"
+          ].join("")
+
+          overlay.querySelector("[data-static-modal-landing]").value = location.href
+          overlay.querySelector("[data-static-callback-close]").addEventListener("click", closeStaticCallbackModal)
+          overlay.querySelector("[data-static-callback-modal-form]").addEventListener("submit", handleStaticCallback)
+          overlay.querySelector("input[name='fullName']").focus()
         }
 
         function buildPayload(form) {
@@ -957,6 +1073,7 @@
           }
 
           if (submit) {
+            submit.setAttribute("data-default-label", submit.textContent || "Call me back")
             submit.disabled = true
             submit.textContent = "Sending..."
           }
@@ -995,13 +1112,19 @@
             .finally(function () {
               if (submit) {
                 submit.disabled = false
-                submit.textContent = "Call me back"
+                submit.textContent = submit.getAttribute("data-default-label") || "Call me back"
               }
             })
         }
 
         document.querySelectorAll("form[action='/api/leads/callback']").forEach(function (form) {
           form.addEventListener("submit", handleStaticCallback)
+        })
+        document.querySelectorAll("[data-static-callback-trigger]").forEach(function (trigger) {
+          trigger.addEventListener("click", function (event) {
+            event.preventDefault()
+            showStaticCallbackFormModal()
+          })
         })
       })()
     </script>

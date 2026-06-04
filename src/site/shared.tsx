@@ -63,6 +63,8 @@ type CallbackLeadFormProps = {
   successMessage?: string
   helperText?: string
   hideLabels?: boolean
+  onSuccess?: () => void
+  showSuccessDialog?: boolean
 }
 
 type LeadSubmitState = "idle" | "submitting" | "success" | "error"
@@ -343,6 +345,8 @@ export function CallbackLeadForm({
   successMessage = callbackSuccessMessage,
   helperText = "No card needed. Leave your name and phone, and we will confirm the details by phone.",
   hideLabels = false,
+  onSuccess,
+  showSuccessDialog = true,
 }: CallbackLeadFormProps) {
   const [submitState, setSubmitState] = useState<LeadSubmitState>("idle")
   const [errorMessage, setErrorMessage] = useState("")
@@ -361,6 +365,7 @@ export function CallbackLeadForm({
       await sendCallbackLead(new FormData(form), defaults)
       form.reset()
       setSubmitState("success")
+      onSuccess?.()
     } catch (error) {
       setErrorMessage(error instanceof Error ? error.message : "We could not send the request. Please call us instead.")
       setSubmitState("error")
@@ -391,12 +396,14 @@ export function CallbackLeadForm({
         </Button>
       </div>
 
-      <CallbackSuccessDialog
-        idPrefix={idPrefix}
-        message={successMessage}
-        onClose={() => setSubmitState("idle")}
-        open={submitState === "success"}
-      />
+      {showSuccessDialog ? (
+        <CallbackSuccessDialog
+          idPrefix={idPrefix}
+          message={successMessage}
+          onClose={() => setSubmitState("idle")}
+          open={submitState === "success"}
+        />
+      ) : null}
       {submitState === "error" ? (
         <p className="rounded-md border border-rose-200 bg-rose-50 px-3 py-2 text-sm font-bold leading-6 text-rose-700">
           {errorMessage}
@@ -404,6 +411,129 @@ export function CallbackLeadForm({
       ) : null}
       {helperText ? <p className="text-sm leading-6 text-muted-foreground">{helperText}</p> : null}
     </form>
+  )
+}
+
+export function CallbackLeadDialogTrigger({
+  buttonLabel = "Get quote",
+  className,
+  defaults = { service: "home-cleaning" },
+  idPrefix = "header-callback",
+}: {
+  buttonLabel?: string
+  className?: string
+  defaults?: QuoteParams
+  idPrefix?: string
+}) {
+  const [isOpen, setIsOpen] = useState(false)
+  const [isSubmitted, setIsSubmitted] = useState(false)
+
+  function closeDialog() {
+    setIsOpen(false)
+    setIsSubmitted(false)
+  }
+
+  useEffect(() => {
+    if (!isOpen) {
+      return undefined
+    }
+
+    const previousOverflow = document.body.style.overflow
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setIsOpen(false)
+        setIsSubmitted(false)
+      }
+    }
+
+    document.body.style.overflow = "hidden"
+    window.addEventListener("keydown", handleKeyDown)
+
+    return () => {
+      document.body.style.overflow = previousOverflow
+      window.removeEventListener("keydown", handleKeyDown)
+    }
+  }, [isOpen])
+
+  return (
+    <>
+      <Button
+        className={className}
+        onClick={() => {
+          setIsSubmitted(false)
+          setIsOpen(true)
+        }}
+        type="button"
+      >
+        {buttonLabel}
+      </Button>
+      {isOpen
+        ? createPortal(
+          <div className="fixed inset-0 z-[95] grid place-items-center bg-[#061726]/64 px-4 py-6 backdrop-blur-md" onClick={closeDialog}>
+            <div
+              aria-labelledby={`${idPrefix}-dialog-title`}
+              aria-modal="true"
+              className="relative w-full max-w-[560px] rounded-lg border border-white/70 bg-white p-6 text-[#061726] shadow-[0_28px_90px_rgba(6,23,38,0.34)] sm:p-8"
+              onClick={(event) => event.stopPropagation()}
+              role="dialog"
+            >
+              <button
+                aria-label="Close"
+                className="absolute right-4 top-4 grid size-9 place-items-center rounded-full bg-[#eef6fa] text-xl font-black text-[#486573] transition-colors hover:bg-[#d8eef8] hover:text-[#061726] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#9fe3ff]"
+                onClick={closeDialog}
+                type="button"
+              >
+                ×
+              </button>
+              {!isSubmitted ? (
+                <>
+                  <p className="text-sm font-black uppercase text-[#1976a3]">Request a callback</p>
+                  <h2 id={`${idPrefix}-dialog-title`} className="mt-2 max-w-[430px] text-3xl font-black leading-tight tracking-normal text-[#061726]">
+                    Get your cleaning quote by phone
+                  </h2>
+                  <p className="mt-3 max-w-[420px] text-base font-bold leading-7 text-[#486573]">
+                    Leave your full name and phone number. Our manager will call you back shortly.
+                  </p>
+                  <CallbackLeadForm
+                    buttonClassName="h-12 min-h-12 rounded-md bg-[#1976a3] px-6 text-base font-black text-white hover:bg-[#145f85]"
+                    buttonLabel="Send"
+                    className="mt-6 grid gap-4"
+                    defaults={defaults}
+                    fieldClassName="grid gap-2 text-sm font-black text-[#061726]"
+                    helperText=""
+                    idPrefix={`${idPrefix}-form`}
+                    inputClassName="h-12 min-h-12 rounded-md border-[#cde5f2] bg-white text-base font-bold text-[#061726] placeholder:text-[#667985] focus-visible:ring-[#9fe3ff]"
+                    onSuccess={() => setIsSubmitted(true)}
+                    showSuccessDialog={false}
+                  />
+                </>
+              ) : (
+                <div className="py-4 text-center sm:py-6">
+                  <div className="mx-auto grid size-20 place-items-center rounded-full bg-[#e8f8ef] text-[#0b7a48] ring-8 ring-[#f4fbf7]">
+                    <Check className="size-10" />
+                  </div>
+                  <h2 id={`${idPrefix}-dialog-title`} className="mt-7 text-4xl font-black leading-tight tracking-normal text-[#061726]">
+                    Заявка отправлена
+                  </h2>
+                  <p className="mx-auto mt-4 max-w-[410px] text-xl font-black leading-8 text-[#486573]">
+                    Спасибо, ваша заявка принята. Наш менеджер с вами свяжется в ближайшее время.
+                  </p>
+                  <button
+                    autoFocus
+                    className="mt-7 inline-flex min-h-12 items-center justify-center rounded-md bg-[#1976a3] px-8 text-base font-black text-white transition-colors hover:bg-[#145f85] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#9fe3ff]"
+                    onClick={closeDialog}
+                    type="button"
+                  >
+                    Понятно
+                  </button>
+                </div>
+              )}
+            </div>
+          </div>,
+          document.body
+        )
+        : null}
+    </>
   )
 }
 
@@ -947,9 +1077,7 @@ export function SiteHeader() {
           <a className="transition-colors hover:text-white" href="/checklists">Checklists</a>
           <a className="transition-colors hover:text-white" href="/faq">FAQ</a>
         </nav>
-        <Button asChild className="h-11 rounded-full bg-white px-6 font-black text-[#0d2633] hover:bg-white/90">
-          <a href={buildQuoteUrl({ service: "home-cleaning" })}>Get quote</a>
-        </Button>
+        <CallbackLeadDialogTrigger className="h-11 rounded-full bg-white px-6 font-black text-[#0d2633] hover:bg-white/90" />
       </div>
     </header>
   )
