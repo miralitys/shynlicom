@@ -2260,9 +2260,10 @@ export function HomePage() {
               layout="inline"
               idPrefix="home-sticky-callback"
               helperText=""
+              hideLabels
               buttonLabel="Send"
               className="grid gap-2 md:min-w-[540px]"
-              fieldClassName="grid gap-1 text-[0px] font-black"
+              fieldClassName="grid gap-1 font-black"
               inputClassName="h-12 rounded-md border-white bg-white text-base font-bold text-[#0d2633] placeholder:text-[#52616a] focus-visible:ring-white/65"
               buttonClassName="h-12 rounded-md bg-white px-5 font-black text-[#1976a3] shadow-none hover:bg-white/90 md:px-7"
             />

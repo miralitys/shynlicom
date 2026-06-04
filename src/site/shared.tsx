@@ -61,6 +61,7 @@ type CallbackLeadFormProps = {
   idPrefix?: string
   successMessage?: string
   helperText?: string
+  hideLabels?: boolean
 }
 
 type LeadSubmitState = "idle" | "submitting" | "success" | "error"
@@ -268,6 +269,7 @@ export function CallbackLeadForm({
   idPrefix = "callback-lead",
   successMessage = "Thanks. We received your request and will call you shortly.",
   helperText = "No card needed. Leave your name and phone, and we will confirm the details by phone.",
+  hideLabels = false,
 }: CallbackLeadFormProps) {
   const [submitState, setSubmitState] = useState<LeadSubmitState>("idle")
   const [errorMessage, setErrorMessage] = useState("")
@@ -303,12 +305,12 @@ export function CallbackLeadForm({
 
       <div className={isInline ? "grid gap-2 sm:grid-cols-[1fr_1fr_auto] sm:items-end" : "grid gap-3"}>
         <label htmlFor={fullNameId} className={fieldClassName}>
-          Name
-          <Input id={fullNameId} name="fullName" autoComplete="name" placeholder="Your name" className={inputClassName} disabled={isSubmitting} />
+          <span className={hideLabels ? "sr-only" : undefined}>Full Name</span>
+          <Input id={fullNameId} name="fullName" autoComplete="name" placeholder="Full Name" className={inputClassName} disabled={isSubmitting} />
         </label>
         <label htmlFor={phoneId} className={fieldClassName}>
-          Phone
-          <Input id={phoneId} name="phone" autoComplete="tel" inputMode="tel" placeholder="(630) 555-0123" className={inputClassName} disabled={isSubmitting} />
+          <span className={hideLabels ? "sr-only" : undefined}>Phone</span>
+          <Input id={phoneId} name="phone" autoComplete="tel" inputMode="tel" placeholder="Phone" className={inputClassName} disabled={isSubmitting} />
         </label>
         <Button type="submit" className={buttonClassName} disabled={isSubmitting}>
           {isSubmitting ? "Sending..." : buttonLabel}
@@ -936,9 +938,10 @@ export function StickyBookingBar() {
             layout="inline"
             idPrefix="sticky-callback"
             helperText=""
+            hideLabels
             buttonLabel="Send"
             className="grid gap-2 md:min-w-[540px]"
-            fieldClassName="grid gap-1 text-[0px] font-black"
+            fieldClassName="grid gap-1 font-black"
             inputClassName="h-12 rounded-md border-white bg-white text-base font-bold text-[#0d2633] placeholder:text-[#52616a] focus-visible:ring-white/65"
             buttonClassName="h-12 rounded-md bg-white px-5 font-black text-[#1976a3] shadow-none hover:bg-white/90 md:px-7"
           />
