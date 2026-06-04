@@ -1065,6 +1065,20 @@
           }
         }
 
+        function trackGenerateLead(payload) {
+          if (typeof window.gtag === "function") {
+            window.gtag("event", "generate_lead", {
+              value: 50,
+              currency: "USD",
+              lead_source: "callback_form",
+              form_type: "callback",
+              service: payload.service || "unknown",
+              city: payload.city || "unknown",
+              landing_page_url: payload.landingPageUrl || window.location.href
+            })
+          }
+        }
+
         function handleStaticCallback(event) {
           event.preventDefault()
           var form = event.currentTarget
@@ -1112,6 +1126,7 @@
                 source_page: payload.sourcePage,
                 landing_page_url: payload.landingPageUrl
               }, payload.attribution))
+              trackGenerateLead(payload)
               form.reset()
               clearCallbackMessage(form)
               showStaticCallbackModal(callbackSuccessMessage)

@@ -220,6 +220,27 @@ function buildLeadPayload(formData: FormData, defaults: QuoteParams = {}) {
   }
 }
 
+function trackGenerateLead(payload: ReturnType<typeof buildLeadPayload>) {
+  if (typeof window === "undefined") {
+    return
+  }
+
+  const trackingWindow = window as Window & { gtag?: (...args: unknown[]) => void }
+  if (typeof trackingWindow.gtag !== "function") {
+    return
+  }
+
+  trackingWindow.gtag("event", "generate_lead", {
+    value: 50,
+    currency: "USD",
+    lead_source: "callback_form",
+    form_type: "callback",
+    service: payload.service || "unknown",
+    city: payload.city || "unknown",
+    landing_page_url: payload.landingPageUrl || window.location.href,
+  })
+}
+
 async function sendCallbackLead(formData: FormData, defaults: QuoteParams = {}) {
   const payload = buildLeadPayload(formData, defaults)
 
@@ -258,6 +279,8 @@ async function sendCallbackLead(formData: FormData, defaults: QuoteParams = {}) 
       ...payload.attribution,
     })
   }
+
+  trackGenerateLead(payload)
 
   return result
 }
