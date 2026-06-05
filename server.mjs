@@ -61,6 +61,61 @@ function splitName(fullName = "") {
   }
 }
 
+function normalizeLeadSource(value = "") {
+  const normalized = String(value)
+    .trim()
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "_")
+    .replace(/^_+|_+$/g, "")
+
+  const aliases = {
+    facebook: "facebook_lead_form",
+    facebook_ads: "facebook_lead_form",
+    facebook_lead: "facebook_lead_form",
+    facebook_leads: "facebook_lead_form",
+    facebook_lead_ad: "facebook_lead_form",
+    facebook_lead_ads: "facebook_lead_form",
+    facebook_lead_form: "facebook_lead_form",
+    meta: "facebook_lead_form",
+    meta_ads: "facebook_lead_form",
+    meta_lead: "facebook_lead_form",
+    meta_leads: "facebook_lead_form",
+    meta_lead_ad: "facebook_lead_form",
+    meta_lead_ads: "facebook_lead_form",
+    meta_lead_form: "facebook_lead_form",
+    shynli_com_website_contact: "shynli.com_website_contact",
+    website_contact: "website_contact",
+  }
+
+  return aliases[normalized] || ""
+}
+
+function leadSourceConfig(lead) {
+  if (lead.leadSource === "facebook_lead_form") {
+    return {
+      type: "facebook_lead_form",
+      leadType: "facebook_lead_form",
+      leadSource: "facebook_lead_form",
+      source: "Facebook Lead Form",
+      origin: "https://www.facebook.com/",
+      sourceWebsite: "https://www.facebook.com/",
+      sourceDomain: "facebook.com",
+      sourcePagePath: "/facebook-lead-form",
+    }
+  }
+
+  return {
+    type: "shynli.com_website_contact",
+    leadType: "shynli.com website_contact",
+    leadSource: "shynli.com_website_contact",
+    source: "Shynli.com Callback Request",
+    origin: "https://shynli.com/",
+    sourceWebsite: "https://shynli.com/",
+    sourceDomain: "shynli.com",
+    sourcePagePath: "/",
+  }
+}
+
 async function readJsonBody(request) {
   const chunks = []
   let totalBytes = 0
@@ -91,12 +146,24 @@ async function readJsonBody(request) {
 function buildStoredLead(body, request) {
   const fullName = String(body.fullName || "").trim()
   const phone = normalizePhone(body.phone)
-  const attribution = typeof body.attribution === "object" && body.attribution ? body.attribution : {}
+  const attribution = {
+    ...(typeof body.attribution === "object" && body.attribution ? body.attribution : {}),
+    gclid: body.gclid || "",
+    gbraid: body.gbraid || "",
+    wbraid: body.wbraid || "",
+    fbclid: body.fbclid || "",
+    utm_source: body.utm_source || "",
+    utm_medium: body.utm_medium || "",
+    utm_campaign: body.utm_campaign || "",
+    utm_content: body.utm_content || "",
+    utm_term: body.utm_term || "",
+  }
 
   return {
     id: crypto.randomUUID(),
     type: "callback",
     source: "shynli.com callback form",
+    leadSource: normalizeLeadSource(body.leadSource || body.lead_source || body.leadType || body.lead_type || body.type),
     fullName,
     phone,
     service: String(body.service || "home-cleaning").trim(),
@@ -108,6 +175,11 @@ function buildStoredLead(body, request) {
     landingPageUrl: String(body.landingPageUrl || body.landing_page_url || "").trim(),
     sourcePage: String(body.sourcePage || body.source_page || "").trim(),
     referrer: String(body.referrer || "").trim(),
+    metaLeadId: String(body.metaLeadId || body.meta_lead_id || body.leadId || body.lead_id || "").trim(),
+    formName: String(body.formName || body.form_name || "").trim(),
+    campaignName: String(body.campaignName || body.campaign_name || "").trim(),
+    adSetName: String(body.adSetName || body.adsetName || body.ad_set_name || "").trim(),
+    adName: String(body.adName || body.ad_name || "").trim(),
     attribution,
     userAgent: request.headers["user-agent"] || "",
     ip: request.headers["x-forwarded-for"] || request.socket.remoteAddress || "",
@@ -117,17 +189,33 @@ function buildStoredLead(body, request) {
 
 function buildQuoteBackendPayload(lead) {
   const { firstName, lastName } = splitName(lead.fullName)
+  const source = leadSourceConfig(lead)
+  const details = [
+    lead.notes || "Customer asked for a phone call to confirm details and receive the final quote.",
+    lead.metaLeadId ? `Meta lead ID: ${lead.metaLeadId}` : "",
+    lead.formName ? `Form: ${lead.formName}` : "",
+    lead.campaignName ? `Campaign: ${lead.campaignName}` : "",
+    lead.adSetName ? `Ad set: ${lead.adSetName}` : "",
+    lead.adName ? `Ad: ${lead.adName}` : "",
+  ].filter(Boolean).join(" | ")
 
   return {
-    type: "shynli.com_website_contact",
-    leadType: "shynli.com website_contact",
+    type: source.type,
+    leadType: source.leadType,
+    leadSource: source.leadSource,
+    lead_source: source.leadSource,
     requestType: "call_me",
-    source: "Shynli.com Callback Request",
-    origin: "https://shynli.com/",
-    sourceWebsite: "https://shynli.com/",
-    sourceDomain: "shynli.com",
-    sourcePagePath: lead.sourcePage || "/",
-    returnPath: lead.sourcePage || "/",
+    source: source.source,
+    origin: source.origin,
+    sourceWebsite: source.sourceWebsite,
+    sourceDomain: source.sourceDomain,
+    sourcePagePath: lead.sourcePage || source.sourcePagePath,
+    returnPath: lead.sourcePage || source.sourcePagePath,
+    metaLeadId: lead.metaLeadId,
+    formName: lead.formName,
+    campaignName: lead.campaignName,
+    adSetName: lead.adSetName,
+    adName: lead.adName,
     consent: true,
     contact: {
       fullName: lead.fullName,
@@ -154,7 +242,7 @@ function buildQuoteBackendPayload(lead) {
       basementCleaning: "no",
       services: [],
       quantityServices: {},
-      additionalDetails: lead.notes || "Customer asked for a phone call to confirm details and receive the final quote.",
+      additionalDetails: details,
       totalPrice: 0,
       selectedDate: "",
       selectedTime: "",
@@ -177,7 +265,7 @@ function buildQuoteBackendPayload(lead) {
       basementCleaning: "no",
       services: [],
       quantityServices: {},
-      additionalDetails: lead.notes || "Customer asked for a phone call to confirm details and receive the final quote.",
+      additionalDetails: details,
       totalPrice: 0,
       selectedDate: "",
       selectedTime: "",
