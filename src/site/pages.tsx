@@ -293,7 +293,7 @@ function getCityServiceProfile(city: (typeof cityPages)[number]) {
     areaNote: `${city.name} cleaning requests sit inside the ${city.group} service-area group, but the visit still needs its own plan. Around this route, we think about ${housing}, plus whether the home is being maintained, reset, moved into, or handed off.`,
     homeMix: `Expect ${housing} around ${city.name}. Nearby appointments often include ${city.nearby.slice(0, 3).join(", ") || "nearby western suburbs"}, so a useful quote should connect the home type, the ZIP, and the reason for the visit.`,
     accessNote: `${city.name} visits work best when ${access} are shared before the cleaner is assigned. Those details keep the appointment from losing time before the first room is cleaned.`,
-    timingNote: `For ${city.name}, the appointment should produce ${outcome}. That means matching the service to the route day, home condition, priority rooms, and add-ons instead of treating the request like a generic suburb page.`,
+    timingNote: `For ${city.name}, the appointment should produce ${outcome}. That means matching the service to the route day, home condition, priority rooms, and add-ons instead of guessing from the city name alone.`,
   }
 }
 
@@ -444,8 +444,8 @@ export function GuidesIndexPage() {
       <section className="bg-[#f7fbfd] px-4 py-12 md:px-8 md:py-16">
         <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[0.8fr_1.2fr]">
           <div>
-            <p className="mb-4 text-sm font-black uppercase text-[#1976a3]">Use these with the main pages</p>
-            <h2 className="text-4xl font-black leading-[0.98] md:text-6xl">Guides are the explanation layer, not a replacement for service pages.</h2>
+            <p className="mb-4 text-sm font-black uppercase text-[#1976a3]">How to use these guides</p>
+            <h2 className="text-4xl font-black leading-[0.98] md:text-6xl">Choose the service first, then use the guide for the real-life details.</h2>
           </div>
           <div className="grid gap-px overflow-hidden rounded-lg bg-[#cde5f2] md:grid-cols-3">
             {[
@@ -645,7 +645,7 @@ export function GenericSeoPage({ page }: { page: GenericSeoPageData }) {
             <p className="mt-4 text-xs font-black uppercase tracking-[0.2em] text-[#9fe3ff]/86">{heroImage.label}</p>
             <div className="mt-7 flex flex-wrap gap-3">
               <Button asChild className="h-12 rounded-full bg-[#1976a3] px-6 font-black text-white hover:bg-[#145f85]">
-                <a href={buildQuoteUrl({ service: "home-cleaning", sourcePage: page.path })} data-source="shynli.com" data-page-type="seo-support" data-keyword-cluster={page.path} data-intent="quote">
+                <a href={buildQuoteUrl({ service: "home-cleaning", sourcePage: page.path })} data-source="shynli.com" data-page-type="support" data-keyword-cluster={page.path} data-intent="quote">
                   Get a quote
                   <ArrowRight />
                 </a>

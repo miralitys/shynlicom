@@ -286,7 +286,7 @@ export const guideArticles: GuideArticleData[] = [
       {
         title: "Save proof of professional cleaning",
         paragraphs: [
-          "If you hire a cleaner, keep the receipt or invoice with the date, service type, property address if available, and the scope of work. A generic payment screenshot is less useful than a receipt that says move-out cleaning, apartment cleaning, or the actual service performed.",
+          "If you hire a cleaner, keep the receipt or invoice with the date, service type, property address if available, and the scope of work. A plain payment screenshot is less useful than a receipt that says move-out cleaning, apartment cleaning, or the actual service performed.",
           "If the lease requires professional cleaning, carpet cleaning, or specific move-out tasks, save those requirements next to the receipt. You want one clean packet of evidence, not a search through texts when stress is high.",
         ],
         bullets: ["Cleaning receipt or invoice", "Date and address", "Service type", "Scope notes or checklist", "Add-ons like fridge, oven, or cabinets", "Messages confirming the appointment"],

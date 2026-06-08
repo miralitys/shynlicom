@@ -313,7 +313,7 @@ const baseShinyDeepSeoPages: ShinyDeepSeoPageData[] = [
     meta: "Compare deep cleaning add-ons such as fridge, oven, cabinet interiors, interior windows, blinds, doors, baseboards, and basement cleaning.",
     eyebrow: "Add-ons",
     h1: "Deep cleaning add-ons should be named before the visit.",
-    intro: "Add-ons help turn a generic deep clean into the right visit for the home. The important part is naming them before booking, because fridge interiors, oven interiors, cabinet interiors, windows, blinds, and basement work can change the time needed.",
+    intro: "Add-ons help turn a standard deep clean into the right visit for the home. The important part is naming them before booking, because fridge interiors, oven interiors, cabinet interiors, windows, blinds, and basement work can change the time needed.",
     sections: [
       { title: "Kitchen add-ons", copy: "Kitchen add-ons are popular because appliance and cabinet interiors take focused time.", bullets: ["Inside refrigerator", "Inside oven", "Inside cabinets", "Range hood", "Cabinet fronts and handles"] },
       { title: "Detail add-ons", copy: "These extras can make a home feel more reset when dust and buildup have reached beyond the obvious surfaces.", bullets: ["Interior windows", "Blinds", "Doors", "Baseboards", "Wood furniture polishing"] },
@@ -788,7 +788,7 @@ function getDeepCityProfile(city: (typeof cityPages)[number]) {
     accessPattern,
     outcomePattern,
     heading: `A ${city.name} deep clean should be scoped before arrival.`,
-    intro: `${localSignal} homes do not all need the same kind of heavy clean. In ${city.name}, we start by separating normal upkeep from the details that usually need extra time: ${routePattern}. ${routeNote} That makes the quote more useful than a generic booking button, because the cleaner sees the rooms, condition, access details, and add-ons before the visit is held.`,
+    intro: `${localSignal} homes do not all need the same kind of heavy clean. In ${city.name}, we start by separating normal upkeep from the details that usually need extra time: ${routePattern}. ${routeNote} That makes the quote more useful than a one-size booking button, because the cleaner sees the rooms, condition, access details, and add-ons before the visit is held.`,
     second: `For ${city.name} customers, the strongest deep-clean plan usually names the priority surfaces first: ${priorityPattern}. Then we confirm ${accessPattern}. ${outcomePattern}`,
     third: `${neighborhoodPattern} ${bookingPattern}`,
     cards: [
@@ -2926,7 +2926,7 @@ export function ShinyMoveOutPage({ city }: { city?: (typeof cityPages)[number] }
                 Pick the page that matches the handoff.
               </h2>
               <p className="mt-6 text-lg font-bold leading-8 text-[#486573]">
-                Move-in, apartment, house, condo, cost, checklist, landlord, and rental pages are separated when the customer needs a different answer before requesting a quote. That keeps the local page helpful instead of forcing every move into one generic checklist.
+                Move-in, apartment, house, condo, cost, checklist, landlord, and rental pages are separated when the customer needs a different answer before requesting a quote. That keeps the local page helpful instead of forcing every move into one checklist.
               </p>
             </div>
             <div className="grid gap-3 md:grid-cols-2">
