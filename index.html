@@ -864,6 +864,56 @@
 
         var path = location.pathname.replace(/\/$/, "") || "/"
         var segments = path.split("/").filter(Boolean)
+        var guideRoutes = {
+          "/guides": {
+            eyebrow: "Cleaning guides",
+            title: "House cleaning guides for the questions people ask before they book.",
+            copy: "Practical Shynli house cleaning guides that answer real questions about cleaners, quotes, deep cleaning, missed spots, move-out proof, and booking.",
+            metaTitle: "House Cleaning Guides | Shynli Cleaning",
+            description: "Practical Shynli house cleaning guides that answer real questions about cleaners, quotes, deep cleaning, missed spots, move-out proof, and booking.",
+            keywords: "house cleaning guides, professional cleaning questions, deep cleaning guide, move out cleaning guide, cleaning service tips"
+          },
+          "/guides/first-time-house-cleaner-etiquette": {
+            eyebrow: "First cleaner visit",
+            title: "First-time house cleaner etiquette: what to do before, during, and after the visit.",
+            copy: "Learn what to tidy, what to tell the cleaner, whether to stay home, and how to make the first visit less awkward.",
+            metaTitle: "First-Time House Cleaner Etiquette | Shynli Cleaning",
+            description: "First-time house cleaner etiquette: what to do before the cleaner arrives, whether to stay home, what to tidy, and how to set expectations.",
+            keywords: "first time house cleaner etiquette, what to do before cleaner comes, should I stay home during cleaning, house cleaner protocol, professional house cleaning etiquette"
+          },
+          "/guides/what-to-tell-cleaning-service-before-quote": {
+            eyebrow: "Quote prep",
+            title: "What to tell a cleaning service before you ask for a quote.",
+            copy: "A better quote starts with ZIP, service type, condition, pets, access, priorities, and add-ons before the appointment is held.",
+            metaTitle: "What to Tell a Cleaning Service Before a Quote | Shynli Cleaning",
+            description: "What to tell a cleaning service before a quote: home condition, rooms, pets, access, add-ons, timing, and priorities that change price.",
+            keywords: "cleaning service quote, house cleaning estimate, what to tell cleaner, cleaning quote checklist, professional cleaning estimate"
+          },
+          "/guides/what-house-cleaners-do-not-do": {
+            eyebrow: "Scope boundaries",
+            title: "What house cleaners usually do not do, and what to ask about first.",
+            copy: "Avoid awkward expectations by separating included cleaning, quoted add-ons, and work that needs a different specialist.",
+            metaTitle: "What House Cleaners Usually Do Not Do | Shynli Cleaning",
+            description: "What house cleaners usually do not do, what may be an add-on, and how to avoid awkward expectations before a professional cleaning visit.",
+            keywords: "what house cleaners do not do, house cleaning boundaries, cleaning service not included, maid service expectations, deep cleaning add ons"
+          },
+          "/guides/what-to-do-if-cleaner-missed-spots": {
+            eyebrow: "After-clean follow-up",
+            title: "What to do if a cleaner missed spots after a house cleaning visit.",
+            copy: "Use photos, scope, and a specific message to get a covered missed item fixed without turning the follow-up into a fight.",
+            metaTitle: "What to Do If a Cleaner Missed Spots | Shynli Cleaning",
+            description: "What to do if a house cleaner missed spots: how to document the issue, what to say, and how to prevent the same problem next time.",
+            keywords: "cleaner missed spots, cleaning service complaint, house cleaning follow up, cleaning satisfaction guarantee, cleaner re-clean request"
+          },
+          "/guides/move-out-cleaning-photos-receipts-before-handoff": {
+            eyebrow: "Move-out proof",
+            title: "Move-out cleaning photos and receipts to collect before you return keys.",
+            copy: "Before key handoff, save room-by-room photos, receipts, checklist notes, and walkthrough proof so the cleaning story is clear.",
+            metaTitle: "Move-Out Cleaning Photos and Receipts Before Handoff | Shynli Cleaning",
+            description: "How to use move-out cleaning photos, receipts, and room-by-room proof before returning keys or finishing a landlord walkthrough.",
+            keywords: "move out cleaning photos, cleaning receipt landlord, security deposit cleaning proof, apartment move out cleaning evidence, move out handoff cleaning"
+          }
+        }
         var page = routeCopy[path] || {
           eyebrow: "Shynli Cleaning Service",
           title: "House cleaning near you.",
@@ -896,6 +946,40 @@
               copy: "Shynli helps local homes, apartments, condos, townhouses, rentals, and move spaces get cleaned without a vague quote path."
             }
           }
+        }
+
+        if (segments[0] === "guides") {
+          page = guideRoutes[path] || guideRoutes["/guides"]
+        }
+
+        function setMeta(name, value) {
+          if (!value) return
+          var element = document.querySelector('meta[name="' + name + '"]')
+          if (!element) {
+            element = document.createElement("meta")
+            element.setAttribute("name", name)
+            document.head.appendChild(element)
+          }
+          element.setAttribute("content", value)
+        }
+
+        function setCanonical(value) {
+          if (!value) return
+          var element = document.querySelector('link[rel="canonical"]')
+          if (!element) {
+            element = document.createElement("link")
+            element.setAttribute("rel", "canonical")
+            document.head.appendChild(element)
+          }
+          element.setAttribute("href", value)
+        }
+
+        if (guideRoutes[path]) {
+          document.title = guideRoutes[path].metaTitle
+          setMeta("description", guideRoutes[path].description)
+          setMeta("keywords", guideRoutes[path].keywords)
+          setMeta("robots", "index,follow")
+          setCanonical("https://shynli.com" + path)
         }
 
         setText("initial-page-eyebrow", page.eyebrow)

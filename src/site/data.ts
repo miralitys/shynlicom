@@ -1639,6 +1639,7 @@ export const footerColumns = [
       ["Get quote", "/quote"],
       ["Quote process", "/quote#start"],
       ["Pricing", "/pricing"],
+      ["Guides", "/guides"],
       ["Checklists", "/checklists"],
       ["FAQ", "/faq"],
       ["Contact", "/contact"],

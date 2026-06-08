@@ -1,8 +1,9 @@
 import { lazy, Suspense } from "react"
 import { cityPages, cityServicePageCities, genericSeoPages, getCityServiceSeoServices, seoServices } from "@/site/data"
+import { getGuideArticleByPath } from "@/site/guides"
 import { legalPages } from "@/site/legal-data"
 import { LegalPage } from "@/site/legal-pages"
-import { CityPage, GenericSeoPage, HomePage, NotFoundPage, ServiceAreasPage, ServicesIndexPage, ServiceSeoPage } from "@/site/pages"
+import { CityPage, GenericSeoPage, GuideArticlePage, GuidesIndexPage, HomePage, NotFoundPage, ServiceAreasPage, ServicesIndexPage, ServiceSeoPage } from "@/site/pages"
 
 const StandaloneRoute = lazy(() => import("@/site/standalone-route"))
 
@@ -15,6 +16,7 @@ function App() {
   const cityMatch = cityPages.find((city) => currentPath === `/service-areas/${city.slug}`)
   const serviceMatch = seoServices.find((service) => currentPath === `/services/${service.slug}`)
   const genericSeoMatch = genericSeoPages.find((page) => currentPath === page.path)
+  const guideArticleMatch = getGuideArticleByPath(currentPath)
   const legalMatch = legalPages.find((page) => currentPath === page.path)
   const cityServiceMatch = cityServicePageCities
     .flatMap((city) =>
@@ -40,6 +42,14 @@ function App() {
 
   if (currentPath === "/service-areas") {
     return <ServiceAreasPage />
+  }
+
+  if (currentPath === "/guides") {
+    return <GuidesIndexPage />
+  }
+
+  if (guideArticleMatch) {
+    return <GuideArticlePage article={guideArticleMatch} />
   }
 
   if (serviceMatch) {

@@ -989,6 +989,7 @@ export function EstimateCard({
 type SeoMetaOptions = {
   canonicalBaseUrl?: string
   canonicalPath?: string
+  keywords?: string
   robots?: "index,follow" | "noindex,follow"
 }
 
@@ -1032,6 +1033,18 @@ export function useSeoMeta(title: string, description: string, schema?: object, 
     }
     descriptionTag.content = normalizeSeoDescription(description)
 
+    let keywordsTag = document.querySelector<HTMLMetaElement>('meta[name="keywords"]')
+    if (options.keywords?.trim()) {
+      if (!keywordsTag) {
+        keywordsTag = document.createElement("meta")
+        keywordsTag.name = "keywords"
+        document.head.appendChild(keywordsTag)
+      }
+      keywordsTag.content = options.keywords.replace(/\s+/g, " ").trim()
+    } else if (keywordsTag) {
+      keywordsTag.remove()
+    }
+
     let canonicalTag = document.querySelector<HTMLLinkElement>('link[rel="canonical"]')
     if (!canonicalTag) {
       canonicalTag = document.createElement("link")
@@ -1065,7 +1078,7 @@ export function useSeoMeta(title: string, description: string, schema?: object, 
     } else if (schemaTag) {
       schemaTag.remove()
     }
-  }, [title, description, schema, options.canonicalBaseUrl, options.canonicalPath, options.robots])
+  }, [title, description, schema, options.canonicalBaseUrl, options.canonicalPath, options.keywords, options.robots])
 }
 
 export function BrandLink() {
@@ -1097,6 +1110,7 @@ export function SiteHeader() {
           <a className="transition-colors hover:text-white" href="/services">Services</a>
           <a className="transition-colors hover:text-white" href="/service-areas">Areas</a>
           <a className="transition-colors hover:text-white" href="/pricing">Pricing</a>
+          <a className="transition-colors hover:text-white" href="/guides">Guides</a>
           <a className="transition-colors hover:text-white" href="/checklists">Checklists</a>
           <a className="transition-colors hover:text-white" href="/faq">FAQ</a>
         </nav>

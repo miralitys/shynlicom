@@ -69,6 +69,15 @@ import {
   useSeoMeta,
   type RoomControl,
 } from "@/site/shared"
+import {
+  getGuideArticleSchema,
+  getGuideIndexSchema,
+  getGuideLinksForPage,
+  getGuideLinksForService,
+  guideArticles,
+  guideHub,
+  type GuideArticleData,
+} from "@/site/guides"
 
 const cityServiceDecisionBlocks: Record<string, { heading: string; intro: string; cards: [string, string][] }> = {
   "regular-cleaning": {
@@ -364,8 +373,256 @@ function getCityServiceLocalSnapshots(city: (typeof cityPages)[number], service:
   ]
 }
 
+export function GuidesIndexPage() {
+  useSeoMeta(guideHub.title, guideHub.description, getGuideIndexSchema(), {
+    canonicalPath: guideHub.path,
+    keywords: guideHub.keywords,
+    robots: "index,follow",
+  })
+
+  return (
+    <main className="min-h-screen bg-background pb-28 text-foreground">
+      <SiteHeader />
+      <section className="relative overflow-hidden bg-[#0d2633] px-4 pb-14 pt-28 text-white md:px-8 md:pb-18 md:pt-32">
+        <div
+          className="absolute inset-0 bg-cover opacity-70 saturate-[0.94]"
+          style={{ backgroundImage: "url(/process-follow.jpg)", backgroundPosition: "center 48%" }}
+          aria-hidden="true"
+        />
+        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(13,38,51,0.98)_0%,rgba(13,38,51,0.86)_42%,rgba(13,38,51,0.42)_76%,rgba(13,38,51,0.32)_100%)]" aria-hidden="true" />
+        <div className="relative z-10 mx-auto max-w-7xl">
+          <p className="mb-4 text-sm font-black uppercase text-[#9fe3ff]">Cleaning guides</p>
+          <h1 className="max-w-6xl text-5xl font-black leading-[0.95] md:text-7xl">{guideHub.h1}</h1>
+          <p className="mt-6 max-w-4xl text-lg leading-8 text-white/74">{guideHub.dek}</p>
+          <div className="mt-7 flex flex-wrap gap-3">
+            <Button asChild className="h-12 rounded-full bg-[#1976a3] px-6 font-black text-white hover:bg-[#145f85]">
+              <a href="/quote">
+                Ask for a quote
+                <ArrowRight />
+              </a>
+            </Button>
+            <Button asChild variant="outline" className="h-12 rounded-full border-white/35 bg-white/8 px-6 font-black text-white hover:bg-white/14 hover:text-white">
+              <a href="/services">Compare services</a>
+            </Button>
+          </div>
+        </div>
+      </section>
+
+      <section className="px-4 py-12 md:px-8 md:py-16">
+        <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[0.72fr_1.28fr]">
+          <div>
+            <p className="mb-4 text-sm font-black uppercase text-[#1976a3]">What these answer</p>
+            <h2 className="text-4xl font-black leading-[0.98] md:text-6xl">The awkward questions before a cleaner enters the home.</h2>
+            <p className="mt-5 text-lg leading-8 text-muted-foreground">
+              Most people do not only ask what a cleaning service costs. They ask what to say, what to tidy, what is not included, what to do if something is missed, and how to protect a move-out handoff.
+            </p>
+          </div>
+          <div className="grid gap-4 md:grid-cols-2">
+            {guideArticles.map((article) => (
+              <article key={article.path} className="rounded-lg border border-[#cde5f2] bg-white p-5 shadow-sm">
+                <p className="text-xs font-black uppercase tracking-[0.18em] text-[#1976a3]">{article.eyebrow}</p>
+                <h3 className="mt-3 text-2xl font-black leading-tight">
+                  <a href={article.path} className="hover:text-[#1976a3]">{article.h1}</a>
+                </h3>
+                <p className="mt-3 text-sm leading-6 text-muted-foreground">{article.dek}</p>
+                <div className="mt-5 flex items-center justify-between gap-3 border-t border-[#d8e8f0] pt-4 text-sm font-black text-[#486573]">
+                  <span className="inline-flex items-center gap-2">
+                    <Clock className="size-4 text-[#1976a3]" />
+                    {article.readingTime}
+                  </span>
+                  <a href={article.path} className="inline-flex min-h-10 items-center gap-2 rounded-full border border-[#d8e8f0] px-3 text-[#145f85] hover:border-[#1976a3]">
+                    Read
+                    <ArrowRight className="size-4" />
+                  </a>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-[#f7fbfd] px-4 py-12 md:px-8 md:py-16">
+        <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[0.8fr_1.2fr]">
+          <div>
+            <p className="mb-4 text-sm font-black uppercase text-[#1976a3]">Use these with the main pages</p>
+            <h2 className="text-4xl font-black leading-[0.98] md:text-6xl">Guides are the explanation layer, not a replacement for service pages.</h2>
+          </div>
+          <div className="grid gap-px overflow-hidden rounded-lg bg-[#cde5f2] md:grid-cols-3">
+            {[
+              ["Choose service", "Use service pages to choose regular, deep, move, apartment, or recurring cleaning."],
+              ["Read a guide", "Use guides to answer the practical question that makes booking feel uncertain."],
+              ["Request callback", "Leave your name and phone so Shynli can confirm route, timing, and scope."],
+            ].map(([title, copy]) => (
+              <div key={title} className="bg-white p-5">
+                <Sparkles className="size-5 text-[#1976a3]" />
+                <h3 className="mt-4 text-xl font-black">{title}</h3>
+                <p className="mt-2 text-sm leading-6 text-muted-foreground">{copy}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <SiteFooter />
+      <StickyBookingBar />
+    </main>
+  )
+}
+
+export function GuideArticlePage({ article }: { article: GuideArticleData }) {
+  const relatedArticles = guideArticles.filter((item) => item.path !== article.path).slice(0, 4)
+
+  useSeoMeta(article.title, article.description, getGuideArticleSchema(article), {
+    canonicalPath: article.path,
+    keywords: article.keywords,
+    robots: "index,follow",
+  })
+
+  return (
+    <main className="min-h-screen bg-background pb-28 text-foreground">
+      <SiteHeader />
+      <article>
+        <section className="relative overflow-hidden bg-[#0d2633] px-4 pb-14 pt-28 text-white md:px-8 md:pb-18 md:pt-32">
+          <div
+            className="absolute inset-0 bg-cover opacity-68 saturate-[0.94]"
+            style={{ backgroundImage: "url(/process-clean.jpg)", backgroundPosition: "center 48%" }}
+            aria-hidden="true"
+          />
+          <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(13,38,51,0.99)_0%,rgba(13,38,51,0.9)_48%,rgba(13,38,51,0.5)_78%,rgba(13,38,51,0.38)_100%)]" aria-hidden="true" />
+          <div className="relative z-10 mx-auto max-w-7xl">
+            <a href="/guides" className="mb-6 inline-flex min-h-10 items-center rounded-full border border-white/20 bg-white/8 px-4 text-sm font-black text-white/82 hover:bg-white/14 hover:text-white">Guides</a>
+            <p className="mb-4 text-sm font-black uppercase text-[#9fe3ff]">{article.eyebrow}</p>
+            <h1 className="max-w-6xl text-5xl font-black leading-[0.95] md:text-7xl">{article.h1}</h1>
+            <p className="mt-6 max-w-4xl text-xl font-bold leading-8 text-white/74">{article.dek}</p>
+            <div className="mt-7 flex flex-wrap gap-x-5 gap-y-2 text-sm font-black text-white/72">
+              <span className="inline-flex items-center gap-2"><Clock className="size-4 text-[#9fe3ff]" />{article.readingTime}</span>
+              <span>Updated {article.updated}</span>
+              <span>{article.audienceQuestion}</span>
+            </div>
+          </div>
+        </section>
+
+        <section className="px-4 py-12 md:px-8 md:py-16">
+          <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[0.76fr_1.24fr]">
+            <div>
+              <p className="mb-4 text-sm font-black uppercase text-[#1976a3]">Short answer</p>
+              <h2 className="text-4xl font-black leading-[0.98] md:text-6xl">The practical answer first.</h2>
+            </div>
+            <div className="rounded-lg border border-[#cde5f2] bg-[#f7fbfd] p-6 shadow-sm">
+              <p className="text-xl font-black leading-8 text-[#0d2633]">{article.shortAnswer}</p>
+            </div>
+          </div>
+        </section>
+
+        <section className="bg-white px-4 py-12 md:px-8 md:py-16">
+          <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[minmax(0,1fr)_340px]">
+            <div className="grid gap-12">
+              {article.sections.map((section, index) => (
+                <section key={section.title} className="border-b border-[#d8e8f0] pb-10 last:border-b-0 last:pb-0">
+                  <p className="text-sm font-black text-[#1976a3]">{String(index + 1).padStart(2, "0")}</p>
+                  <h2 className="mt-3 text-3xl font-black leading-tight md:text-5xl">{section.title}</h2>
+                  <div className="mt-5 grid gap-4 text-lg leading-8 text-muted-foreground">
+                    {section.paragraphs.map((paragraph) => (
+                      <p key={paragraph}>{paragraph}</p>
+                    ))}
+                  </div>
+                  {section.bullets ? (
+                    <div className="mt-6 grid gap-3 sm:grid-cols-2">
+                      {section.bullets.map((bullet) => (
+                        <div key={bullet} className="flex items-start gap-3 rounded-md border border-[#d8e8f0] bg-[#f7fbfd] p-3 text-sm font-black">
+                          <Check className="mt-0.5 size-4 shrink-0 text-[#1976a3]" />
+                          {bullet}
+                        </div>
+                      ))}
+                    </div>
+                  ) : null}
+                  {section.note ? (
+                    <p className="mt-6 rounded-lg border border-[#cde5f2] bg-[#eaf7ff] p-4 text-base font-bold leading-7 text-[#145f85]">{section.note}</p>
+                  ) : null}
+                </section>
+              ))}
+            </div>
+
+            <aside className="lg:sticky lg:top-24 lg:self-start">
+              <div className="rounded-lg border border-[#cde5f2] bg-[#f7fbfd] p-5 shadow-sm">
+                <p className="text-sm font-black uppercase text-[#1976a3]">Need help choosing?</p>
+                <h2 className="mt-2 text-2xl font-black leading-tight">Request a callback before you book.</h2>
+                <p className="mt-3 text-sm leading-6 text-muted-foreground">
+                  Leave your name and phone. Shynli can confirm the service, route, timing, and details that change the quote.
+                </p>
+                <div className="mt-5">
+                  <CallbackLeadForm
+                    defaults={{ service: article.serviceIntent, sourcePage: article.path }}
+                    buttonLabel="Call me back"
+                    idPrefix={`guide-${article.slug}`}
+                  />
+                </div>
+              </div>
+              <div className="mt-5 rounded-lg border border-[#cde5f2] bg-white p-5 shadow-sm">
+                <p className="text-sm font-black uppercase text-[#1976a3]">Helpful links</p>
+                <div className="mt-4 grid gap-2">
+                  {article.links.map(([label, href]) => (
+                    <a key={`${label}-${href}`} href={resolveSiteHref(href, { sourcePage: article.path, service: article.serviceIntent })} className="flex min-h-11 items-center justify-between rounded-md border border-[#d8e8f0] bg-[#f7fbfd] px-3 text-sm font-black hover:border-[#1976a3]">
+                      {label}
+                      <ArrowRight className="size-4 text-[#1976a3]" />
+                    </a>
+                  ))}
+                </div>
+              </div>
+            </aside>
+          </div>
+        </section>
+
+        <section className="bg-[#f7fbfd] px-4 py-12 md:px-8 md:py-16">
+          <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[0.76fr_1.24fr]">
+            <div>
+              <p className="mb-4 text-sm font-black uppercase text-[#1976a3]">Questions</p>
+              <h2 className="text-4xl font-black leading-[0.98] md:text-6xl">More answers before you book.</h2>
+            </div>
+            <Accordion type="single" collapsible defaultValue="guide-faq-1">
+              {article.faqs.map(([question, answer], index) => (
+                <AccordionItem key={question} value={`guide-faq-${index + 1}`}>
+                  <AccordionTrigger>{question}</AccordionTrigger>
+                  <AccordionContent>{answer}</AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
+          </div>
+        </section>
+
+        <section className="bg-white px-4 py-12 md:px-8 md:py-16">
+          <div className="mx-auto max-w-7xl">
+            <div className="grid gap-5 md:grid-cols-[0.72fr_1fr] md:items-end">
+              <div>
+                <p className="mb-4 text-sm font-black uppercase text-[#1976a3]">Related guides</p>
+                <h2 className="text-4xl font-black leading-[0.98] md:text-6xl">Keep the next question easy.</h2>
+              </div>
+              <p className="text-lg leading-8 text-muted-foreground">
+                These articles connect the practical question back to Shynli service pages, pricing, checklists, and the callback path.
+              </p>
+            </div>
+            <div className="mt-7 grid gap-4 md:grid-cols-2">
+              {relatedArticles.map((related) => (
+                <a key={related.path} href={related.path} className="rounded-lg border border-[#cde5f2] bg-[#f7fbfd] p-5 shadow-sm hover:border-[#1976a3]">
+                  <p className="text-xs font-black uppercase tracking-[0.18em] text-[#1976a3]">{related.eyebrow}</p>
+                  <h3 className="mt-3 text-2xl font-black leading-tight">{related.h1}</h3>
+                  <p className="mt-3 text-sm leading-6 text-muted-foreground">{related.shortAnswer}</p>
+                </a>
+              ))}
+            </div>
+          </div>
+        </section>
+      </article>
+
+      <SiteFooter />
+      <StickyBookingBar />
+    </main>
+  )
+}
+
 export function GenericSeoPage({ page }: { page: GenericSeoPageData }) {
   const relatedLinkGroups = getRelatedLinkGroups(page)
+  const guideLinks = getGuideLinksForPage(page.path)
   const heroImage = getGenericHeroImage(page)
   useSeoMeta(page.title, page.meta, getGenericSeoSchema(page))
 
@@ -545,6 +802,18 @@ export function GenericSeoPage({ page }: { page: GenericSeoPageData }) {
             </p>
           </div>
           <div className="mt-7 grid gap-4 lg:grid-cols-2">
+            <Card className="rounded-lg border-[#cde5f2] shadow-sm">
+              <CardContent className="p-5">
+                <h3 className="text-xl font-black">Practical cleaning guides</h3>
+                <div className="mt-4 flex flex-wrap gap-2">
+                  {guideLinks.map(([label, href]) => (
+                    <a key={`guide-${href}`} href={resolveSiteHref(href, { sourcePage: page.path })} className="inline-flex min-h-10 items-center rounded-full border border-[#d8e8f0] bg-[#f7fbfd] px-3 text-sm font-black hover:border-[#1976a3]">
+                      {label}
+                    </a>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
             {relatedLinkGroups.map((group) => (
               <Card key={group.title} className="rounded-lg border-[#cde5f2] shadow-sm">
                 <CardContent className="p-5">
@@ -1226,6 +1495,7 @@ export function ServiceSeoPage({ service, city }: { service: (typeof seoServices
   const localProfile = city ? getCityServiceProfile(city) : undefined
   const decisionBlock = city ? cityServiceDecisionBlocks[service.slug] : undefined
   const localSnapshots = city ? getCityServiceLocalSnapshots(city, service) : []
+  const guideLinks = getGuideLinksForService(service.slug)
   useSeoMeta(title, description, getServiceSchema(service, city))
 
   return (
@@ -1474,6 +1744,18 @@ export function ServiceSeoPage({ service, city }: { service: (typeof seoServices
                 </div>
               </CardContent>
             </Card>
+            <Card className="rounded-lg border-[#cde5f2] shadow-sm">
+              <CardContent className="p-5">
+                <h3 className="text-xl font-black">Helpful cleaning guides</h3>
+                <div className="mt-4 flex flex-wrap gap-2">
+                  {guideLinks.map(([label, href]) => (
+                    <a key={`${service.slug}-${href}`} href={resolveSiteHref(href, { service: service.slug, city: city?.name, sourcePage: city ? `/service-areas/${city.slug}/${service.slug}` : `/services/${service.slug}` })} className="inline-flex min-h-10 items-center rounded-full border border-[#d8e8f0] bg-[#f7fbfd] px-3 text-sm font-black hover:border-[#1976a3]">
+                      {label}
+                    </a>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
           </div>
         </div>
       </section>
@@ -1607,6 +1889,7 @@ export function HomePage() {
               ["Quote", "#quote"],
               ["Areas", "/service-areas"],
               ["Pricing", "/pricing"],
+              ["Guides", "/guides"],
               ["FAQ", "/faq"],
             ].map(([label, href]) => (
               <a key={label} className="flex min-h-11 items-center rounded-full px-4 transition-colors hover:bg-white/10 hover:text-white" href={href}>
