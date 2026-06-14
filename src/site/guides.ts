@@ -29,10 +29,10 @@ export type GuideArticleData = {
 export const guideHub = {
   path: "/guides",
   title: "House Cleaning Guides | Shynli Cleaning",
-  keywords: "house cleaning guides, professional cleaning questions, deep cleaning guide, move out cleaning guide, cleaning service tips",
-  description: "Practical Shynli house cleaning guides that answer real questions about cleaners, quotes, deep cleaning, missed spots, move-out proof, and booking.",
+  keywords: "house cleaning guides, professional cleaning questions, deep cleaning guide, move out cleaning guide, house cleaner tipping, pet allergy cleaning, cleaning add ons",
+  description: "Practical Shynli house cleaning guides that answer real questions about cleaners, quotes, pets, tipping, add-ons, move-out proof, and booking.",
   h1: "House cleaning guides for the questions people ask before they book.",
-  dek: "These guides turn common homeowner, renter, and first-time-cleaner questions into plain-English answers. Use them before you request a quote, compare a service, or hand over keys.",
+  dek: "These guides turn common homeowner, renter, pet-owner, and first-time-cleaner questions into plain-English answers. Use them before you request a quote, compare a service, or hand over keys.",
 }
 
 export const guideArticles: GuideArticleData[] = [
@@ -316,6 +316,286 @@ export const guideArticles: GuideArticleData[] = [
     ],
     links: [["Move-out cleaning", "/services/move-out-cleaning"], ["Move-out checklist", "/checklists/move-out-cleaning-checklist"], ["Security deposit cleaning", "/faq/how-to-get-security-deposit-back-cleaning"], ["Get a quote", "/quote"]],
   },
+  {
+    slug: "should-you-tip-house-cleaners",
+    path: "/guides/should-you-tip-house-cleaners",
+    title: "Should You Tip House Cleaners? | Shynli Cleaning",
+    keywords: "should you tip house cleaners, house cleaner tipping, cleaning service tip amount, maid service tipping etiquette, tip professional cleaner",
+    description: "Should you tip house cleaners? Learn when tipping is common, what amount feels reasonable, and how to handle one-time, deep, move, and recurring cleaning.",
+    eyebrow: "Tipping etiquette",
+    h1: "Should you tip house cleaners? A practical guide for one-time, deep, move, and recurring visits.",
+    dek: "Tipping is one of the most common awkward questions people have before a cleaner arrives. The short answer is that it is appreciated, but it should not be treated like a hidden fee.",
+    shortAnswer: "You are not usually required to tip a house cleaner, but tipping is a kind way to recognize hard work, a difficult job, a one-time deep clean, a move-out clean, or consistently good recurring service. Many customers choose a cash tip after the visit or a larger holiday thank-you for recurring cleaners. If you are unsure, ask the cleaning company whether tips are accepted and how they are shared.",
+    audienceQuestion: "Am I supposed to tip the cleaner, and how much is normal?",
+    updated: "2026-06-14",
+    readingTime: "6 min read",
+    serviceIntent: "home-cleaning",
+    sections: [
+      {
+        title: "Tipping is appreciated, not a secret requirement",
+        paragraphs: [
+          "A professional cleaning quote should stand on its own. If the visit costs a certain amount, that price should not depend on the customer guessing a required tip after the cleaner finishes.",
+          "At the same time, residential cleaning is physical work. When a team handles a hard first clean, heavy bathrooms, pet hair, move-out detail, or a tight schedule with care, a tip is a simple way to say that the work mattered.",
+        ],
+        bullets: ["Tip when you want to recognize extra effort", "Do not treat tipping as a replacement for fair pricing", "Ask the company if tips are accepted", "Use cash if you want the cleaner to receive it directly"],
+      },
+      {
+        title: "When people most often tip",
+        paragraphs: [
+          "Customers are most likely to tip after one-time cleaning, deep cleaning, move-in or move-out cleaning, holiday cleaning, or an especially detailed first visit. Those jobs can be more demanding than a maintained recurring home.",
+          "For recurring service, many people do not tip every visit. They may tip occasionally, leave a holiday bonus, or give a thank-you when the cleaner handles something especially helpful.",
+        ],
+        bullets: ["First-time deep clean", "Move-out or move-in cleaning", "Holiday or guest-ready cleaning", "A very difficult kitchen or bathroom", "A cleaner who consistently remembers your home"],
+      },
+      {
+        title: "How much to tip without overthinking it",
+        paragraphs: [
+          "There is no single correct amount. A small cash thank-you can still feel meaningful, especially when the cleaner did careful work and the visit was priced clearly.",
+          "If a team comes, think about whether the tip should be easy to split. If one cleaner comes regularly, a holiday thank-you or occasional extra cash may feel more natural than tipping every appointment.",
+        ],
+        bullets: ["A small flat cash tip for a normal visit", "A larger tip for a hard deep or move clean", "A holiday thank-you for recurring service", "Small bills if a team needs to split it"],
+      },
+      {
+        title: "What matters more than tipping",
+        paragraphs: [
+          "A tip is kind, but it does not fix unclear expectations. The better gift to both yourself and the cleaner is a clear scope, reachable surfaces, safe access, and quick feedback if something important was missed.",
+          "Before booking Shynli, share the service type, home condition, pets, add-ons, and priority rooms. That helps the cleaner arrive prepared and keeps tipping separate from confusion about what was included.",
+        ],
+        bullets: ["Clear scope", "Safe entry and parking notes", "Pets secured or explained", "Add-ons requested before arrival", "Fast, specific feedback"],
+      },
+    ],
+    faqs: [
+      ["Is tipping required for house cleaning?", "No. Tipping is usually optional unless a company states a specific policy. It is appreciated when the cleaner did careful work or the job was especially demanding."],
+      ["Should I tip for a deep clean?", "Many customers do tip for a deep clean because the visit is more detailed and physically demanding than a maintenance clean."],
+      ["Do I tip every recurring cleaning visit?", "Not necessarily. Some customers tip occasionally or give a holiday thank-you instead of tipping every recurring appointment."],
+      ["Should I tip the owner of a cleaning company?", "Some people tip only employee cleaners and not owner-operators, while others tip anyone who did excellent work. If you are unsure, ask the company how tips are handled."],
+    ],
+    links: [["Get a quote", "/quote"], ["House cleaning cost", "/pricing/house-cleaning-cost"], ["First cleaner etiquette", "/guides/first-time-house-cleaner-etiquette"], ["If a cleaner missed spots", "/guides/what-to-do-if-cleaner-missed-spots"]],
+  },
+  {
+    slug: "house-cleaning-with-pets-and-allergies",
+    path: "/guides/house-cleaning-with-pets-and-allergies",
+    title: "House Cleaning With Pets and Allergies | Shynli Cleaning",
+    keywords: "house cleaning with pets, pet hair cleaning, pet dander cleaning, cleaning for allergies, pet friendly house cleaning, cleaner with pets at home",
+    description: "How to prepare for house cleaning when you have pets, pet hair, dander, allergies, odors, litter boxes, and guests who may be sensitive.",
+    eyebrow: "Pets and allergies",
+    h1: "House cleaning with pets and allergies: what to tell the cleaner before the visit.",
+    dek: "Pet homes can be clean and still need a different plan. Hair, dander, litter areas, odors, toys, bedding, and nervous animals all change how the visit should be prepared.",
+    shortAnswer: "Before a cleaning visit in a home with pets or allergies, tell the service what animals live in the home, where they will be during the clean, whether anyone has fragrance or product sensitivities, and which pet-heavy areas matter most. Pick up toys, secure nervous pets, move bowls when possible, and ask ahead about pet hair, dander, litter areas, and product preferences.",
+    audienceQuestion: "What should I tell a cleaner if I have pets or allergy concerns?",
+    updated: "2026-06-14",
+    readingTime: "7 min read",
+    serviceIntent: "pet-friendly-cleaning",
+    sections: [
+      {
+        title: "Tell the cleaner about pets before arrival",
+        paragraphs: [
+          "Pets are not a small detail. A friendly dog, a shy cat, a litter area, a bird cage, or a room with pet odor can change the safest way to clean the home.",
+          "The cleaner should know what animals are present, whether they can be loose, which doors must stay closed, and whether the pet has any behavior issues. This protects the cleaner, the animal, and the home.",
+        ],
+        bullets: ["Type and number of pets", "Where pets will be during the clean", "Doors or gates that must stay closed", "Nervous or reactive pets", "Litter, crate, or feeding areas"],
+      },
+      {
+        title: "Pet hair and dander need reachable surfaces",
+        paragraphs: [
+          "Pet hair hides on floors, baseboards, sofa edges, stairs, under furniture, bedding, vents, and corners. A professional cleaner can help, but the surfaces have to be reachable.",
+          "Before the visit, pick up toys, leashes, blankets, bowls, and loose items from the floor if you want vacuuming and mopping to be more effective. If pet bedding should be moved or washed, ask before booking because laundry may not be included.",
+        ],
+        bullets: ["Clear floors for vacuuming", "Move pet toys and bowls if possible", "Point out pet-heavy corners", "Mention furniture or stairs with heavy hair", "Ask before adding laundry or pet bedding"],
+      },
+      {
+        title: "Allergies and fragrance sensitivity should be named early",
+        paragraphs: [
+          "If someone in the home has allergies, asthma, migraines from fragrance, or sensitivity to certain products, do not wait until the cleaner arrives. Put the note in the quote request.",
+          "A cleaning visit can reduce dust and surface buildup, but it is not medical remediation. Severe pet dander, carpet contamination, ducts, upholstery, mold, or pest issues may require a specialist beyond regular house cleaning.",
+        ],
+        bullets: ["Fragrance-free request", "Products to avoid", "Rooms used by allergic guests", "Carpet or upholstery concerns", "HVAC, duct, or remediation limits"],
+      },
+      {
+        title: "What a cleaner can and cannot promise in a pet home",
+        paragraphs: [
+          "A cleaner can improve visible hair, dust, floors, bathrooms, kitchens, high-touch surfaces, and many reachable pet-heavy areas. That can make the home feel much better.",
+          "A cleaner usually cannot guarantee full allergen removal, remove odors from carpet padding, treat urine soaked into subfloors, clean air ducts, or solve dander embedded in upholstery. The right expectation keeps the visit useful instead of disappointing.",
+        ],
+        bullets: ["Good fit: floors, dust, bathrooms, kitchens, reachable hair", "Ask first: pet bedding, upholstery, litter area detail", "Different specialist: ducts, carpet extraction, subfloor odor, mold, pests"],
+      },
+    ],
+    faqs: [
+      ["Do I need to put my pets away before cleaning?", "It is safest to secure nervous, reactive, or escape-prone pets. Friendly pets may still need a separate room so the cleaner can work without doors or wet floors becoming a problem."],
+      ["Can a house cleaner remove pet dander completely?", "No cleaning visit can promise complete allergen removal. A cleaner can reduce dust, hair, and surface buildup, but carpets, upholstery, ducts, and severe dander may need specialists."],
+      ["Should I provide fragrance-free products?", "If you need specific products, mention that before booking. Some companies bring supplies, but allergy or fragrance requests should be confirmed early."],
+      ["Will cleaners clean litter boxes or pet accidents?", "Pet waste, biohazards, and heavy contamination are usually outside normal house cleaning. Ask before booking if a pet area needs special attention."],
+    ],
+    links: [["Pet-friendly cleaning", "/pet-friendly-cleaning"], ["Eco-friendly cleaning", "/eco-friendly-cleaning"], ["Cleaning supplies included", "/cleaning-supplies-included"], ["What cleaners do not do", "/guides/what-house-cleaners-do-not-do"]],
+  },
+  {
+    slug: "how-to-choose-house-cleaning-service",
+    path: "/guides/how-to-choose-house-cleaning-service",
+    title: "How to Choose a House Cleaning Service | Shynli Cleaning",
+    keywords: "how to choose house cleaning service, trustworthy house cleaner, insured house cleaners, background checked cleaners, professional cleaning service questions",
+    description: "How to choose a house cleaning service when you care about trust, access, reviews, insurance, scope, pricing, and follow-up after the clean.",
+    eyebrow: "Choosing a service",
+    h1: "How to choose a house cleaning service when trust matters.",
+    dek: "For most homeowners, the hardest part is not finding a cleaner. It is deciding who you feel comfortable letting into the home, how to compare quotes, and what to ask before booking.",
+    shortAnswer: "Choose a house cleaning service by checking whether the company serves your area, explains what is included, confirms pricing factors before arrival, has clear access and pet instructions, carries the right trust signals, and gives you a way to follow up if something is missed. The best choice is not always the cheapest quote. It is the service that makes the visit clear before anyone enters the home.",
+    audienceQuestion: "How do I choose a cleaner I can actually trust in my home?",
+    updated: "2026-06-14",
+    readingTime: "7 min read",
+    serviceIntent: "home-cleaning",
+    sections: [
+      {
+        title: "Start with trust, then compare price",
+        paragraphs: [
+          "Price matters, but a house cleaner is not a product you leave on the porch. Someone is entering your home, seeing personal spaces, working around pets or family routines, and sometimes receiving door codes or lockbox instructions.",
+          "Before comparing the lowest number, look for the signals that make the visit safer and easier: a real company, a clear service area, a reachable contact path, written scope, and a follow-up process.",
+        ],
+        bullets: ["Real service area", "Reachable phone or callback path", "Clear list of services", "Reviews or local proof", "Follow-up if something is missed"],
+      },
+      {
+        title: "Ask what is included and what is not",
+        paragraphs: [
+          "Many disappointments start because the customer and cleaner used the same word but meant different things. One person says deep clean and expects inside every cabinet. Another says deep clean and means bathrooms, kitchen detail, floors, baseboards, and high-touch surfaces.",
+          "A trustworthy service should be able to explain standard work, deep cleaning, move cleaning, recurring cleaning, and add-ons in plain language. If the answer is vague, the visit can become vague too.",
+        ],
+        bullets: ["Standard cleaning scope", "Deep cleaning differences", "Move-in or move-out details", "Add-ons and exclusions", "What happens if time runs short"],
+      },
+      {
+        title: "Pay attention to how the quote is built",
+        paragraphs: [
+          "A quote that asks no questions can look easy, but it may be less accurate. The right questions protect both sides: ZIP code, home size, condition, pets, access, timing, and add-ons.",
+          "If your home has stairs, apartment parking, heavy pet hair, an empty move-out deadline, or a first deep clean after months of catch-up, tell the company before the appointment is held.",
+        ],
+        bullets: ["Bedrooms and bathrooms", "Home condition", "Pets and access", "Timing pressure", "Fridge, oven, cabinets, windows, or blinds"],
+      },
+      {
+        title: "Use reviews carefully",
+        paragraphs: [
+          "Reviews are useful, but do not read only the star rating. Look for the kind of result you need: on-time arrival, respectful cleaners, clear communication, careful kitchens and bathrooms, move-out detail, recurring consistency, and how the company responds when something is not perfect.",
+          "A perfect-looking service with no process can still be risky. A real service should be able to explain what happens before, during, and after the clean.",
+        ],
+        bullets: ["Communication", "Consistency", "Move or deep-clean results", "How complaints are handled", "Whether expectations were clear"],
+      },
+    ],
+    faqs: [
+      ["What should I ask before hiring a house cleaner?", "Ask what is included, what costs extra, whether supplies are included, how access is handled, what happens if something is missed, and what details affect the quote."],
+      ["Is the cheapest cleaner a bad idea?", "Not always, but the cheapest quote can become expensive if the scope is unclear, add-ons are missing, or the visit is rushed."],
+      ["Should I choose an independent cleaner or a cleaning company?", "Either can work. A company may offer clearer scheduling, support, and follow-up. An independent cleaner may feel more personal. Compare the actual process, not just the label."],
+      ["How do I know if a cleaning service is professional?", "Look for clear communication, service boundaries, practical quote questions, trust signals, and a follow-up path after the visit."],
+    ],
+    links: [["Why Shynli", "/why-shynli"], ["Insured cleaners", "/insured-cleaners"], ["Background-checked cleaners", "/background-checked-cleaners"], ["Professional vs independent cleaner", "/professional-cleaning-vs-independent-cleaner"]],
+  },
+  {
+    slug: "which-house-cleaning-add-ons-are-worth-it",
+    path: "/guides/which-house-cleaning-add-ons-are-worth-it",
+    title: "Which House Cleaning Add-Ons Are Worth It? | Shynli Cleaning",
+    keywords: "house cleaning add ons, oven cleaning add on, fridge cleaning add on, cabinet cleaning add on, blinds cleaning add on, interior window cleaning",
+    description: "Which house cleaning add-ons are worth it? Compare oven, fridge, cabinet interiors, blinds, interior windows, baseboards, doors, and basement cleaning.",
+    eyebrow: "Add-on choices",
+    h1: "Which house cleaning add-ons are worth it before you book?",
+    dek: "Add-ons are useful when they match the real problem in the home. They are frustrating when they are chosen randomly or added too late for the cleaner to have enough time.",
+    shortAnswer: "The most useful cleaning add-ons are the ones tied to a clear outcome: inside fridge before move-in or move-out, inside oven after buildup, cabinet interiors for empty homes, blinds or interior windows when dust is visible, baseboards before guests or listings, and basement cleaning when it changes how the home feels. Ask for add-ons before booking so the quote and schedule match the work.",
+    audienceQuestion: "Which cleaning extras should I pay for, and which can wait?",
+    updated: "2026-06-14",
+    readingTime: "7 min read",
+    serviceIntent: "deep-cleaning",
+    sections: [
+      {
+        title: "Choose add-ons by outcome, not by menu anxiety",
+        paragraphs: [
+          "A long add-on list can make people feel like they are missing something. The better question is what you need the home to feel ready for: everyday maintenance, guests, a listing, move-in, move-out, or a first reset before recurring service.",
+          "If an add-on changes the result you care about, it may be worth it. If it is hidden, low-priority, or easy for you to handle later, it can wait.",
+        ],
+        bullets: ["Guests coming", "Move or handoff", "Listing photos", "First deep clean", "Recurring maintenance setup"],
+      },
+      {
+        title: "Kitchen add-ons usually matter most",
+        paragraphs: [
+          "Inside fridge, inside oven, range hood, and cabinet interiors are common add-ons because they take focused time and can carry smell, grease, crumbs, or old spills.",
+          "They are especially useful before moving into a home, after moving out, before selling, after tenants, or when the kitchen is the reason the home does not feel clean.",
+        ],
+        bullets: ["Inside refrigerator", "Inside oven", "Range hood", "Inside cabinets and drawers", "Cabinet fronts and handles"],
+      },
+      {
+        title: "Dust-detail add-ons are best when visible",
+        paragraphs: [
+          "Baseboards, doors, blinds, and interior windows can make a room feel sharper, but they are not equally urgent in every home. Choose them when dust, fingerprints, pet hair, or listing photos make those details noticeable.",
+          "If you have pets, allergies, guests, or a home that has not had a detail clean in a while, dust-detail add-ons may be more valuable than another quick pass over already-clean counters.",
+        ],
+        bullets: ["Baseboards", "Doors and door frames", "Blinds", "Interior windows", "Window sills"],
+      },
+      {
+        title: "Ask before the appointment, not at the door",
+        paragraphs: [
+          "Add-ons are not just small requests. They can change how long the cleaner needs, what tools are brought, and what should be prioritized.",
+          "If the cleaner arrives with a full schedule and you add oven, fridge, blinds, cabinets, and basement at the door, the visit may either run long or leave you disappointed. The fair time to decide is before the quote is confirmed.",
+        ],
+        bullets: ["Name add-ons during the quote", "Send photos if the area is heavy", "Choose the top priorities first", "Confirm what can fit into the visit"],
+      },
+    ],
+    faqs: [
+      ["Is oven cleaning usually included?", "Inside oven cleaning is usually an add-on unless the quote clearly includes it."],
+      ["Is fridge cleaning worth it?", "It is worth it for move-in, move-out, old spills, odors, or when the fridge affects how clean the kitchen feels."],
+      ["Should I add blinds cleaning?", "Add it when blinds are visibly dusty, there are allergies or pet hair, or the room needs to look sharper for guests or photos."],
+      ["Can I add cleaning extras after the cleaner arrives?", "Sometimes, but it may not fit the reserved time. Add-ons are best requested before booking."],
+    ],
+    links: [["Deep cleaning cost", "/pricing/deep-cleaning-cost"], ["Deep cleaning checklist", "/checklists/deep-cleaning-checklist"], ["What cleaners do not do", "/guides/what-house-cleaners-do-not-do"], ["What affects cleaning price", "/faq/what-affects-house-cleaning-price"]],
+  },
+  {
+    slug: "keep-house-clean-between-professional-cleanings",
+    path: "/guides/keep-house-clean-between-professional-cleanings",
+    title: "How to Keep a House Clean Between Professional Cleanings | Shynli Cleaning",
+    keywords: "keep house clean between cleanings, between professional cleanings, weekly cleaning routine, biweekly cleaning maintenance, recurring house cleaning tips",
+    description: "How to keep your house clean between professional cleaning visits with small daily, weekly, pet, kitchen, bathroom, and clutter habits.",
+    eyebrow: "Between visits",
+    h1: "How to keep your house clean between professional cleaning visits.",
+    dek: "A professional cleaner can reset the home, but the days between visits decide whether the next appointment feels easy, rushed, or like starting over.",
+    shortAnswer: "To keep a house clean between professional cleanings, do small maintenance tasks that protect the cleaner's time: dishes and counters most days, quick bathroom wipe-downs, floors in high-traffic areas, pet hair control, laundry contained, and clutter kept off surfaces that need cleaning. The goal is not to deep clean before the cleaner. It is to keep the home reachable.",
+    audienceQuestion: "What should I do between cleaner visits so the house does not fall apart?",
+    updated: "2026-06-14",
+    readingTime: "7 min read",
+    serviceIntent: "recurring-cleaning",
+    sections: [
+      {
+        title: "Protect the surfaces the cleaner needs to reach",
+        paragraphs: [
+          "The biggest difference between a smooth recurring clean and a rushed one is not whether the home is perfect. It is whether counters, floors, sinks, toilets, and common surfaces are reachable.",
+          "Between visits, focus on keeping personal items from taking over the spaces you want cleaned. A little surface control can make the next professional visit feel much more thorough.",
+        ],
+        bullets: ["Counters not buried", "Floors mostly reachable", "Sinks not blocked", "Laundry contained", "Toys or papers gathered before the visit"],
+      },
+      {
+        title: "Do tiny kitchen and bathroom resets",
+        paragraphs: [
+          "Kitchens and bathrooms usually decide whether a home feels clean. You do not need to deep clean them every day, but small resets keep buildup from turning into a bigger job.",
+          "Wipe obvious spills, keep dishes from blocking the sink, rinse toothpaste from sinks, and deal with trash before it becomes odor. These small habits help the professional visit focus on detail instead of rescue work.",
+        ],
+        bullets: ["Dishes or dishwasher habit", "Quick counter wipe", "Bathroom sink wipe", "Trash before odor", "Stove spills before they harden"],
+      },
+      {
+        title: "Match the routine to your cleaning frequency",
+        paragraphs: [
+          "A weekly cleaning client can usually do less between visits than a monthly cleaning client. A biweekly home needs a middle rhythm. Pets, kids, cooking, and work-from-home rooms also change the amount of maintenance needed.",
+          "If the home always feels too far gone before the next visit, the answer may be a different schedule, a first deep clean, or clearer priorities for recurring service.",
+        ],
+        bullets: ["Weekly: protect surfaces and handle daily mess", "Biweekly: add quick floor and bathroom touch-ups", "Monthly: expect more self-maintenance", "Pet homes: control hair and odors between visits"],
+      },
+      {
+        title: "Do not clean so much that you hide the real need",
+        paragraphs: [
+          "Some people panic-clean before the cleaner arrives and then feel strange paying for the visit. You do not need to do that. The cleaner's job is to clean.",
+          "Your job is to remove the barriers that stop cleaning from happening. Leave the actual bathrooms, kitchen detail, dust, floors, and routine checklist to the professional visit.",
+        ],
+        bullets: ["Tidy, do not deep clean", "Share priority rooms", "Ask if the schedule should change", "Request add-ons before the next visit"],
+      },
+    ],
+    faqs: [
+      ["Do I need to clean between professional cleanings?", "You do not need to deep clean, but light maintenance helps keep the next visit effective."],
+      ["What should I do the day before my cleaner comes?", "Pick up clutter, clear sinks and counters when possible, secure pets, and leave notes for priority areas."],
+      ["How do I know if I need weekly instead of biweekly cleaning?", "If the home feels out of control several days before each visit, weekly service or a deeper first reset may fit better."],
+      ["Should I change the cleaning schedule if I have pets?", "Maybe. Pet hair, dander, odors, and floor traffic can make weekly or biweekly service more useful than monthly service."],
+    ],
+    links: [["Recurring cleaning", "/services/recurring-cleaning"], ["How often to schedule cleaning", "/faq/how-often-should-i-schedule-cleaning"], ["Recurring cleaning cost", "/pricing/recurring-cleaning-cost"], ["First cleaner etiquette", "/guides/first-time-house-cleaner-etiquette"]],
+  },
 ]
 
 export const guideNavigationLinks: [string, string][] = guideArticles.map((article) => [article.h1.replace(/\.$/, ""), article.path])
@@ -329,38 +609,46 @@ export function getGuideLinksForService(serviceSlug: string): [string, string][]
     return [
       ["Move-out photo proof", "/guides/move-out-cleaning-photos-receipts-before-handoff"],
       ["What to tell us before a quote", "/guides/what-to-tell-cleaning-service-before-quote"],
-      ["What cleaners usually do not do", "/guides/what-house-cleaners-do-not-do"],
+      ["Which cleaning add-ons are worth it", "/guides/which-house-cleaning-add-ons-are-worth-it"],
     ]
   }
 
   if (serviceSlug.includes("deep") || serviceSlug.includes("post-construction")) {
     return [
+      ["Which cleaning add-ons are worth it", "/guides/which-house-cleaning-add-ons-are-worth-it"],
       ["What cleaners usually do not do", "/guides/what-house-cleaners-do-not-do"],
       ["What to tell us before a quote", "/guides/what-to-tell-cleaning-service-before-quote"],
-      ["If a cleaner missed spots", "/guides/what-to-do-if-cleaner-missed-spots"],
     ]
   }
 
   if (serviceSlug.includes("recurring") || serviceSlug.includes("weekly") || serviceSlug.includes("biweekly")) {
     return [
+      ["Keep the house clean between visits", "/guides/keep-house-clean-between-professional-cleanings"],
       ["First-time cleaner etiquette", "/guides/first-time-house-cleaner-etiquette"],
-      ["What to tell us before a quote", "/guides/what-to-tell-cleaning-service-before-quote"],
       ["If a cleaner missed spots", "/guides/what-to-do-if-cleaner-missed-spots"],
     ]
   }
 
   return [
+    ["How to choose a cleaning service", "/guides/how-to-choose-house-cleaning-service"],
     ["First-time cleaner etiquette", "/guides/first-time-house-cleaner-etiquette"],
-    ["What cleaners usually do not do", "/guides/what-house-cleaners-do-not-do"],
     ["What to tell us before a quote", "/guides/what-to-tell-cleaning-service-before-quote"],
   ]
 }
 
 export function getGuideLinksForPage(path: string): [string, string][] {
-  if (path === "/quote" || path.startsWith("/pricing")) {
+  if (path.includes("pet") || path.includes("allerg") || path.includes("eco-friendly") || path.includes("supplies")) {
     return [
-      ["What to tell us before a quote", "/guides/what-to-tell-cleaning-service-before-quote"],
+      ["Cleaning with pets and allergies", "/guides/house-cleaning-with-pets-and-allergies"],
       ["What cleaners usually do not do", "/guides/what-house-cleaners-do-not-do"],
+      ["What to tell us before a quote", "/guides/what-to-tell-cleaning-service-before-quote"],
+    ]
+  }
+
+  if (path.includes("why-shynli") || path.includes("insured") || path.includes("background") || path.includes("professional-cleaning-vs-independent-cleaner") || path.includes("review") || path.includes("guarantee")) {
+    return [
+      ["How to choose a cleaning service", "/guides/how-to-choose-house-cleaning-service"],
+      ["If a cleaner missed spots", "/guides/what-to-do-if-cleaner-missed-spots"],
       ["First-time cleaner etiquette", "/guides/first-time-house-cleaner-etiquette"],
     ]
   }
@@ -368,31 +656,39 @@ export function getGuideLinksForPage(path: string): [string, string][] {
   if (path.includes("move") || path.includes("moving") || path.includes("renter") || path.includes("landlord") || path.includes("security-deposit")) {
     return [
       ["Move-out photo proof", "/guides/move-out-cleaning-photos-receipts-before-handoff"],
-      ["What cleaners usually do not do", "/guides/what-house-cleaners-do-not-do"],
+      ["Which cleaning add-ons are worth it", "/guides/which-house-cleaning-add-ons-are-worth-it"],
       ["What to tell us before a quote", "/guides/what-to-tell-cleaning-service-before-quote"],
     ]
   }
 
-  if (path.includes("guarantee") || path.includes("review") || path.includes("why-shynli")) {
+  if (path === "/quote" || path.startsWith("/pricing") || path.includes("price") || path.includes("cost")) {
     return [
-      ["If a cleaner missed spots", "/guides/what-to-do-if-cleaner-missed-spots"],
+      ["Which cleaning add-ons are worth it", "/guides/which-house-cleaning-add-ons-are-worth-it"],
+      ["Should you tip house cleaners?", "/guides/should-you-tip-house-cleaners"],
+      ["What to tell us before a quote", "/guides/what-to-tell-cleaning-service-before-quote"],
+    ]
+  }
+
+  if (path.includes("recurring") || path.includes("weekly") || path.includes("biweekly") || path.includes("schedule")) {
+    return [
+      ["Keep the house clean between visits", "/guides/keep-house-clean-between-professional-cleanings"],
+      ["Should you tip house cleaners?", "/guides/should-you-tip-house-cleaners"],
       ["First-time cleaner etiquette", "/guides/first-time-house-cleaner-etiquette"],
-      ["What cleaners usually do not do", "/guides/what-house-cleaners-do-not-do"],
     ]
   }
 
   if (path.startsWith("/checklists") || path.startsWith("/faq")) {
     return [
+      ["Which cleaning add-ons are worth it", "/guides/which-house-cleaning-add-ons-are-worth-it"],
       ["What cleaners usually do not do", "/guides/what-house-cleaners-do-not-do"],
       ["First-time cleaner etiquette", "/guides/first-time-house-cleaner-etiquette"],
-      ["If a cleaner missed spots", "/guides/what-to-do-if-cleaner-missed-spots"],
     ]
   }
 
   return [
+    ["How to choose a cleaning service", "/guides/how-to-choose-house-cleaning-service"],
     ["First-time cleaner etiquette", "/guides/first-time-house-cleaner-etiquette"],
-    ["What to tell us before a quote", "/guides/what-to-tell-cleaning-service-before-quote"],
-    ["What cleaners usually do not do", "/guides/what-house-cleaners-do-not-do"],
+    ["Should you tip house cleaners?", "/guides/should-you-tip-house-cleaners"],
   ]
 }
 

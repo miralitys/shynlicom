@@ -11,6 +11,168 @@ const leadsFilePath = process.env.LEADS_FILE_PATH || path.join(__dirname, "data"
 const quoteSubmitUrl = process.env.QUOTE_SUBMIT_URL || "https://shynlicleaningservice.com/api/quote/submit"
 const leadWebhookUrl = process.env.LEAD_WEBHOOK_URL || ""
 const maxBodyBytes = 64 * 1024
+const publicBaseUrl = "https://shynli.com"
+
+const guideSeoMeta = new Map([
+  ["/guides", {
+    title: "House Cleaning Guides | Shynli Cleaning",
+    description: "Practical Shynli house cleaning guides that answer real questions about cleaners, quotes, pets, tipping, add-ons, move-out proof, and booking.",
+    keywords: "house cleaning guides, professional cleaning questions, deep cleaning guide, move out cleaning guide, house cleaner tipping, pet allergy cleaning, cleaning add ons",
+  }],
+  ["/guides/first-time-house-cleaner-etiquette", {
+    title: "First-Time House Cleaner Etiquette | Shynli Cleaning",
+    description: "First-time house cleaner etiquette: what to do before the cleaner arrives, whether to stay home, what to tidy, and how to set expectations.",
+    keywords: "first time house cleaner etiquette, what to do before cleaner comes, should I stay home during cleaning, house cleaner protocol, professional house cleaning etiquette",
+  }],
+  ["/guides/what-to-tell-cleaning-service-before-quote", {
+    title: "What to Tell a Cleaning Service Before a Quote | Shynli Cleaning",
+    description: "What to tell a cleaning service before a quote: home condition, rooms, pets, access, add-ons, timing, and priorities that change price.",
+    keywords: "cleaning service quote, house cleaning estimate, what to tell cleaner, cleaning quote checklist, professional cleaning estimate",
+  }],
+  ["/guides/what-house-cleaners-do-not-do", {
+    title: "What House Cleaners Usually Do Not Do | Shynli Cleaning",
+    description: "What house cleaners usually do not do, what may be an add-on, and how to avoid awkward expectations before a professional cleaning visit.",
+    keywords: "what house cleaners do not do, house cleaning boundaries, cleaning service not included, maid service expectations, deep cleaning add ons",
+  }],
+  ["/guides/what-to-do-if-cleaner-missed-spots", {
+    title: "What to Do If a Cleaner Missed Spots | Shynli Cleaning",
+    description: "What to do if a house cleaner missed spots: how to document the issue, what to say, and how to prevent the same problem next time.",
+    keywords: "cleaner missed spots, cleaning service complaint, house cleaning follow up, cleaning satisfaction guarantee, cleaner re-clean request",
+  }],
+  ["/guides/move-out-cleaning-photos-receipts-before-handoff", {
+    title: "Move-Out Cleaning Photos and Receipts Before Handoff | Shynli Cleaning",
+    description: "How to use move-out cleaning photos, receipts, and room-by-room proof before returning keys or finishing a landlord walkthrough.",
+    keywords: "move out cleaning photos, cleaning receipt landlord, security deposit cleaning proof, apartment move out cleaning evidence, move out handoff cleaning",
+  }],
+  ["/guides/should-you-tip-house-cleaners", {
+    title: "Should You Tip House Cleaners? | Shynli Cleaning",
+    description: "Should you tip house cleaners? Learn when tipping is common, what amount feels reasonable, and how to handle one-time, deep, move, and recurring cleaning.",
+    keywords: "should you tip house cleaners, house cleaner tipping, cleaning service tip amount, maid service tipping etiquette, tip professional cleaner",
+  }],
+  ["/guides/house-cleaning-with-pets-and-allergies", {
+    title: "House Cleaning With Pets and Allergies | Shynli Cleaning",
+    description: "How to prepare for house cleaning when you have pets, pet hair, dander, allergies, odors, litter boxes, and guests who may be sensitive.",
+    keywords: "house cleaning with pets, pet hair cleaning, pet dander cleaning, cleaning for allergies, pet friendly house cleaning, cleaner with pets at home",
+  }],
+  ["/guides/how-to-choose-house-cleaning-service", {
+    title: "How to Choose a House Cleaning Service | Shynli Cleaning",
+    description: "How to choose a house cleaning service when you care about trust, access, reviews, insurance, scope, pricing, and follow-up after the clean.",
+    keywords: "how to choose house cleaning service, trustworthy house cleaner, insured house cleaners, background checked cleaners, professional cleaning service questions",
+  }],
+  ["/guides/which-house-cleaning-add-ons-are-worth-it", {
+    title: "Which House Cleaning Add-Ons Are Worth It? | Shynli Cleaning",
+    description: "Which house cleaning add-ons are worth it? Compare oven, fridge, cabinet interiors, blinds, interior windows, baseboards, doors, and basement cleaning.",
+    keywords: "house cleaning add ons, oven cleaning add on, fridge cleaning add on, cabinet cleaning add on, blinds cleaning add on, interior window cleaning",
+  }],
+  ["/guides/keep-house-clean-between-professional-cleanings", {
+    title: "How to Keep a House Clean Between Professional Cleanings | Shynli Cleaning",
+    description: "How to keep your house clean between professional cleaning visits with small daily, weekly, pet, kitchen, bathroom, and clutter habits.",
+    keywords: "keep house clean between cleanings, between professional cleanings, weekly cleaning routine, biweekly cleaning maintenance, recurring house cleaning tips",
+  }],
+])
+
+const guideArticleSeoExtras = new Map([
+  ["/guides/first-time-house-cleaner-etiquette", {
+    headline: "First-time house cleaner etiquette: what to do before, during, and after the visit.",
+    dateModified: "2026-06-08",
+    faqs: [
+      ["Should I clean before the cleaner comes?", "No. Do not clean the house for the cleaner. Do tidy personal clutter enough that the cleaner can reach counters, floors, sinks, and surfaces."],
+      ["Should I be home for the first cleaning?", "It can help to be home for the first few minutes, especially for access, pets, priority rooms, and special surfaces. After that, you can leave or stay out of the way."],
+      ["Do I need to make a checklist?", "A checklist is helpful for priorities and boundaries. It should not replace a professional cleaning routine."],
+      ["What should I do with pets?", "Tell the cleaner where pets will be, whether they can be loose, and which doors or gates need attention. If a pet is nervous, keep them in a safe room."],
+    ],
+  }],
+  ["/guides/what-to-tell-cleaning-service-before-quote", {
+    headline: "What to tell a cleaning service before you ask for a quote.",
+    dateModified: "2026-06-08",
+    faqs: [
+      ["Do photos help with a cleaning quote?", "Yes. Photos can help the service understand condition, room size, clutter level, and add-ons before time is reserved."],
+      ["Should I say the home is messy?", "Yes, if it changes the work. Use practical words like cluttered surfaces, heavy bathroom buildup, pet hair, or move-out condition."],
+      ["Can the quote change after arrival?", "It can if the home is very different from the information provided or if extra tasks are added."],
+      ["What is the fastest way to get a better estimate?", "Share the ZIP, service type, bedrooms, bathrooms, condition, access, pets, and priority rooms in one message."],
+    ],
+  }],
+  ["/guides/what-house-cleaners-do-not-do", {
+    headline: "What house cleaners usually do not do, and what to ask about first.",
+    dateModified: "2026-06-08",
+    faqs: [
+      ["Do house cleaners pick up clutter?", "They may move light items to clean a surface, but organizing personal clutter is usually not included unless clearly agreed to."],
+      ["Are dishes included?", "Dishwashing is not always included in house cleaning. Ask before booking if the sink or kitchen reset depends on dishes."],
+      ["Can cleaners move furniture?", "Light items may be moved when safe. Heavy furniture, appliances, and risky lifting usually need a separate plan."],
+      ["Are fridge and oven cleaning included?", "They are usually add-ons unless the quote specifically includes them."],
+    ],
+  }],
+  ["/guides/what-to-do-if-cleaner-missed-spots", {
+    headline: "What to do if a cleaner missed spots after a house cleaning visit.",
+    dateModified: "2026-06-08",
+    faqs: [
+      ["How soon should I report a missed spot?", "As soon as possible, ideally the same day. Quick reporting makes the issue easier to verify and solve."],
+      ["Should I ask for a refund or re-clean?", "For a covered missed item, a re-clean or make-right follow-up is often more reasonable than jumping straight to a refund."],
+      ["What if the cleaner says it was not included?", "Ask the service to clarify the scope. If it was an add-on or outside the service, request it before the next visit."],
+      ["How do I avoid sounding rude?", "Be specific, factual, and timely. Name the room, surface, photos, and what you expected."],
+    ],
+  }],
+  ["/guides/move-out-cleaning-photos-receipts-before-handoff", {
+    headline: "Move-out cleaning photos and receipts to collect before you return keys.",
+    dateModified: "2026-06-08",
+    faqs: [
+      ["Do cleaning photos guarantee my deposit back?", "No. Photos do not guarantee a deposit decision, but they help document the condition you left behind."],
+      ["Should I photograph the whole room or only problem spots?", "Do both. Wide photos show room condition, while close-ups show appliances, sinks, floors, and details."],
+      ["Do I need a cleaning receipt?", "A receipt can help show that cleaning was completed, especially when a lease or property manager expects proof."],
+      ["When should I take move-out cleaning photos?", "Take them after the clean is finished and before returning keys, moving more items, or losing access."],
+    ],
+  }],
+  ["/guides/should-you-tip-house-cleaners", {
+    headline: "Should you tip house cleaners? A practical guide for one-time, deep, move, and recurring visits.",
+    dateModified: "2026-06-14",
+    faqs: [
+      ["Is tipping required for house cleaning?", "No. Tipping is usually optional unless a company states a specific policy. It is appreciated when the cleaner did careful work or the job was especially demanding."],
+      ["Should I tip for a deep clean?", "Many customers do tip for a deep clean because the visit is more detailed and physically demanding than a maintenance clean."],
+      ["Do I tip every recurring cleaning visit?", "Not necessarily. Some customers tip occasionally or give a holiday thank-you instead of tipping every recurring appointment."],
+      ["Should I tip the owner of a cleaning company?", "Some people tip only employee cleaners and not owner-operators, while others tip anyone who did excellent work. If you are unsure, ask the company how tips are handled."],
+    ],
+  }],
+  ["/guides/house-cleaning-with-pets-and-allergies", {
+    headline: "House cleaning with pets and allergies: what to tell the cleaner before the visit.",
+    dateModified: "2026-06-14",
+    faqs: [
+      ["Do I need to put my pets away before cleaning?", "It is safest to secure nervous, reactive, or escape-prone pets. Friendly pets may still need a separate room so the cleaner can work without doors or wet floors becoming a problem."],
+      ["Can a house cleaner remove pet dander completely?", "No cleaning visit can promise complete allergen removal. A cleaner can reduce dust, hair, and surface buildup, but carpets, upholstery, ducts, and severe dander may need specialists."],
+      ["Should I provide fragrance-free products?", "If you need specific products, mention that before booking. Some companies bring supplies, but allergy or fragrance requests should be confirmed early."],
+      ["Will cleaners clean litter boxes or pet accidents?", "Pet waste, biohazards, and heavy contamination are usually outside normal house cleaning. Ask before booking if a pet area needs special attention."],
+    ],
+  }],
+  ["/guides/how-to-choose-house-cleaning-service", {
+    headline: "How to choose a house cleaning service when trust matters.",
+    dateModified: "2026-06-14",
+    faqs: [
+      ["What should I ask before hiring a house cleaner?", "Ask what is included, what costs extra, whether supplies are included, how access is handled, what happens if something is missed, and what details affect the quote."],
+      ["Is the cheapest cleaner a bad idea?", "Not always, but the cheapest quote can become expensive if the scope is unclear, add-ons are missing, or the visit is rushed."],
+      ["Should I choose an independent cleaner or a cleaning company?", "Either can work. A company may offer clearer scheduling, support, and follow-up. An independent cleaner may feel more personal. Compare the actual process, not just the label."],
+      ["How do I know if a cleaning service is professional?", "Look for clear communication, service boundaries, practical quote questions, trust signals, and a follow-up path after the visit."],
+    ],
+  }],
+  ["/guides/which-house-cleaning-add-ons-are-worth-it", {
+    headline: "Which house cleaning add-ons are worth it before you book?",
+    dateModified: "2026-06-14",
+    faqs: [
+      ["Is oven cleaning usually included?", "Inside oven cleaning is usually an add-on unless the quote clearly includes it."],
+      ["Is fridge cleaning worth it?", "It is worth it for move-in, move-out, old spills, odors, or when the fridge affects how clean the kitchen feels."],
+      ["Should I add blinds cleaning?", "Add it when blinds are visibly dusty, there are allergies or pet hair, or the room needs to look sharper for guests or photos."],
+      ["Can I add cleaning extras after the cleaner arrives?", "Sometimes, but it may not fit the reserved time. Add-ons are best requested before booking."],
+    ],
+  }],
+  ["/guides/keep-house-clean-between-professional-cleanings", {
+    headline: "How to keep your house clean between professional cleaning visits.",
+    dateModified: "2026-06-14",
+    faqs: [
+      ["Do I need to clean between professional cleanings?", "You do not need to deep clean, but light maintenance helps keep the next visit effective."],
+      ["What should I do the day before my cleaner comes?", "Pick up clutter, clear sinks and counters when possible, secure pets, and leave notes for priority areas."],
+      ["How do I know if I need weekly instead of biweekly cleaning?", "If the home feels out of control several days before each visit, weekly service or a deeper first reset may fit better."],
+      ["Should I change the cleaning schedule if I have pets?", "Maybe. Pet hair, dander, odors, and floor traffic can make weekly or biweekly service more useful than monthly service."],
+    ],
+  }],
+])
 
 const contentTypes = new Map([
   [".html", "text/html; charset=utf-8"],
@@ -33,6 +195,147 @@ function sendJson(response, statusCode, body) {
     "Cache-Control": "no-store",
   })
   response.end(JSON.stringify(body))
+}
+
+function escapeHtml(value = "") {
+  return String(value)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+}
+
+function upsertMetaTag(html, name, content) {
+  const tag = `<meta name="${name}" content="${escapeHtml(content)}" />`
+  const pattern = new RegExp(`<meta\\s+name=["']${name}["'][\\s\\S]*?>`, "i")
+
+  if (pattern.test(html)) {
+    return html.replace(pattern, tag)
+  }
+
+  return html.replace("</head>", `    ${tag}\n  </head>`)
+}
+
+function upsertCanonical(html, href) {
+  const tag = `<link rel="canonical" href="${escapeHtml(href)}" />`
+  const pattern = /<link\s+rel=["']canonical["'][\s\S]*?>/i
+
+  if (pattern.test(html)) {
+    return html.replace(pattern, tag)
+  }
+
+  return html.replace("</head>", `    ${tag}\n  </head>`)
+}
+
+function upsertJsonLd(html, schema) {
+  const json = JSON.stringify(schema).replace(/</g, "\\u003c")
+  const tag = `<script id="page-schema" type="application/ld+json">${json}</script>`
+  const pattern = /<script\s+id=["']page-schema["']\s+type=["']application\/ld\+json["'][\s\S]*?<\/script>/i
+
+  if (pattern.test(html)) {
+    return html.replace(pattern, tag)
+  }
+
+  return html.replace("</head>", `    ${tag}\n  </head>`)
+}
+
+function getBusinessSchema() {
+  return {
+    "@type": "LocalBusiness",
+    "@id": `${publicBaseUrl}/#business`,
+    name: "Shynli Cleaning",
+    legalName: "SHYNLI LLC",
+    telephone: "+1-630-812-7077",
+    areaServed: [
+      { "@type": "City", name: "Naperville" },
+      { "@type": "City", name: "Aurora" },
+      { "@type": "City", name: "Plainfield" },
+      { "@type": "City", name: "Oswego" },
+      { "@type": "City", name: "Bolingbrook" },
+      { "@type": "City", name: "Lisle" },
+    ],
+  }
+}
+
+function getBreadcrumbSchema(path, title) {
+  return {
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: `${publicBaseUrl}/` },
+      { "@type": "ListItem", position: 2, name: "Guides", item: `${publicBaseUrl}/guides` },
+      ...(path === "/guides" ? [] : [{ "@type": "ListItem", position: 3, name: title, item: `${publicBaseUrl}${path}` }]),
+    ],
+  }
+}
+
+function getGuideRouteSchema(path, meta) {
+  if (path === "/guides") {
+    return {
+      "@context": "https://schema.org",
+      "@graph": [
+        getBusinessSchema(),
+        {
+          "@type": "CollectionPage",
+          name: "House cleaning guides for the questions people ask before they book.",
+          description: meta.description,
+          url: `${publicBaseUrl}/guides`,
+          hasPart: [...guideArticleSeoExtras].map(([articlePath, extras]) => ({
+            "@type": "Article",
+            headline: extras.headline,
+            url: `${publicBaseUrl}${articlePath}`,
+          })),
+        },
+        getBreadcrumbSchema(path, "Guides"),
+      ],
+    }
+  }
+
+  const extras = guideArticleSeoExtras.get(path)
+  const articleTitle = extras?.headline ?? meta.title.replace(" | Shynli Cleaning", "")
+  const faqs = extras?.faqs ?? []
+
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      getBusinessSchema(),
+      {
+        "@type": "Article",
+        headline: articleTitle,
+        description: meta.description,
+        dateModified: extras?.dateModified ?? "2026-06-14",
+        author: { "@type": "Organization", name: "Shynli Cleaning" },
+        publisher: { "@id": `${publicBaseUrl}/#business` },
+        mainEntityOfPage: `${publicBaseUrl}${path}`,
+      },
+      {
+        "@type": "FAQPage",
+        mainEntity: faqs.map(([question, answer]) => ({
+          "@type": "Question",
+          name: question,
+          acceptedAnswer: { "@type": "Answer", text: answer },
+        })),
+      },
+      getBreadcrumbSchema(path, articleTitle),
+    ],
+  }
+}
+
+function injectRouteSeo(html, requestPath) {
+  const normalizedPath = requestPath.replace(/\/+$/, "") || "/"
+  const meta = guideSeoMeta.get(normalizedPath)
+
+  if (!meta) {
+    return html
+  }
+
+  let nextHtml = html.replace(/<title>[\s\S]*?<\/title>/i, `<title>${escapeHtml(meta.title)}</title>`)
+  nextHtml = upsertMetaTag(nextHtml, "description", meta.description)
+  nextHtml = upsertMetaTag(nextHtml, "keywords", meta.keywords)
+  nextHtml = upsertMetaTag(nextHtml, "robots", "index,follow")
+  nextHtml = upsertCanonical(nextHtml, `${publicBaseUrl}${normalizedPath}`)
+  nextHtml = upsertJsonLd(nextHtml, getGuideRouteSchema(normalizedPath, meta))
+
+  return nextHtml
 }
 
 function normalizePhone(value = "") {
@@ -398,6 +701,7 @@ async function serveStatic(request, response) {
     createReadStream(finalPath).pipe(response)
   } catch {
     const indexHtml = await readFile(path.join(distDir, "index.html"), "utf8")
+    const pageHtml = injectRouteSeo(indexHtml, requestUrl.pathname)
     response.writeHead(200, {
       "Content-Type": "text/html; charset=utf-8",
       "Cache-Control": "no-cache",
@@ -405,7 +709,7 @@ async function serveStatic(request, response) {
       "X-Content-Type-Options": "nosniff",
       "Referrer-Policy": "strict-origin-when-cross-origin",
     })
-    response.end(indexHtml)
+    response.end(pageHtml)
   }
 }
 
