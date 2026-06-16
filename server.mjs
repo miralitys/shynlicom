@@ -16,8 +16,8 @@ const publicBaseUrl = "https://shynli.com"
 const guideSeoMeta = new Map([
   ["/guides", {
     title: "House Cleaning Guides | Shynli Cleaning",
-    description: "Practical Shynli house cleaning guides that answer real questions about cleaners, quotes, pets, tipping, add-ons, move-out proof, and booking.",
-    keywords: "house cleaning guides, professional cleaning questions, deep cleaning guide, move out cleaning guide, house cleaner tipping, pet allergy cleaning, cleaning add ons",
+    description: "Practical Shynli house cleaning guides that answer real questions about cleaners, quotes, messy homes, access, kids, budget, add-ons, and booking.",
+    keywords: "house cleaning guides, professional cleaning questions, messy house cleaner, cleaning service door code, cleaning with kids, cleaning budget priorities, first deep clean before recurring",
   }],
   ["/guides/first-time-house-cleaner-etiquette", {
     title: "First-Time House Cleaner Etiquette | Shynli Cleaning",
@@ -68,6 +68,31 @@ const guideSeoMeta = new Map([
     title: "How to Keep a House Clean Between Professional Cleanings | Shynli Cleaning",
     description: "How to keep your house clean between professional cleaning visits with small daily, weekly, pet, kitchen, bathroom, and clutter habits.",
     keywords: "keep house clean between cleanings, between professional cleanings, weekly cleaning routine, biweekly cleaning maintenance, recurring house cleaning tips",
+  }],
+  ["/guides/hiring-cleaner-when-house-is-messy", {
+    title: "Hiring a Cleaner When Your House Is Messy | Shynli Cleaning",
+    description: "Embarrassed to hire a cleaner because the house is messy? Learn what to say, what to pick up, and when cleaning vs decluttering matters.",
+    keywords: "hire cleaner messy house, embarrassed to hire cleaner, cluttered house cleaning service, cleaning help for messy house, professional cleaner messy home",
+  }],
+  ["/guides/should-you-give-cleaner-key-or-door-code", {
+    title: "Should You Give a Cleaner a Key or Door Code? | Shynli Cleaning",
+    description: "Should you give a cleaner a key or door code? Learn safer access options, what to confirm, and how to handle cleaning when you are not home.",
+    keywords: "give cleaner key, house cleaner door code, leave cleaner alone in house, cleaning service access instructions, cleaner lockbox code",
+  }],
+  ["/guides/cleaning-service-with-kids-and-toys", {
+    title: "House Cleaning With Kids and Toys | Shynli Cleaning",
+    description: "How to prepare for a cleaning service when you have kids, toys, playrooms, snack messes, bathrooms, and work-from-home family routines.",
+    keywords: "house cleaning with kids, cleaner with toys on floor, cleaning service with children home, playroom cleaning service, prepare for cleaner with kids",
+  }],
+  ["/guides/what-to-prioritize-cleaning-service-limited-budget", {
+    title: "What to Prioritize With a Cleaning Budget | Shynli Cleaning",
+    description: "If you have a limited cleaning budget, learn which rooms and tasks to prioritize so the visit creates the biggest visible difference.",
+    keywords: "cleaning service limited budget, prioritize rooms for cleaner, house cleaning budget, partial house cleaning, hourly cleaning priorities",
+  }],
+  ["/guides/initial-deep-clean-before-recurring-cleaning", {
+    title: "Why the First Cleaning Is Different From Recurring Cleaning | Shynli Cleaning",
+    description: "Why a first cleaning or initial deep clean often takes longer than weekly, biweekly, or monthly recurring cleaning visits.",
+    keywords: "first deep clean before recurring cleaning, initial cleaning vs maintenance clean, recurring cleaning first visit, deep clean before biweekly cleaning, first house cleaning more expensive",
   }],
 ])
 
@@ -170,6 +195,56 @@ const guideArticleSeoExtras = new Map([
       ["What should I do the day before my cleaner comes?", "Pick up clutter, clear sinks and counters when possible, secure pets, and leave notes for priority areas."],
       ["How do I know if I need weekly instead of biweekly cleaning?", "If the home feels out of control several days before each visit, weekly service or a deeper first reset may fit better."],
       ["Should I change the cleaning schedule if I have pets?", "Maybe. Pet hair, dander, odors, and floor traffic can make weekly or biweekly service more useful than monthly service."],
+    ],
+  }],
+  ["/guides/hiring-cleaner-when-house-is-messy", {
+    headline: "Can you hire a cleaner when your house is messy?",
+    dateModified: "2026-06-16",
+    faqs: [
+      ["Will cleaners judge my messy house?", "A professional cleaner should not judge you. They do need honest details so the right time, service, and expectations are set before the visit."],
+      ["Should I clean before hiring a cleaner?", "No. Do not deep clean first. Pick up items that block access, create safety issues, or contain private information, then let the cleaner handle the cleaning."],
+      ["Can a cleaner help if I have clutter everywhere?", "Sometimes, but clutter changes the job. If surfaces and floors are blocked, the cleaner may need to skip areas or you may need organizing or decluttering help first."],
+      ["What should I say when I feel embarrassed?", "Use practical words: cluttered counters, heavy kitchen buildup, pet hair, laundry on floors, or first deep clean in a long time. You do not need to explain your life story."],
+    ],
+  }],
+  ["/guides/should-you-give-cleaner-key-or-door-code", {
+    headline: "Should you give a cleaner a key, door code, or be home for the visit?",
+    dateModified: "2026-06-16",
+    faqs: [
+      ["Should I be home for the first cleaning?", "It is reasonable to be home at the beginning of the first visit. After the walkthrough, you can leave or stay in a room that is out of the way."],
+      ["Is a door code better than a key?", "Often yes, because a code can be changed or limited. A key can work too, but you should know who has it and how it is returned."],
+      ["What access details should I send before cleaning?", "Send parking, entry, door code or lockbox, alarm, pets, off-limits rooms, and lock-up instructions."],
+      ["Can cleaners clean while I work from home?", "Yes, if you choose a room to work in, tell the cleaner to clean that room last, and avoid moving through areas while they are being cleaned."],
+    ],
+  }],
+  ["/guides/cleaning-service-with-kids-and-toys", {
+    headline: "How to make house cleaning work when you have kids and toys everywhere.",
+    dateModified: "2026-06-16",
+    faqs: [
+      ["Do I have to pick up every toy before cleaners come?", "No. Focus on toys blocking floors, stairs, sinks, counters, and priority rooms. Use bins or one holding spot if you are short on time."],
+      ["Will cleaners organize toys?", "Usually not unless that is agreed to. Cleaners may gather light items, but organizing toys and belongings is a different service."],
+      ["Can my kids stay home during cleaning?", "Yes, but keep them out of active work areas and tell the cleaner about nap rooms, child gates, and rooms to clean first or last."],
+      ["What rooms should families prioritize?", "Most families get the biggest benefit from kitchen, bathrooms, main floors, bedrooms used daily, and any play area that affects the whole home."],
+    ],
+  }],
+  ["/guides/what-to-prioritize-cleaning-service-limited-budget", {
+    headline: "What should you prioritize if you have a limited cleaning budget?",
+    dateModified: "2026-06-16",
+    faqs: [
+      ["Can I book only part of the house?", "Often yes. Ask for a priority-room clean or explain which rooms matter most. The company should tell you what can fit."],
+      ["What rooms should I clean first on a budget?", "Bathrooms, kitchen, main floors, entry areas, and the room that affects daily life most usually give the biggest result."],
+      ["Should I choose a cheaper cleaner or fewer rooms?", "Fewer rooms with a clearer scope is often better than a rushed full-house clean that touches everything lightly."],
+      ["Can recurring cleaning save money over time?", "It can reduce the size of each reset because the home does not fall as far behind between visits."],
+    ],
+  }],
+  ["/guides/initial-deep-clean-before-recurring-cleaning", {
+    headline: "Why is the first cleaning different from recurring cleaning?",
+    dateModified: "2026-06-16",
+    faqs: [
+      ["Does every recurring plan need a first deep clean?", "Not always, but many homes need a stronger first visit before maintenance cleaning can work well."],
+      ["Why does the first cleaning cost more?", "It usually takes more labor, detail, and setup than a maintenance visit because the cleaner is catching up buildup and learning the home."],
+      ["Can I start with regular cleaning instead of deep cleaning?", "Sometimes, especially if the home is already well maintained. If there is buildup, the result may be weaker unless priorities are narrowed."],
+      ["How do I choose weekly, biweekly, or monthly cleaning?", "Choose based on how quickly the home gets behind. Weekly fits busy or high-traffic homes, biweekly is a common balance, and monthly requires more self-maintenance."],
     ],
   }],
 ])

@@ -74,6 +74,7 @@ import {
   getGuideIndexSchema,
   getGuideLinksForPage,
   getGuideLinksForService,
+  getRelatedGuideArticles,
   guideArticles,
   guideHub,
   type GuideArticleData,
@@ -470,7 +471,7 @@ export function GuidesIndexPage() {
 }
 
 export function GuideArticlePage({ article }: { article: GuideArticleData }) {
-  const relatedArticles = guideArticles.filter((item) => item.path !== article.path).slice(0, 4)
+  const relatedArticles = getRelatedGuideArticles(article)
 
   useSeoMeta(article.title, article.description, getGuideArticleSchema(article), {
     canonicalPath: article.path,
