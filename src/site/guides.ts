@@ -29,10 +29,10 @@ export type GuideArticleData = {
 export const guideHub = {
   path: "/guides",
   title: "House Cleaning Guides | Shynli Cleaning",
-  keywords: "house cleaning guides, professional cleaning questions, messy house cleaner, cleaning service door code, cleaning with kids, cleaning budget priorities, first deep clean before recurring",
-  description: "Practical Shynli house cleaning guides that answer real questions about cleaners, quotes, messy homes, access, kids, budget, add-ons, and booking.",
+  keywords: "house cleaning guides, professional cleaning questions, messy house cleaner, house cleaning time, cleaner broke something, cleaner vs housekeeper, work from home cleaning, cleaning team vs one cleaner",
+  description: "Practical Shynli house cleaning guides that answer real questions about cleaners, quotes, messy homes, timing, access, damage, teams, budget, add-ons, and booking.",
   h1: "House cleaning guides for the questions people ask before they book.",
-  dek: "These guides turn common homeowner, renter, parent, pet-owner, and first-time-cleaner questions into plain-English answers. Use them before you request a quote, compare a service, share access, or decide what to prioritize.",
+  dek: "These guides turn common homeowner, renter, parent, pet-owner, remote-work, and first-time-cleaner questions into plain-English answers. Use them before you request a quote, compare a service, share access, plan timing, or decide what to prioritize.",
 }
 
 export const guideArticles: GuideArticleData[] = [
@@ -877,6 +877,286 @@ export const guideArticles: GuideArticleData[] = [
     ],
     links: [["Recurring cleaning", "/services/recurring-cleaning"], ["Deep cleaning", "/services/deep-cleaning"], ["Recurring cleaning cost", "/pricing/recurring-cleaning-cost"], ["How often to schedule cleaning", "/faq/how-often-should-i-schedule-cleaning"]],
   },
+  {
+    slug: "how-long-house-cleaning-should-take",
+    path: "/guides/how-long-house-cleaning-should-take",
+    title: "How Long Should House Cleaning Take? | Shynli Cleaning",
+    keywords: "how long should house cleaning take, house cleaner hours, cleaning service time estimate, how many hours for a cleaner, professional cleaning duration",
+    description: "How long should house cleaning take? Learn what changes cleaning time, why first visits take longer, and how teams compare with one cleaner.",
+    eyebrow: "Cleaning timing",
+    h1: "How long should a house cleaning take?",
+    dek: "People often worry when a cleaner finishes too fast or stays much longer than expected. The real answer depends on the home, the service type, the number of cleaners, and whether this is a first reset or a maintenance visit.",
+    shortAnswer: "A regular maintained home may take a team a shorter visit, while one cleaner can need several hours. A first deep clean, pet hair, heavy bathrooms, kitchen buildup, cluttered surfaces, stairs, and add-ons can make the visit much longer. Instead of judging only by clock time, compare the time to the scope, team size, condition, and result.",
+    audienceQuestion: "Is this cleaning taking too long, too fast, or about right?",
+    updated: "2026-06-19",
+    readingTime: "7 min read",
+    serviceIntent: "home-cleaning",
+    sections: [
+      {
+        title: "Start with cleaner-hours, not only clock time",
+        paragraphs: [
+          "One cleaner working for six hours is very different from a three-person team working for two hours. Both can equal about six cleaner-hours. That is why a short team visit does not automatically mean the home was rushed, and a long single-cleaner visit does not automatically mean something is wrong.",
+          "When you compare timing, ask how many people are coming, what checklist is included, and whether the visit is standard, deep, move, first-time, or recurring. The answer makes the clock make more sense.",
+        ],
+        bullets: ["Number of cleaners", "Total cleaner-hours", "Standard or deep scope", "First visit or maintenance visit", "Home condition and access"],
+      },
+      {
+        title: "The first visit usually takes longer",
+        paragraphs: [
+          "A first visit often includes buildup that recurring visits do not have to fight every time. Bathrooms, kitchen grease, baseboards, pet hair, corners, and high-touch areas can all need extra time before the home has a clean baseline.",
+          "That does not mean every first visit must be huge. It means the first quote should be honest about what the cleaner is walking into. If the first clean is squeezed too tightly, the recurring visits may keep feeling weaker than expected.",
+        ],
+        bullets: ["Bathroom buildup", "Kitchen grease", "Pet hair", "Baseboards and corners", "Learning the home layout", "Priority rooms"],
+      },
+      {
+        title: "What makes a normal visit take longer",
+        paragraphs: [
+          "Two homes with the same bedroom count can need very different timing. A maintained two-bedroom apartment can be faster than a larger home, but a smaller home with heavy kitchen buildup, pets, stairs, clutter, or appliance add-ons may take longer.",
+          "Access can also steal time. Parking, gates, elevators, lockboxes, alarms, pets, and rooms being used while the cleaner is there all affect how smoothly the visit starts and moves.",
+        ],
+        bullets: ["Heavy kitchen or bathroom buildup", "Pets, hair, and dander", "Clutter on floors or counters", "Inside fridge, oven, or cabinets", "Parking, elevator, or gate delays", "Work-from-home rooms"],
+      },
+      {
+        title: "How to know if the timing is reasonable",
+        paragraphs: [
+          "Do not judge the visit only by whether it matched a number you saw online. Look at the result, the agreed scope, and the amount of labor. A fast visit can be fine for a maintained home. A long visit can be normal for a detailed first clean.",
+          "If the timing feels off, ask the service what was included, what was skipped, what took the most time, and what should change next visit. A clear answer is more useful than guessing from the clock.",
+        ],
+        bullets: ["Compare to the agreed scope", "Ask what took the most time", "Ask what could not fit", "Use photos for priority areas", "Adjust frequency or add-ons before the next visit"],
+      },
+    ],
+    faqs: [
+      ["Is 9 hours normal for house cleaning?", "It can be normal for one cleaner doing a detailed first clean, especially with pets, buildup, or many rooms. It would mean something different for a large team on a maintenance visit."],
+      ["Why did a cleaning team finish faster than one cleaner?", "A team splits rooms and tasks. Two cleaners for two hours can equal four cleaner-hours, so the clock time can look shorter while the labor time is similar."],
+      ["Should recurring cleaning take less time?", "Usually yes. Once the baseline is set, recurring visits should focus on maintenance unless the home gets far behind between visits."],
+      ["What should I ask before booking?", "Ask how many cleaners may come, what is included, whether the first visit needs extra time, and which add-ons change the schedule."],
+    ],
+    links: [["House cleaning cost", "/pricing/house-cleaning-cost"], ["Deep cleaning timing", "/faq/how-long-does-deep-cleaning-take"], ["First deep clean before recurring", "/guides/initial-deep-clean-before-recurring-cleaning"], ["Get a quote", "/quote"]],
+  },
+  {
+    slug: "what-if-cleaner-breaks-something",
+    path: "/guides/what-if-cleaner-breaks-something",
+    title: "What If a House Cleaner Breaks Something? | Shynli Cleaning",
+    keywords: "cleaner broke something, house cleaner damaged item, cleaning service broke item, cleaner damage what to do, insured house cleaners",
+    description: "What to do if a cleaner breaks or damages something in your home, how to document it, and how to prevent fragile-item problems.",
+    eyebrow: "Damage concerns",
+    h1: "What should you do if a house cleaner breaks something?",
+    dek: "Accidents are uncomfortable for both sides. The best outcome usually comes from fast documentation, calm communication, and clear expectations about fragile items before the next visit.",
+    shortAnswer: "If a cleaner breaks or damages something, take photos, save the item, write down when and where you noticed it, and contact the cleaning company as soon as possible. Keep the message factual and ask for the company's damage process. For future visits, move fragile, valuable, sentimental, or unstable items out of active cleaning areas before the cleaner starts.",
+    audienceQuestion: "What is the fair way to handle a broken item after cleaning?",
+    updated: "2026-06-19",
+    readingTime: "6 min read",
+    serviceIntent: "home-cleaning",
+    sections: [
+      {
+        title: "Document the issue before moving on",
+        paragraphs: [
+          "If you notice something broken after a cleaning visit, start with simple evidence. Take a wide photo of the area, a close photo of the item, and a quick note about when you noticed it.",
+          "Do not throw the item away immediately. If the company needs to understand what happened, the actual item and the surrounding area may matter more than a vague description.",
+        ],
+        bullets: ["Wide photo of the area", "Close photo of the item", "Date and time noticed", "Room and surface", "Any message from the cleaner or team"],
+      },
+      {
+        title: "Contact the service quickly and calmly",
+        paragraphs: [
+          "The first message should be factual. Name the room, the item, the visit date, and attach photos. You do not need to accuse someone to ask for the damage process.",
+          "A clear message might say: 'I noticed this frame was broken after today's cleaning. It was on the living room shelf. I attached photos. Can you tell me how Shynli handles this kind of issue?'",
+        ],
+        bullets: ["Name the item", "Name the room", "Attach photos", "Ask for the process", "Keep the tone practical"],
+      },
+      {
+        title: "Separate accidents from pre-existing issues",
+        paragraphs: [
+          "Some items are already loose, cracked, unstable, aged, or placed where normal cleaning movement can knock them over. Other damage is clearly tied to the visit. The company has to understand the difference before deciding what happens next.",
+          "That is why fragile-item prep matters. If a shelf is packed with awards, glassware, framed photos, candles, collectibles, or sentimental pieces, move them or ask the cleaner to skip that surface.",
+        ],
+        bullets: ["Loose shelves", "Unstable frames", "Fragile decor", "Sentimental items", "Items near edges", "Special surfaces"],
+      },
+      {
+        title: "Prevent the same problem next time",
+        paragraphs: [
+          "Before the next clean, remove fragile items from surfaces that need dusting. If something should not be touched, say so clearly and put it in a skip area.",
+          "Good cleaning requires access, but it also requires boundaries. A cleaner should not have to guess whether an item is replaceable, sentimental, unstable, or safe to move.",
+        ],
+        bullets: ["Clear fragile shelves", "Put valuables away", "Label rooms or surfaces to skip", "Mention special materials", "Use written notes for recurring visits"],
+      },
+    ],
+    faqs: [
+      ["Should I tell the cleaner directly or the company?", "If you booked through a company, contact the company so the issue is documented and handled through the right process."],
+      ["What if I do not notice the damage until later?", "Report it as soon as you notice it and explain when you first saw it. Fast reporting is easier to verify."],
+      ["Should I move fragile items before cleaning?", "Yes. Move fragile, valuable, sentimental, or unstable items away from active cleaning surfaces before the visit."],
+      ["Does insurance mean every item is automatically covered?", "No. Coverage depends on the facts, service terms, item condition, and the company's process. Ask the service how damage claims are handled."],
+    ],
+    links: [["Insured cleaners", "/insured-cleaners"], ["Satisfaction guarantee", "/satisfaction-guarantee"], ["How to choose a cleaning service", "/guides/how-to-choose-house-cleaning-service"], ["Contact Shynli", "/contact"]],
+  },
+  {
+    slug: "cleaning-service-while-working-from-home",
+    path: "/guides/cleaning-service-while-working-from-home",
+    title: "House Cleaning While Working From Home | Shynli Cleaning",
+    keywords: "cleaning service while working from home, cleaner while I work from home, house cleaner home office, cleaning lady etiquette work from home, remote work cleaning visit",
+    description: "How to handle a cleaning service while working from home, including office rooms, calls, pets, timing, wet floors, and rooms to clean last.",
+    eyebrow: "Work-from-home visit",
+    h1: "How do you handle house cleaning while working from home?",
+    dek: "Working from home does not have to block a cleaning visit. It just needs a plan for the office, calls, pets, noise, wet floors, and which rooms should be cleaned first or last.",
+    shortAnswer: "If you work from home during a cleaning visit, choose one room as your work zone, tell the cleaner whether to skip it or clean it last, avoid walking through active work areas, and share call times, pets, parking, and door notes before the visit. If privacy matters, put documents, laptops, and personal items away before the cleaner arrives.",
+    audienceQuestion: "Can cleaners come while I am working from home without it being awkward?",
+    updated: "2026-06-19",
+    readingTime: "6 min read",
+    serviceIntent: "recurring-cleaning",
+    sections: [
+      {
+        title: "Choose your work zone before the cleaner arrives",
+        paragraphs: [
+          "The easiest setup is to pick one room where you will work while the cleaner starts elsewhere. That room can be skipped, cleaned first before your calls begin, or cleaned last when you can move.",
+          "Do not make the cleaner guess where you will be. A short note before arrival protects your workday and helps the cleaner keep a normal route through the home.",
+        ],
+        bullets: ["Skip the office", "Clean the office first", "Clean the office last", "Use a bedroom for calls", "Move once instead of all day"],
+      },
+      {
+        title: "Plan around calls, noise, and wet floors",
+        paragraphs: [
+          "Vacuuming, bathrooms, floors, trash, and kitchen work can all create noise or movement. If you have an important meeting, tell the cleaner which area should be avoided during that window.",
+          "Wet floors matter too. If you walk through the kitchen or hallway while mopping is happening, the cleaner may have to redo work and the visit slows down.",
+        ],
+        bullets: ["Meeting times", "Quiet rooms", "Vacuum timing", "Rooms to avoid", "Main walking paths", "Wet floor awareness"],
+      },
+      {
+        title: "Put private work items away",
+        paragraphs: [
+          "Work-from-home rooms often have laptops, client notes, papers, mail, chargers, coffee cups, and personal documents on the desk. If you want that room cleaned, clear the surfaces first.",
+          "A cleaner should not be responsible for sorting private papers or deciding what can be moved. If the desk is covered, ask for the room to be skipped or only have floors cleaned.",
+        ],
+        bullets: ["Laptops and tablets", "Work papers", "Mail and bills", "Medication or personal items", "Fragile desk decor", "Cords on the floor"],
+      },
+      {
+        title: "Make recurring visits predictable",
+        paragraphs: [
+          "Work-from-home cleaning gets easier when the same pattern repeats. If the office is always cleaned last, the cleaner can build the route around that. If your calls change every week, send the updated note before the visit.",
+          "The goal is not to hide in your own home. The goal is to avoid interrupting the cleaner while still protecting your workday.",
+        ],
+        bullets: ["Same room plan each visit", "Updated meeting notes", "Pets separated from work areas", "Clear lock-up instructions", "Priority rooms named before arrival"],
+      },
+    ],
+    faqs: [
+      ["Is it rude to stay home while cleaners clean?", "No. Many customers stay home. It works best when you stay out of active work areas and tell the cleaner which room you will use."],
+      ["Should I have cleaners skip my office?", "Skip it if the desk is private, covered with papers, or needed for meetings. You can also ask to have it cleaned first or last."],
+      ["Can I take calls during the visit?", "Yes, but share important call windows so vacuuming or nearby room cleaning can be planned around them when possible."],
+      ["What should I do with pets while working from home?", "Keep pets in a safe room or with you if they might follow the cleaner, escape through doors, or walk over wet floors."],
+    ],
+    links: [["Recurring cleaning", "/services/recurring-cleaning"], ["First cleaner etiquette", "/guides/first-time-house-cleaner-etiquette"], ["Access notes", "/guides/should-you-give-cleaner-key-or-door-code"], ["Get a quote", "/quote"]],
+  },
+  {
+    slug: "cleaner-vs-housekeeper-dishes-laundry-beds",
+    path: "/guides/cleaner-vs-housekeeper-dishes-laundry-beds",
+    title: "Cleaner vs Housekeeper: Dishes, Laundry, and Beds | Shynli Cleaning",
+    keywords: "cleaner vs housekeeper, do cleaners do dishes, do house cleaners do laundry, do cleaners change sheets, maid service laundry dishes beds",
+    description: "Cleaner vs housekeeper: what to ask before expecting dishes, laundry, bed making, sheet changes, tidying, or organizing from a cleaning visit.",
+    eyebrow: "Cleaner vs housekeeper",
+    h1: "Cleaner vs housekeeper: do cleaners do dishes, laundry, or beds?",
+    dek: "A lot of disappointment comes from using the word cleaning when the customer really wants housekeeping. The difference matters before the quote, not after the cleaner arrives.",
+    shortAnswer: "A house cleaner usually focuses on cleaning kitchens, bathrooms, floors, dust, surfaces, and reachable rooms. A housekeeper may also handle tidying, dishes, laundry, linens, and household chores when that is agreed to. Some cleaners will make beds or change sheets if clean linens are ready, but laundry, dishes, and organizing should be requested clearly before booking.",
+    audienceQuestion: "Am I hiring a cleaner, a housekeeper, or both?",
+    updated: "2026-06-19",
+    readingTime: "7 min read",
+    serviceIntent: "home-cleaning",
+    sections: [
+      {
+        title: "Cleaning and housekeeping are not the same job",
+        paragraphs: [
+          "A cleaning visit is usually built around surfaces: kitchens, bathrooms, floors, dusting, sinks, counters, tubs, toilets, and high-touch areas. Housekeeping can include more household management: dishes, laundry, bed linens, tidying, and organizing.",
+          "Some services blend the two, but you should not assume that from the word cleaner. If the job includes household chores, say it before the quote so the time and price are realistic.",
+        ],
+        bullets: ["Cleaner: surfaces and rooms", "Housekeeper: chores and upkeep", "Organizer: belongings and systems", "Laundry help: wash, dry, fold, or put away", "Each needs a different scope"],
+      },
+      {
+        title: "Beds and sheets need clear instructions",
+        paragraphs: [
+          "Many cleaners can make beds. Some can change sheets if clean linens are laid out. Washing, drying, folding, and putting away laundry is a different time commitment and may not fit a standard house cleaning visit.",
+          "If beds matter, leave clean sheets where the cleaner can find them and say which beds should be changed. If the cleaner should not touch bedrooms, say that too.",
+        ],
+        bullets: ["Make beds", "Change sheets when clean linens are ready", "Leave laundry out only if agreed", "Say which bedrooms to skip", "Ask before expecting folding or putting away"],
+      },
+      {
+        title: "Dishes can change the whole visit",
+        paragraphs: [
+          "Dishes may look like a small request, but a full sink can take the time that was supposed to go to bathrooms, floors, and kitchen surfaces. Some cleaners do dishes, some do not, and some charge extra.",
+          "If the sink is blocked, the kitchen clean may be weaker even if dishes are not included. The best prep is to clear enough dishes that the cleaner can reach the sink, counters, and stovetop.",
+        ],
+        bullets: ["Empty or manageable sink", "Ask if dishes are included", "Ask if pots and pans are extra", "Do not let dishes block the kitchen clean", "Rank dishes against bathrooms and floors"],
+      },
+      {
+        title: "How to ask without making it awkward",
+        paragraphs: [
+          "Ask directly: 'Do you offer housekeeping tasks like dishes, laundry, bed changes, or tidying, or is this visit cleaning only?' That one question prevents most confusion.",
+          "For Shynli, use the quote conversation to separate standard cleaning, add-ons, and household chores. If the request is outside normal residential cleaning, we can tell you before anyone arrives.",
+        ],
+        bullets: ["Ask what is included", "Ask what costs extra", "Ask what is not offered", "Put linens and priorities in writing", "Use a priority list when time is limited"],
+      },
+    ],
+    faqs: [
+      ["Do house cleaners do laundry?", "Usually not unless laundry is clearly included in the service. Washing, drying, folding, and putting away laundry can add significant time."],
+      ["Do cleaners change sheets?", "Some cleaners will change sheets if clean linens are ready and the task is requested before the visit."],
+      ["Are dishes included in house cleaning?", "Not always. Ask before booking, especially if the sink is full or dishes would take time from the rest of the home."],
+      ["What if I need both cleaning and household chores?", "Say that before the quote. You may need a longer visit, a housekeeping-style service, or a priority plan."],
+    ],
+    links: [["What cleaners do not do", "/guides/what-house-cleaners-do-not-do"], ["Cleaning budget priorities", "/guides/what-to-prioritize-cleaning-service-limited-budget"], ["House cleaning", "/services/house-cleaning"], ["Get a quote", "/quote"]],
+  },
+  {
+    slug: "one-cleaner-vs-cleaning-team",
+    path: "/guides/one-cleaner-vs-cleaning-team",
+    title: "One Cleaner vs Cleaning Team | Shynli Cleaning",
+    keywords: "one cleaner vs cleaning team, cleaning team vs individual cleaner, house cleaning team, individual house cleaner, professional cleaning company team",
+    description: "One cleaner vs a cleaning team: how speed, consistency, trust, price, access, and communication can change the house cleaning experience.",
+    eyebrow: "Cleaner team choice",
+    h1: "Is one cleaner or a cleaning team better for your home?",
+    dek: "A single cleaner can feel personal and consistent. A team can finish faster and handle larger jobs more efficiently. The better choice depends on the home, scope, trust needs, schedule, and how the company manages notes.",
+    shortAnswer: "One cleaner may be a good fit when you want a familiar person and a smaller recurring visit. A cleaning team may be better for larger homes, first deep cleans, move cleans, or tighter time windows. The real issue is not only headcount. It is whether the service has clear notes, accountability, scope, access instructions, and a follow-up process.",
+    audienceQuestion: "Should I choose one cleaner, a team, or a company?",
+    updated: "2026-06-19",
+    readingTime: "7 min read",
+    serviceIntent: "home-cleaning",
+    sections: [
+      {
+        title: "A single cleaner can feel more familiar",
+        paragraphs: [
+          "One cleaner may learn the home over time: where pets are, which bathroom matters most, which room to skip, and how you like the beds or kitchen handled. That consistency can feel comfortable.",
+          "The tradeoff is time and backup. If the home is large, the first clean is heavy, or the cleaner gets sick, a single-person setup can be slower or harder to schedule.",
+        ],
+        bullets: ["More familiar routine", "Fewer people in the home", "May learn preferences deeply", "Can take longer", "Backup may be limited"],
+      },
+      {
+        title: "A team can finish large jobs faster",
+        paragraphs: [
+          "A team can split bathrooms, kitchen, floors, bedrooms, and dusting so the home is not occupied by cleaning work all day. This is especially useful for first deep cleans, move-in, move-out, guest-ready visits, and larger homes.",
+          "The tradeoff is coordination. If notes are unclear, a team can move quickly in the wrong direction. The company needs a clear checklist and a way to pass preferences from visit to visit.",
+        ],
+        bullets: ["Shorter clock time", "Better for large scopes", "Useful for deadlines", "Needs clear notes", "May feel less personal without good communication"],
+      },
+      {
+        title: "Compare cleaner-hours, not just price",
+        paragraphs: [
+          "A two-person team for two hours is not the same as one cleaner for two hours. When comparing quotes, think about total labor, service scope, add-ons, travel, supplies, insurance, and follow-up.",
+          "A cheaper visit can become frustrating if it does not include enough labor. A higher quote can be reasonable if it brings enough cleaner-hours and a clear result.",
+        ],
+        bullets: ["Team size", "Total time on site", "Cleaner-hours", "Scope and add-ons", "Insurance and support", "Make-right process"],
+      },
+      {
+        title: "Choose based on the visit type",
+        paragraphs: [
+          "For a recurring maintained home, either setup can work. For a large first deep clean, move-out deadline, post-renovation dust, heavy pet hair, or guest-ready deadline, a team may make the visit easier to finish in one window.",
+          "If trust is the main concern, ask how the company assigns cleaners, handles notes, manages access, and follows up. A team is only helpful when the process around the team is clear.",
+        ],
+        bullets: ["Recurring maintenance", "First deep clean", "Move-in or move-out", "Guest deadline", "Pet-heavy home", "Access and trust requirements"],
+      },
+    ],
+    faqs: [
+      ["Is a cleaning team better than one cleaner?", "Not always. A team is often better for larger jobs and tighter timing. One cleaner can be better for a familiar recurring routine."],
+      ["Does a team cost more?", "It depends on the quote. Compare cleaner-hours, scope, and result, not only clock time or headcount."],
+      ["Will a team know my home as well as one cleaner?", "They can if the company keeps good notes and assigns the visit clearly. Without notes, preferences can get lost."],
+      ["Which is better for a first deep clean?", "A team is often helpful for a first deep clean because the visit can require more detail, more rooms, and more cleaner-hours."],
+    ],
+    links: [["How long cleaning takes", "/guides/how-long-house-cleaning-should-take"], ["How to choose a service", "/guides/how-to-choose-house-cleaning-service"], ["Insured cleaners", "/insured-cleaners"], ["Get a quote", "/quote"]],
+  },
 ]
 
 export const guideNavigationLinks: [string, string][] = guideArticles.map((article) => [article.h1.replace(/\.$/, ""), article.path])
@@ -916,35 +1196,43 @@ export function getGuideLinksForService(serviceSlug: string): [string, string][]
   if (serviceSlug.includes("move") || serviceSlug.includes("rental") || serviceSlug.includes("apartment")) {
     return [
       ["Move-out photo proof", "/guides/move-out-cleaning-photos-receipts-before-handoff"],
-      ["What to tell us before a quote", "/guides/what-to-tell-cleaning-service-before-quote"],
+      ["How long cleaning takes", "/guides/how-long-house-cleaning-should-take"],
       ["Which cleaning add-ons are worth it", "/guides/which-house-cleaning-add-ons-are-worth-it"],
     ]
   }
 
   if (serviceSlug.includes("deep") || serviceSlug.includes("post-construction")) {
     return [
+      ["How long cleaning takes", "/guides/how-long-house-cleaning-should-take"],
       ["First deep clean before recurring", "/guides/initial-deep-clean-before-recurring-cleaning"],
-      ["Hiring a cleaner when the house is messy", "/guides/hiring-cleaner-when-house-is-messy"],
       ["Which cleaning add-ons are worth it", "/guides/which-house-cleaning-add-ons-are-worth-it"],
     ]
   }
 
   if (serviceSlug.includes("recurring") || serviceSlug.includes("weekly") || serviceSlug.includes("biweekly")) {
     return [
+      ["Working from home during cleaning", "/guides/cleaning-service-while-working-from-home"],
       ["First deep clean before recurring", "/guides/initial-deep-clean-before-recurring-cleaning"],
-      ["Cleaning with kids and toys", "/guides/cleaning-service-with-kids-and-toys"],
-      ["Keep the house clean between visits", "/guides/keep-house-clean-between-professional-cleanings"],
+      ["One cleaner or a team?", "/guides/one-cleaner-vs-cleaning-team"],
     ]
   }
 
   return [
-    ["Should you give a cleaner a key or code?", "/guides/should-you-give-cleaner-key-or-door-code"],
-    ["Cleaning budget priorities", "/guides/what-to-prioritize-cleaning-service-limited-budget"],
+    ["How long cleaning takes", "/guides/how-long-house-cleaning-should-take"],
+    ["One cleaner or a team?", "/guides/one-cleaner-vs-cleaning-team"],
     ["How to choose a cleaning service", "/guides/how-to-choose-house-cleaning-service"],
   ]
 }
 
 export function getGuideLinksForPage(path: string): [string, string][] {
+  if (path.includes("supplies") || path.includes("do-cleaners-bring-supplies")) {
+    return [
+      ["Cleaner vs housekeeper", "/guides/cleaner-vs-housekeeper-dishes-laundry-beds"],
+      ["What cleaners usually do not do", "/guides/what-house-cleaners-do-not-do"],
+      ["Which cleaning add-ons are worth it", "/guides/which-house-cleaning-add-ons-are-worth-it"],
+    ]
+  }
+
   if (path.includes("pet") || path.includes("allerg") || path.includes("eco-friendly") || path.includes("supplies")) {
     return [
       ["Cleaning with pets and allergies", "/guides/house-cleaning-with-pets-and-allergies"],
@@ -955,9 +1243,9 @@ export function getGuideLinksForPage(path: string): [string, string][] {
 
   if (path.includes("why-shynli") || path.includes("insured") || path.includes("background") || path.includes("professional-cleaning-vs-independent-cleaner") || path.includes("review") || path.includes("guarantee")) {
     return [
-      ["Should you give a cleaner a key or code?", "/guides/should-you-give-cleaner-key-or-door-code"],
+      ["What if a cleaner breaks something?", "/guides/what-if-cleaner-breaks-something"],
+      ["One cleaner or a team?", "/guides/one-cleaner-vs-cleaning-team"],
       ["How to choose a cleaning service", "/guides/how-to-choose-house-cleaning-service"],
-      ["If a cleaner missed spots", "/guides/what-to-do-if-cleaner-missed-spots"],
     ]
   }
 
@@ -971,31 +1259,31 @@ export function getGuideLinksForPage(path: string): [string, string][] {
 
   if (path === "/quote" || path.startsWith("/pricing") || path.includes("price") || path.includes("cost")) {
     return [
+      ["How long cleaning takes", "/guides/how-long-house-cleaning-should-take"],
       ["Cleaning budget priorities", "/guides/what-to-prioritize-cleaning-service-limited-budget"],
-      ["Which cleaning add-ons are worth it", "/guides/which-house-cleaning-add-ons-are-worth-it"],
-      ["Should you tip house cleaners?", "/guides/should-you-tip-house-cleaners"],
+      ["One cleaner or a team?", "/guides/one-cleaner-vs-cleaning-team"],
     ]
   }
 
   if (path.includes("recurring") || path.includes("weekly") || path.includes("biweekly") || path.includes("schedule")) {
     return [
+      ["Working from home during cleaning", "/guides/cleaning-service-while-working-from-home"],
       ["First deep clean before recurring", "/guides/initial-deep-clean-before-recurring-cleaning"],
-      ["Cleaning with kids and toys", "/guides/cleaning-service-with-kids-and-toys"],
       ["Keep the house clean between visits", "/guides/keep-house-clean-between-professional-cleanings"],
     ]
   }
 
   if (path.startsWith("/checklists") || path.startsWith("/faq")) {
     return [
-      ["Hiring a cleaner when the house is messy", "/guides/hiring-cleaner-when-house-is-messy"],
-      ["Which cleaning add-ons are worth it", "/guides/which-house-cleaning-add-ons-are-worth-it"],
+      ["Cleaner vs housekeeper", "/guides/cleaner-vs-housekeeper-dishes-laundry-beds"],
+      ["How long cleaning takes", "/guides/how-long-house-cleaning-should-take"],
       ["What cleaners usually do not do", "/guides/what-house-cleaners-do-not-do"],
     ]
   }
 
   return [
+    ["How long cleaning takes", "/guides/how-long-house-cleaning-should-take"],
     ["Should you give a cleaner a key or code?", "/guides/should-you-give-cleaner-key-or-door-code"],
-    ["Hiring a cleaner when the house is messy", "/guides/hiring-cleaner-when-house-is-messy"],
     ["First-time cleaner etiquette", "/guides/first-time-house-cleaner-etiquette"],
   ]
 }
