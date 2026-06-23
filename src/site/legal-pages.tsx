@@ -42,6 +42,7 @@ export function LegalLine({ line }: { line: string }) {
 
 export function LegalPage({ page }: { page: LegalPageData }) {
   const bodyLines = page.lines.filter((line) => line !== page.lines[0])
+  const showCancellationHelp = page.path === "/cancellation"
 
   useSeoMeta(`${page.title} | Shynli Cleaning`, page.description, {
     "@context": "https://schema.org",
@@ -83,6 +84,26 @@ export function LegalPage({ page }: { page: LegalPageData }) {
           </div>
         </article>
       </section>
+
+      {showCancellationHelp ? (
+        <section className="px-4 pb-12 md:px-8 md:pb-16">
+          <div className="mx-auto max-w-4xl rounded-lg border border-[#cde5f2] bg-white p-5 shadow-sm md:p-7">
+            <p className="text-sm font-black uppercase tracking-[0.18em] text-[#1976a3]">Before you move the visit</p>
+            <h2 className="mt-3 text-3xl font-black leading-tight text-[#0d2633]">Not every messy day needs to be cancelled.</h2>
+            <p className="mt-3 text-base leading-8 text-[#43525c]">
+              If the home is simply more lived-in than usual, a priority-room plan may work better than cancelling. If access, safety, movers, contractors, pets, or illness block the visit, rescheduling is usually clearer.
+            </p>
+            <div className="mt-5 flex flex-wrap gap-2">
+              <a href="/guides/when-to-reschedule-house-cleaning" className="inline-flex min-h-11 items-center rounded-full border border-[#1976a3] bg-[#eaf7ff] px-4 text-sm font-black text-[#145f85] hover:bg-[#d8f1ff]">
+                When to reschedule cleaning
+              </a>
+              <a href="/contact" className="inline-flex min-h-11 items-center rounded-full border border-[#d8e8f0] bg-white px-4 text-sm font-black text-[#0d2633] hover:border-[#1976a3]">
+                Contact Shynli
+              </a>
+            </div>
+          </div>
+        </section>
+      ) : null}
 
       <SiteFooter />
     </main>

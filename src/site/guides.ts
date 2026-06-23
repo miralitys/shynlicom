@@ -29,10 +29,10 @@ export type GuideArticleData = {
 export const guideHub = {
   path: "/guides",
   title: "House Cleaning Guides | Shynli Cleaning",
-  keywords: "house cleaning guides, professional cleaning questions, messy house cleaner, house cleaning time, cleaner broke something, cleaner vs housekeeper, work from home cleaning, cleaning team vs one cleaner",
-  description: "Practical Shynli house cleaning guides that answer real questions about cleaners, quotes, messy homes, timing, access, damage, teams, budget, add-ons, and booking.",
+  keywords: "house cleaning guides, professional cleaning questions, messy house cleaner, house cleaning time, cleaner broke something, hourly vs flat rate cleaning, recurring cleaning rotation, cleaning before baby arrives, reschedule house cleaning",
+  description: "Practical Shynli house cleaning guides that answer real questions about cleaners, quotes, messy homes, timing, access, pricing, recurring visits, first-clean feedback, and booking.",
   h1: "House cleaning guides for the questions people ask before they book.",
-  dek: "These guides turn common homeowner, renter, parent, pet-owner, remote-work, and first-time-cleaner questions into plain-English answers. Use them before you request a quote, compare a service, share access, plan timing, or decide what to prioritize.",
+  dek: "These guides turn common homeowner, renter, parent, pet-owner, remote-work, and first-time-cleaner questions into plain-English answers. Use them before you request a quote, compare a service, share access, plan timing, review the first visit, or decide what to prioritize.",
 }
 
 export const guideArticles: GuideArticleData[] = [
@@ -1157,6 +1157,286 @@ export const guideArticles: GuideArticleData[] = [
     ],
     links: [["How long cleaning takes", "/guides/how-long-house-cleaning-should-take"], ["How to choose a service", "/guides/how-to-choose-house-cleaning-service"], ["Insured cleaners", "/insured-cleaners"], ["Get a quote", "/quote"]],
   },
+  {
+    slug: "hourly-vs-flat-rate-house-cleaning",
+    path: "/guides/hourly-vs-flat-rate-house-cleaning",
+    title: "Hourly vs Flat-Rate House Cleaning | Shynli Cleaning",
+    keywords: "hourly vs flat rate house cleaning, hourly house cleaner, flat rate cleaning service, house cleaning quote, cleaner hours vs price",
+    description: "Hourly vs flat-rate house cleaning: how to compare cleaner-hours, scope, add-ons, first visits, and what the quote really includes.",
+    eyebrow: "Pricing structure",
+    h1: "Hourly vs flat-rate house cleaning: which quote is better?",
+    dek: "People often compare cleaning quotes by the number on the page. The better comparison is whether the price matches the scope, cleaner-hours, condition of the home, and follow-up process.",
+    shortAnswer: "Hourly cleaning can work when the job is open-ended or you want to buy a set amount of time for priority rooms. Flat-rate cleaning can work better when the company has enough details to quote the full visit clearly. The safest way to compare both is to ask what is included, how many cleaner-hours are planned, what counts as an add-on, and what happens if the home needs more time than expected.",
+    audienceQuestion: "Should I choose an hourly cleaner or a flat-rate cleaning service?",
+    updated: "2026-06-23",
+    readingTime: "7 min read",
+    serviceIntent: "house-cleaning",
+    sections: [
+      {
+        title: "Do not compare price without scope",
+        paragraphs: [
+          "A cheap hourly rate can become expensive if the cleaner needs far more time than expected. A flat quote can look higher at first, but may be clearer if the company has already accounted for bedrooms, bathrooms, condition, pets, access, and add-ons.",
+          "The real question is not only hourly or flat-rate. The real question is whether the cleaner and customer are imagining the same visit.",
+        ],
+        bullets: ["Rooms included", "Current home condition", "Number of cleaners", "Add-ons and exclusions", "Follow-up if something is missed"],
+      },
+      {
+        title: "Understand cleaner-hours",
+        paragraphs: [
+          "Clock time and labor time are not the same. One cleaner for four hours and two cleaners for two hours are both four cleaner-hours. A team may leave faster without the job being smaller.",
+          "When a quote feels confusing, ask how the company thinks about time. A first deep clean, pet-heavy home, move clean, or heavy kitchen can need more cleaner-hours than a maintained recurring visit.",
+        ],
+        bullets: ["One cleaner for four hours equals four cleaner-hours", "Two cleaners for two hours also equals four cleaner-hours", "First visits usually need more setup and detail", "Recurring visits should get easier when the home stays maintained"],
+      },
+      {
+        title: "When hourly cleaning can be a good fit",
+        paragraphs: [
+          "Hourly cleaning is useful when priorities matter more than a full-house promise. If you have a limited budget, you can choose bathrooms, kitchen, main floors, or the rooms that would change daily life most.",
+          "The tradeoff is that time can run out. If you book two hours for a home that needs five, the cleaner may have to stop before every room is finished.",
+        ],
+        bullets: ["Priority-room cleaning", "A limited budget", "Open-ended catch-up work", "A home where you know not everything will fit"],
+      },
+      {
+        title: "When flat-rate cleaning can be safer",
+        paragraphs: [
+          "Flat-rate cleaning is usually stronger when the company asks enough questions before the quote. That gives you a clearer agreement about what the visit is supposed to accomplish.",
+          "Flat-rate does not mean unlimited. If the home is very different from the quote, or if you add oven, fridge, cabinets, blinds, and extra rooms at the door, the scope may need to change.",
+        ],
+        bullets: ["Clear full-visit expectations", "Move-in or move-out cleaning", "First deep clean", "Recurring service with a known routine", "Customers who want fewer surprises"],
+      },
+    ],
+    faqs: [
+      ["Is hourly house cleaning cheaper?", "Not always. It depends on how much time the home needs and whether the cleaner can finish the work you expect inside the reserved hours."],
+      ["Is flat-rate cleaning unlimited?", "No. A flat quote still depends on the agreed scope, home details, add-ons, and condition described before booking."],
+      ["What should I ask before comparing quotes?", "Ask what is included, how many cleaner-hours are planned, what costs extra, whether supplies are included, and what happens if the visit needs more time."],
+      ["How does Shynli quote cleaning?", "Shynli starts with ZIP, service type, bedrooms, bathrooms, condition, access, pets, and add-ons so the visit can be planned before booking."],
+    ],
+    links: [["Pricing", "/pricing"], ["House cleaning cost", "/pricing/house-cleaning-cost"], ["How long cleaning takes", "/guides/how-long-house-cleaning-should-take"], ["Get a quote", "/quote"]],
+  },
+  {
+    slug: "rotating-deep-cleaning-tasks-on-recurring-visits",
+    path: "/guides/rotating-deep-cleaning-tasks-on-recurring-visits",
+    title: "Rotating Deep-Cleaning Tasks on Recurring Visits | Shynli Cleaning",
+    keywords: "rotating deep cleaning tasks, recurring cleaning rotation, biweekly cleaning deep tasks, weekly cleaning rotation, maintenance cleaning checklist",
+    description: "Can recurring cleaning include rotating deep-cleaning tasks? Learn what can rotate, what needs an add-on, and how to plan weekly or biweekly visits.",
+    eyebrow: "Recurring rotation",
+    h1: "Can recurring cleaning include rotating deep-cleaning tasks?",
+    dek: "A recurring cleaning visit is mostly maintenance, but some detail tasks can rotate when the plan is realistic. The key is separating normal upkeep, rotating detail, and true deep-clean add-ons.",
+    shortAnswer: "Recurring cleaning can include small rotating detail tasks when the regular checklist is under control. Good rotation items include baseboards in one area, doors, reachable dusting, cabinet fronts, or one extra bathroom detail. Larger jobs like inside oven, inside fridge, heavy blinds, full baseboards, wall washing, or post-construction dust usually need to be requested as add-ons or a separate deep clean.",
+    audienceQuestion: "Can my weekly or biweekly cleaner rotate deeper tasks over time?",
+    updated: "2026-06-23",
+    readingTime: "7 min read",
+    serviceIntent: "recurring-cleaning",
+    sections: [
+      {
+        title: "Maintenance comes first",
+        paragraphs: [
+          "Recurring cleaning works because the core rooms get handled again and again: kitchen, bathrooms, floors, dust, bedrooms, and shared spaces. If those basics are still taking the whole visit, there may not be much room for rotating detail.",
+          "That does not mean rotation is impossible. It means the baseline has to be honest. A home that is still catching up may need an initial deep clean before rotation makes sense.",
+        ],
+        bullets: ["Kitchen surfaces", "Bathrooms", "Floors", "Dusting", "Bedrooms and common areas", "Trash and high-touch surfaces"],
+      },
+      {
+        title: "Good tasks to rotate",
+        paragraphs: [
+          "The best rotation tasks are visible, reachable, and small enough to fit without sacrificing the whole home. Think of one focused detail added to a normal visit, not a second cleaning package hidden inside the same time.",
+          "For example, one visit can include extra attention to baseboards in the main level. Another visit can focus on door frames or reachable dust in bedrooms. This keeps the home improving without pretending every detail can be done every time.",
+        ],
+        bullets: ["One floor of baseboards", "Door frames and light switches", "Cabinet fronts", "Reachable vents", "One extra bathroom detail", "Dust-heavy corners or shelves"],
+      },
+      {
+        title: "Tasks that usually need separate time",
+        paragraphs: [
+          "Some tasks sound small until the cleaner starts doing them. Inside appliances, heavy blinds, whole-home baseboards, interior windows, walls, and heavy buildup can take enough time to disrupt a normal recurring visit.",
+          "Those items are often better as add-ons, a seasonal deep clean, or a longer scheduled visit. That way the cleaner does not have to choose between the normal checklist and the extra task.",
+        ],
+        bullets: ["Inside oven", "Inside refrigerator", "Whole-home baseboards", "Heavy blinds", "Interior windows", "Wall washing", "Cabinet interiors", "Heavy bathroom buildup"],
+      },
+      {
+        title: "How to ask for a recurring rotation",
+        paragraphs: [
+          "Ask for the rotation before the visit, not when the cleaner is already halfway through the home. A simple note is enough: 'Can we rotate one extra detail each visit after the regular checklist is done?'",
+          "If you book with Shynli, use the quote or callback conversation to explain the recurring goal. The team can help decide whether weekly, biweekly, monthly, or a first deep clean makes the most sense.",
+        ],
+        bullets: ["Name the regular checklist first", "Choose one rotating detail at a time", "Ask what fits the reserved visit", "Use add-ons for heavier work", "Adjust cadence if the home keeps falling behind"],
+      },
+    ],
+    faqs: [
+      ["Can biweekly cleaning include deep-cleaning tasks?", "Sometimes, if the core maintenance work is under control and the extra task is small enough to fit the visit."],
+      ["Should I rotate baseboards every visit?", "You can rotate sections of baseboards, but whole-home baseboards usually need extra time or a deep-clean add-on."],
+      ["Can oven and fridge rotate into recurring cleaning?", "They can be planned, but inside oven and fridge are usually add-ons because they take focused time."],
+      ["What if the cleaner never has time for rotation?", "The home may need a longer visit, a first deep clean, a different cadence, or narrower priorities."],
+    ],
+    links: [["Recurring cleaning", "/services/recurring-cleaning"], ["Weekly cleaning", "/services/weekly-cleaning"], ["First deep clean before recurring", "/guides/initial-deep-clean-before-recurring-cleaning"], ["Recurring cleaning cost", "/pricing/recurring-cleaning-cost"]],
+  },
+  {
+    slug: "what-to-check-after-first-house-cleaning",
+    path: "/guides/what-to-check-after-first-house-cleaning",
+    title: "What to Check After Your First House Cleaning | Shynli Cleaning",
+    keywords: "what to check after first house cleaning, first cleaning walkthrough, cleaning service feedback, house cleaner rebook decision, professional cleaning checklist review",
+    description: "What to check after your first house cleaning before you rebook: priority rooms, scope, missed spots, communication, and recurring fit.",
+    eyebrow: "First-clean review",
+    h1: "What to check after your first house cleaning before you rebook.",
+    dek: "The first cleaning is not only about whether the house looks better. It tells you whether the service understood the scope, protected the home, communicated clearly, and can become a reliable routine.",
+    shortAnswer: "After your first house cleaning, check the priority rooms first, then compare the result to the agreed scope. Look at bathrooms, kitchen, floors, dusting, surfaces, add-ons, lock-up, and whether anything was missed or damaged. If something important was included but missed, send clear photos quickly. If the service handled the home well, use the feedback to set the next recurring visit.",
+    audienceQuestion: "How do I know whether the first cleaning was good enough to rebook?",
+    updated: "2026-06-23",
+    readingTime: "7 min read",
+    serviceIntent: "home-cleaning",
+    sections: [
+      {
+        title: "Check the rooms that mattered most",
+        paragraphs: [
+          "Do not inspect the house like you are trying to catch someone. Start with the rooms that made you book the clean in the first place. If the kitchen, main bath, floors, or guest areas were the priority, check those first.",
+          "A first visit may not make an old home perfect, especially if there was heavy buildup. The better question is whether the cleaner spent time where the visit was supposed to matter.",
+        ],
+        bullets: ["Kitchen counters, sink, stovetop, and floors", "Bathrooms, toilets, sinks, tubs, and mirrors", "Main floors and entry areas", "Dust on reachable surfaces", "Bedrooms or guest areas you named as priorities"],
+      },
+      {
+        title: "Compare the result to the agreed scope",
+        paragraphs: [
+          "A disappointing feeling is not always the same as a missed included task. Before you judge the whole service, compare what you expected with what was actually booked.",
+          "Inside appliances, cabinet interiors, heavy blinds, interior windows, laundry, dishes, organizing, and moving heavy furniture may not be included unless they were requested before the visit.",
+        ],
+        bullets: ["Was it standard, deep, move, or recurring cleaning?", "Were add-ons requested before booking?", "Were surfaces reachable?", "Was the home condition described honestly?", "Did time run short because priorities changed?"],
+      },
+      {
+        title: "Give feedback while it can still help",
+        paragraphs: [
+          "If something important was missed, send a calm, specific note the same day or as soon as possible. Include the room, surface, photos, and why you believe it was part of the scope.",
+          "Good feedback is not rude. It helps the company fix a covered issue and helps the cleaner understand the home better next time.",
+        ],
+        bullets: ["Use photos", "Name the room and surface", "Mention the original scope", "Ask for the make-right process", "Save new preferences for the next visit"],
+      },
+      {
+        title: "Decide what should change next time",
+        paragraphs: [
+          "The best first clean often creates a better second clean. Once the first visit reveals the home, you can decide whether the next appointment should be weekly, biweekly, monthly, longer, shorter, or focused differently.",
+          "If the home was far behind, do not expect every recurring visit to repeat the first deep clean. Use the first clean to set the baseline, then maintain it with a realistic cadence.",
+        ],
+        bullets: ["Keep the same checklist", "Add one priority note", "Request a rotating detail", "Move to recurring service", "Book a longer or deeper visit if needed"],
+      },
+    ],
+    faqs: [
+      ["Should I inspect the home before the cleaner leaves?", "If you are home, a quick walkthrough can help. If not, check priority rooms soon after the visit and send photos quickly if something covered was missed."],
+      ["What if the home looks better but not perfect?", "That can happen after a first clean with buildup. Compare the result to the scope and decide whether a deeper or longer visit is needed."],
+      ["How do I give feedback without being rude?", "Be specific and practical. Name the room, surface, photo, and expected scope instead of sending a vague complaint."],
+      ["When should I rebook recurring cleaning?", "Rebook when the service handled the home well and you can set a realistic weekly, biweekly, or monthly rhythm before the home falls behind again."],
+    ],
+    links: [["What if a cleaner missed spots", "/guides/what-to-do-if-cleaner-missed-spots"], ["Satisfaction guarantee", "/satisfaction-guarantee"], ["Recurring cleaning", "/services/recurring-cleaning"], ["Get a quote", "/quote"]],
+  },
+  {
+    slug: "cleaning-service-before-baby-arrives",
+    path: "/guides/cleaning-service-before-baby-arrives",
+    title: "Hiring a Cleaning Service Before a Baby Arrives | Shynli Cleaning",
+    keywords: "cleaning service before baby arrives, house cleaning before newborn, deep cleaning before baby, cleaning help for expecting parents, baby arriving house cleaning",
+    description: "Hiring a cleaning service before a baby arrives: what to prioritize, when to book, product notes, family routines, and what not to overdo.",
+    eyebrow: "Before baby arrives",
+    h1: "Hiring a cleaning service before a baby arrives: what to prioritize.",
+    dek: "Expecting parents often want the home to feel calmer before the baby arrives, but the goal is not to sterilize life. The goal is to reset the rooms that will carry the first few weeks.",
+    shortAnswer: "Before a baby arrives, prioritize bathrooms, kitchen, floors, dust, bedroom surfaces, laundry-area access, guest areas, and the rooms caregivers will actually use. Book early enough that the visit is not fighting the due date, and mention fragrance sensitivity, pets, nursery access, and any rooms that should be skipped. A cleaning service can help the home feel ready, but it should not promise medical-level sanitizing or replace health guidance.",
+    audienceQuestion: "What should I have professionally cleaned before a baby comes home?",
+    updated: "2026-06-23",
+    readingTime: "7 min read",
+    serviceIntent: "deep-cleaning",
+    sections: [
+      {
+        title: "Clean for real life, not perfection",
+        paragraphs: [
+          "The first weeks with a baby are practical. People use the kitchen, bathrooms, bedroom, laundry area, floors, and the path between them. Those spaces usually matter more than chasing every hidden corner of the home.",
+          "A good pre-baby clean should make the home easier to live in, easier for family to help in, and less stressful to maintain when energy is limited.",
+        ],
+        bullets: ["Kitchen counters, sink, and floors", "Bathrooms", "Bedroom surfaces", "Main floors and walkways", "Guest or caregiver areas", "Trash and high-touch surfaces"],
+      },
+      {
+        title: "Book before the week feels urgent",
+        paragraphs: [
+          "Do not wait until the last possible day if you can avoid it. Cleaning close to the due date can be stressful if the schedule changes, the home needs more time, or family plans move around.",
+          "Many families prefer a deep clean or one-time reset before the final stretch, then lighter maintenance if needed. The right timing depends on your home, energy, help, and schedule.",
+        ],
+        bullets: ["Book before the calendar feels tight", "Share any time-sensitive notes", "Choose deep or one-time cleaning based on condition", "Avoid stacking cleaning with appointments, deliveries, or furniture assembly"],
+      },
+      {
+        title: "Mention product and fragrance preferences early",
+        paragraphs: [
+          "If someone in the home is sensitive to fragrance or certain products, say so before booking. The cleaner should know whether you want standard supplies, product notes, or rooms handled carefully.",
+          "Keep the expectation practical. Residential cleaning can reduce dust and surface buildup, but it is not medical sanitizing or allergen remediation.",
+        ],
+        bullets: ["Fragrance-sensitive request", "Products to avoid", "Nursery or bedroom notes", "Pet areas", "Rooms that should stay closed"],
+      },
+      {
+        title: "Do not turn the visit into every project at once",
+        paragraphs: [
+          "The pre-baby nesting list can grow fast: oven, fridge, cabinets, blinds, baseboards, windows, closets, laundry, toys, storage, and guest rooms. A cleaner can help, but one visit still needs priorities.",
+          "Choose the rooms and add-ons that will change daily life most. If the home needs organizing, trash removal, or laundry help, ask clearly because those may not be standard cleaning tasks.",
+        ],
+        bullets: ["Pick the top rooms first", "Add oven or fridge only if they matter", "Do not assume organizing is included", "Keep private papers and baby items where you want them", "Leave clear notes for off-limits rooms"],
+      },
+    ],
+    faqs: [
+      ["Should I book deep cleaning before a baby arrives?", "A deep clean can be useful if the home has buildup or has not had a detailed reset in a while. A maintained home may only need one-time or regular cleaning."],
+      ["How close to the due date should I schedule cleaning?", "There is no perfect timing, but booking before the final rush gives more room for schedule changes and follow-up if needed."],
+      ["Can cleaners sanitize the home for a newborn?", "A residential cleaning service can clean surfaces and reduce visible buildup, but it should not promise medical-level sanitizing. Follow your healthcare provider's guidance for health concerns."],
+      ["What should expecting parents prioritize?", "Bathrooms, kitchen, floors, bedroom surfaces, guest or caregiver areas, and the rooms used every day usually matter most."],
+    ],
+    links: [["Deep cleaning", "/services/deep-cleaning"], ["One-time cleaning", "/services/one-time-cleaning"], ["Cleaning with kids and toys", "/guides/cleaning-service-with-kids-and-toys"], ["Get a quote", "/quote"]],
+  },
+  {
+    slug: "when-to-reschedule-house-cleaning",
+    path: "/guides/when-to-reschedule-house-cleaning",
+    title: "When to Reschedule a House Cleaning | Shynli Cleaning",
+    keywords: "when to reschedule house cleaning, cancel cleaning service, reschedule cleaner, house cleaner sick at home, cleaning appointment access issue",
+    description: "When should you reschedule a house cleaning? Practical guidance for sickness, no access, movers, contractors, pets, travel, and timing conflicts.",
+    eyebrow: "Rescheduling",
+    h1: "When should you reschedule a house cleaning?",
+    dek: "A cleaning appointment works best when the cleaner can safely enter, reach the rooms, and finish the agreed scope. Some messy days are still cleanable. Some days are better moved.",
+    shortAnswer: "Reschedule house cleaning when the cleaner cannot safely access the home, someone is sick in a way that makes the visit unsafe, movers or contractors are still blocking the work, pets cannot be secured, utilities are not available, or you will be unreachable for required access. Do not reschedule only because the home is imperfect. Instead, share the condition and priority rooms so the cleaner can plan honestly.",
+    audienceQuestion: "Should I cancel, reschedule, or let the cleaner come anyway?",
+    updated: "2026-06-23",
+    readingTime: "7 min read",
+    serviceIntent: "recurring-cleaning",
+    sections: [
+      {
+        title: "Messy is not the same as impossible",
+        paragraphs: [
+          "Many people want to cancel because the house is embarrassing. That is usually not necessary. A cleaner can often work with a real home as long as floors, counters, sinks, and priority rooms are reachable enough to clean.",
+          "Instead of canceling because the home is not perfect, send a note: 'The house is more cluttered than usual. Please focus on bathrooms, kitchen, and main floors first.'",
+        ],
+        bullets: ["Cluttered but reachable", "Dishes or laundry contained", "Pets secured", "Priority rooms named", "Cleaner can still enter and work safely"],
+      },
+      {
+        title: "Reschedule when access or safety is the problem",
+        paragraphs: [
+          "Some situations make the visit unfair or unsafe for everyone. If the cleaner cannot get in, cannot park, cannot reach the rooms, or would be working around active illness, construction, or uncontrolled pets, moving the visit may be the cleaner choice.",
+          "Give as much notice as possible. A late cancellation can affect the cleaner's route and schedule.",
+        ],
+        bullets: ["No key, code, lockbox, or door access", "Active contractors blocking rooms", "Movers still loading or unloading", "No water or power where needed", "Pets cannot be safely separated", "A sick household member needs separation or rest"],
+      },
+      {
+        title: "Out of town can work if access is clear",
+        paragraphs: [
+          "You do not always need to be home for cleaning. If you are out of town but have a reliable access plan, lock-up notes, alarm instructions, and a reachable phone, the visit may still work.",
+          "If nobody can answer a door, disarm an alarm, secure a pet, or explain an issue, rescheduling may be better than sending the cleaner into a confusing visit.",
+        ],
+        bullets: ["Door code or lockbox works", "Alarm instructions are clear", "Pets are handled", "Off-limits rooms are named", "You can answer the phone if needed"],
+      },
+      {
+        title: "How to reschedule without creating confusion",
+        paragraphs: [
+          "A helpful reschedule message includes the appointment date, reason, urgency, and the next possible window. If the issue changes the cleaning scope, include that too.",
+          "If you book with Shynli, use the contact or callback path early. The goal is not to punish real life; the goal is to keep the route, cleaner, and home plan clear.",
+        ],
+        bullets: ["Give the appointment date", "Explain the access or timing issue", "Offer new windows", "Mention whether the service type changed", "Ask about the cancellation policy if the notice is short"],
+      },
+    ],
+    faqs: [
+      ["Should I cancel because my house is messy?", "Usually no. Tell the cleaner the home is more cluttered than usual and name priority rooms. Reschedule only if the cleaner cannot safely reach the work."],
+      ["Should I reschedule if someone is sick?", "If the visit would put the cleaner or household under unsafe or uncomfortable conditions, rescheduling is often the better choice. Follow practical health guidance for your situation."],
+      ["Can cleaners come while I am out of town?", "Yes, if access, lock-up, pets, alarms, and communication are clear. If not, reschedule."],
+      ["What if movers or contractors are still there?", "If rooms are blocked or work is still active, reschedule or move cleaning after the space is ready."],
+    ],
+    links: [["Cancellation policy", "/cancellation"], ["Home access guide", "/guides/should-you-give-cleaner-key-or-door-code"], ["Working from home during cleaning", "/guides/cleaning-service-while-working-from-home"], ["Contact Shynli", "/contact"]],
+  },
 ]
 
 export const guideNavigationLinks: [string, string][] = guideArticles.map((article) => [article.h1.replace(/\.$/, ""), article.path])
@@ -1201,7 +1481,7 @@ export function getGuideLinksForService(serviceSlug: string): [string, string][]
     ]
   }
 
-  if (serviceSlug.includes("deep") || serviceSlug.includes("post-construction")) {
+  if (serviceSlug.includes("post-construction")) {
     return [
       ["How long cleaning takes", "/guides/how-long-house-cleaning-should-take"],
       ["First deep clean before recurring", "/guides/initial-deep-clean-before-recurring-cleaning"],
@@ -1209,22 +1489,54 @@ export function getGuideLinksForService(serviceSlug: string): [string, string][]
     ]
   }
 
+  if (serviceSlug.includes("deep")) {
+    return [
+      ["Cleaning before a baby arrives", "/guides/cleaning-service-before-baby-arrives"],
+      ["First deep clean before recurring", "/guides/initial-deep-clean-before-recurring-cleaning"],
+      ["Which cleaning add-ons are worth it", "/guides/which-house-cleaning-add-ons-are-worth-it"],
+    ]
+  }
+
+  if (serviceSlug.includes("one-time")) {
+    return [
+      ["Cleaning before a baby arrives", "/guides/cleaning-service-before-baby-arrives"],
+      ["What to check after the first clean", "/guides/what-to-check-after-first-house-cleaning"],
+      ["Which cleaning add-ons are worth it", "/guides/which-house-cleaning-add-ons-are-worth-it"],
+    ]
+  }
+
   if (serviceSlug.includes("recurring") || serviceSlug.includes("weekly") || serviceSlug.includes("biweekly")) {
     return [
-      ["Working from home during cleaning", "/guides/cleaning-service-while-working-from-home"],
-      ["First deep clean before recurring", "/guides/initial-deep-clean-before-recurring-cleaning"],
-      ["One cleaner or a team?", "/guides/one-cleaner-vs-cleaning-team"],
+      ["Rotating deeper tasks", "/guides/rotating-deep-cleaning-tasks-on-recurring-visits"],
+      ["When to reschedule cleaning", "/guides/when-to-reschedule-house-cleaning"],
+      ["Keep the house clean between visits", "/guides/keep-house-clean-between-professional-cleanings"],
     ]
   }
 
   return [
-    ["How long cleaning takes", "/guides/how-long-house-cleaning-should-take"],
-    ["One cleaner or a team?", "/guides/one-cleaner-vs-cleaning-team"],
+    ["Hourly or flat-rate cleaning?", "/guides/hourly-vs-flat-rate-house-cleaning"],
+    ["What to check after the first clean", "/guides/what-to-check-after-first-house-cleaning"],
     ["How to choose a cleaning service", "/guides/how-to-choose-house-cleaning-service"],
   ]
 }
 
 export function getGuideLinksForPage(path: string): [string, string][] {
+  if (path.includes("cancellation") || path.includes("contact")) {
+    return [
+      ["When to reschedule cleaning", "/guides/when-to-reschedule-house-cleaning"],
+      ["Should you give a cleaner a key or code?", "/guides/should-you-give-cleaner-key-or-door-code"],
+      ["What to tell us before a quote", "/guides/what-to-tell-cleaning-service-before-quote"],
+    ]
+  }
+
+  if (path.includes("baby") || path.includes("kids") || path.includes("guest") || path.includes("holiday")) {
+    return [
+      ["Cleaning before a baby arrives", "/guides/cleaning-service-before-baby-arrives"],
+      ["House cleaning with kids and toys", "/guides/cleaning-service-with-kids-and-toys"],
+      ["Which cleaning add-ons are worth it", "/guides/which-house-cleaning-add-ons-are-worth-it"],
+    ]
+  }
+
   if (path.includes("supplies") || path.includes("do-cleaners-bring-supplies")) {
     return [
       ["Cleaner vs housekeeper", "/guides/cleaner-vs-housekeeper-dishes-laundry-beds"],
@@ -1243,8 +1555,8 @@ export function getGuideLinksForPage(path: string): [string, string][] {
 
   if (path.includes("why-shynli") || path.includes("insured") || path.includes("background") || path.includes("professional-cleaning-vs-independent-cleaner") || path.includes("review") || path.includes("guarantee")) {
     return [
+      ["What to check after the first clean", "/guides/what-to-check-after-first-house-cleaning"],
       ["What if a cleaner breaks something?", "/guides/what-if-cleaner-breaks-something"],
-      ["One cleaner or a team?", "/guides/one-cleaner-vs-cleaning-team"],
       ["How to choose a cleaning service", "/guides/how-to-choose-house-cleaning-service"],
     ]
   }
@@ -1257,26 +1569,26 @@ export function getGuideLinksForPage(path: string): [string, string][] {
     ]
   }
 
-  if (path === "/quote" || path.startsWith("/pricing") || path.includes("price") || path.includes("cost")) {
+  if (path.includes("recurring") || path.includes("weekly") || path.includes("biweekly") || path.includes("schedule")) {
     return [
-      ["How long cleaning takes", "/guides/how-long-house-cleaning-should-take"],
-      ["Cleaning budget priorities", "/guides/what-to-prioritize-cleaning-service-limited-budget"],
-      ["One cleaner or a team?", "/guides/one-cleaner-vs-cleaning-team"],
+      ["Rotating deeper tasks", "/guides/rotating-deep-cleaning-tasks-on-recurring-visits"],
+      ["When to reschedule cleaning", "/guides/when-to-reschedule-house-cleaning"],
+      ["Keep the house clean between visits", "/guides/keep-house-clean-between-professional-cleanings"],
     ]
   }
 
-  if (path.includes("recurring") || path.includes("weekly") || path.includes("biweekly") || path.includes("schedule")) {
+  if (path === "/quote" || path.startsWith("/pricing") || path.includes("price") || path.includes("cost")) {
     return [
-      ["Working from home during cleaning", "/guides/cleaning-service-while-working-from-home"],
-      ["First deep clean before recurring", "/guides/initial-deep-clean-before-recurring-cleaning"],
-      ["Keep the house clean between visits", "/guides/keep-house-clean-between-professional-cleanings"],
+      ["Hourly or flat-rate cleaning?", "/guides/hourly-vs-flat-rate-house-cleaning"],
+      ["How long cleaning takes", "/guides/how-long-house-cleaning-should-take"],
+      ["Cleaning budget priorities", "/guides/what-to-prioritize-cleaning-service-limited-budget"],
     ]
   }
 
   if (path.startsWith("/checklists") || path.startsWith("/faq")) {
     return [
+      ["What to check after the first clean", "/guides/what-to-check-after-first-house-cleaning"],
       ["Cleaner vs housekeeper", "/guides/cleaner-vs-housekeeper-dishes-laundry-beds"],
-      ["How long cleaning takes", "/guides/how-long-house-cleaning-should-take"],
       ["What cleaners usually do not do", "/guides/what-house-cleaners-do-not-do"],
     ]
   }
