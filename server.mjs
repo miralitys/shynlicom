@@ -578,7 +578,11 @@ function injectRouteSeo(html, requestPath) {
     nextHtml = upsertMetaTag(nextHtml, "keywords", meta.keywords)
   }
   nextHtml = upsertMetaTag(nextHtml, "robots", "index,follow")
-  nextHtml = upsertCanonical(nextHtml, `${publicBaseUrl}${normalizedPath}`)
+  // meta.canonical задаётся, когда страница намеренно не самостоятельная.
+  // Сейчас это /service-areas/<город>/house-cleaning: она целится в тот же
+  // запрос, что и страница города, и каноникалится на неё, чтобы сигналы
+  // не делились между двумя URL.
+  nextHtml = upsertCanonical(nextHtml, `${publicBaseUrl}${meta.canonical ?? normalizedPath}`)
 
   // JSON-LD гайдов оставляем как было. Для городов и услуг схему рисует
   // клиентский код, дублировать её в HTML сейчас не нужно.

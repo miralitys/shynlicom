@@ -13,6 +13,13 @@ import {
 
 const SITE_NAME = 'Shynli Cleaning'
 
+type RouteMeta = {
+  title: string
+  description: string
+  /** Абсолютный путь каноникала, если он отличается от самого маршрута. */
+  canonical?: string
+}
+
 // Обрезка описания повторяет normalizeSeoDescription из src/site/shared.tsx.
 function normalizeDescription(value: string) {
   const text = value.replace(/\s+/g, ' ').trim()
@@ -40,7 +47,7 @@ function seoRoutesPlugin() {
     name: 'shynli-seo-routes',
     apply: 'build' as const,
     closeBundle() {
-      const routes: Record<string, { title: string; description: string }> = {}
+      const routes: Record<string, RouteMeta> = {}
 
       for (const city of cityPages) {
         routes[`/service-areas/${city.slug}`] = {
@@ -62,12 +69,24 @@ function seoRoutesPlugin() {
 
       for (const city of cityServicePageCities) {
         for (const service of getCityServiceSeoServices(city.name)) {
-          routes[`/service-areas/${city.slug}/${service.slug}`] = {
+          const route = `/service-areas/${city.slug}/${service.slug}`
+          const entry: RouteMeta = {
             title: `${service.name} in ${city.name}, IL | ${SITE_NAME}`,
             description: normalizeDescription(
               `Book ${service.name.toLowerCase()} in ${city.name}, IL. Check your ZIP, choose the clean, and get clear pricing before you book.`,
             ),
           }
+
+          // /service-areas/<город>/house-cleaning целится ровно в тот же запрос,
+          // что и сама страница города, и получала тот же самый title. Для
+          // молодого домена это каннибализация: два URL делят сигналы вместо
+          // одного сильного. Каноникалим дочернюю на городскую, а из sitemap
+          // она убрана (public/sitemap.xml).
+          if (service.slug === 'house-cleaning') {
+            entry.canonical = `/service-areas/${city.slug}`
+          }
+
+          routes[route] = entry
         }
       }
 
@@ -85,6 +104,7 @@ function seoRoutesPlugin() {
       }
 
       const titles = new Set(entries.map(([, meta]) => meta.title))
+      const canonicalOverrides = entries.filter(([, meta]) => meta.canonical).length
 
       mkdirSync(path.resolve(__dirname, 'dist'), { recursive: true })
       writeFileSync(
@@ -95,7 +115,7 @@ function seoRoutesPlugin() {
 
       console.log(
         `seo-routes.json: ${entries.length} маршрутов, уникальных title ${titles.size}` +
-          (titles.size < entries.length ? `, пар с одинаковым title ${entries.length - titles.size}` : ''),
+          (canonicalOverrides ? `, каноникал переопределён у ${canonicalOverrides}` : ''),
       )
     },
   }
