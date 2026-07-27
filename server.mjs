@@ -545,9 +545,28 @@ function getGuideRouteSchema(path, meta) {
   }
 }
 
+// Карта «маршрут → title/description» для страниц городов и услуг.
+// Генерируется при сборке (плагин shynli-seo-routes в vite.config.ts) и лежит
+// в dist/seo-routes.json. Без неё сервер отдавал бы всем 600+ страницам
+// одинаковый title из оболочки, из-за чего они висли в GSC как
+// «Обнаружена, не проиндексирована».
+let routeSeoMeta = new Map()
+
+async function loadRouteSeoMeta() {
+  try {
+    const raw = await readFile(path.join(distDir, "seo-routes.json"), "utf8")
+    routeSeoMeta = new Map(Object.entries(JSON.parse(raw)))
+    console.log(`SEO-маршрутов загружено: ${routeSeoMeta.size}`)
+  } catch {
+    // Файла нет (например, старая сборка) — сайт работает как раньше.
+    console.warn("dist/seo-routes.json не найден, страницы городов пойдут с общим title")
+  }
+}
+
 function injectRouteSeo(html, requestPath) {
   const normalizedPath = requestPath.replace(/\/+$/, "") || "/"
-  const meta = guideSeoMeta.get(normalizedPath)
+  const guideMeta = guideSeoMeta.get(normalizedPath)
+  const meta = guideMeta ?? routeSeoMeta.get(normalizedPath)
 
   if (!meta) {
     return html
@@ -555,10 +574,17 @@ function injectRouteSeo(html, requestPath) {
 
   let nextHtml = html.replace(/<title>[\s\S]*?<\/title>/i, `<title>${escapeHtml(meta.title)}</title>`)
   nextHtml = upsertMetaTag(nextHtml, "description", meta.description)
-  nextHtml = upsertMetaTag(nextHtml, "keywords", meta.keywords)
+  if (meta.keywords) {
+    nextHtml = upsertMetaTag(nextHtml, "keywords", meta.keywords)
+  }
   nextHtml = upsertMetaTag(nextHtml, "robots", "index,follow")
   nextHtml = upsertCanonical(nextHtml, `${publicBaseUrl}${normalizedPath}`)
-  nextHtml = upsertJsonLd(nextHtml, getGuideRouteSchema(normalizedPath, meta))
+
+  // JSON-LD гайдов оставляем как было. Для городов и услуг схему рисует
+  // клиентский код, дублировать её в HTML сейчас не нужно.
+  if (guideMeta) {
+    nextHtml = upsertJsonLd(nextHtml, getGuideRouteSchema(normalizedPath, guideMeta))
+  }
 
   return nextHtml
 }
@@ -937,6 +963,8 @@ async function serveStatic(request, response) {
     response.end(pageHtml)
   }
 }
+
+await loadRouteSeoMeta()
 
 createServer(async (request, response) => {
   if (request.method === "POST" && request.url?.startsWith("/api/leads/callback")) {

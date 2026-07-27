@@ -21,29 +21,42 @@ Use these settings if creating/configuring the service manually in Render:
 
 The Node server serves `dist/` directly, falls back to `dist/index.html` for app routes, and exposes `POST /api/leads/callback`.
 
-## Prerender (SEO)
+## SEO: per-route title and description in raw HTML
 
-`npm run build` automatically triggers `postbuild`, which installs Chromium and runs `scripts/prerender.mjs`.
+The site is a Vite + React SPA, so `useSeoMeta` sets the title client side. That left every one of the 626 URLs shipping the same raw markup: title `Shynli Cleaning | House Cleaning in Chicago Western Suburbs`, H1 `Shynli`, zero city mentions. Google rendered JS for the core pages but parked 453 of ~640 URLs in "Discovered, currently not indexed", because nothing in the markup told them apart.
 
-The site is a Vite + React SPA, so raw HTML is an empty shell on every route: same title, same H1, no city text. Google renders JS for the core pages but leaves the long tail in "Discovered, currently not indexed" (453 of ~640 as of the 2026-07-23 audit). The prerender step fixes that: it serves `dist/` locally, walks all 626 URLs from `sitemap.xml` with Playwright, and writes the fully rendered HTML to `dist/<route>/index.html`.
+Two pieces solve this, and they run at different times.
 
-**No server changes are needed.** `serveStatic` in `server.mjs` already prefers `dist/<route>/index.html` when the file exists and only falls back to the SPA shell when it does not.
+### 1. Build step: `dist/seo-routes.json` (this is what production uses)
 
-Notes:
+The `shynli-seo-routes` plugin in `vite.config.ts` writes a route to meta map for every city, service, city+service and generic SEO page. Titles and descriptions are copied verbatim from `src/site/pages.tsx` (`CityPage`, `ServiceSeoPage`) so the server and the client never disagree.
 
-- The home page is skipped on purpose. `dist/index.html` stays as the SPA fallback for unknown routes, and its raw title and description are already correct.
-- Build time grows by roughly 4 to 5 minutes (Chromium download plus ~626 pages at 6 parallel tabs).
-- A failing prerender does **not** break the deploy: the site still works through the SPA fallback, only the SEO gain is lost. Set `PRERENDER_STRICT=1` if you want a failed prerender to fail the build instead.
-- Tunables: `PRERENDER_CONCURRENCY` (default 6), `PRERENDER_PORT` (default 4183).
+`server.mjs` loads that file at startup and `injectRouteSeo` uses it, alongside the existing `guideSeoMeta`, to rewrite title, description, robots and canonical before the HTML goes out.
 
-Verify after a deploy:
+No extra dependency, no browser, no added build time. Current output: 595 routes, 553 distinct titles.
+
+### 2. Optional local step: full prerender
+
+`npm run prerender` (after `npm run build`) installs Chromium, serves `dist/` locally, walks all sitemap URLs with Playwright, and writes fully rendered HTML with real body copy to `dist/<route>/index.html`. `serveStatic` prefers those files when they exist, so no server change is needed.
+
+**This is deliberately not part of the Render build.** Render's native Node runtime has no system libraries for Chromium (`libnss3`, `libatk`, `libgbm`), so the browser cannot launch there. Running it would just add a failed download to every deploy. To make it work in production the service would have to move to the Docker runtime with a Playwright base image, and the current `Dockerfile` is Alpine, which Playwright does not support.
+
+Notes on the prerender script:
+
+- The home page is skipped on purpose. `dist/index.html` stays as the SPA fallback for unknown routes.
+- `index.html` carries a static ~87 word skeleton and React only paints around the six second mark, so the wait condition is a `document.title` change away from the shell title plus a word count. A naive "root has text" check silently captures the skeleton.
+- External requests are blocked during prerender: analytics never settles and stalls the load.
+- The local server always returns the clean shell for app routes, so a rerun never feeds the previous output back into itself.
+- Tunables: `PRERENDER_CONCURRENCY` (default 6), `PRERENDER_PORT` (default 4183), `PRERENDER_STRICT=1` to exit non-zero on failure.
+
+### Verify after a deploy
 
 ```
 curl -s https://shynli.com/service-areas/naperville | grep -o '<title>[^<]*'
-curl -s https://shynli.com/service-areas/naperville | grep -c -i naperville
+curl -s https://shynli.com/service-areas/aurora/deep-cleaning | grep -o '<title>[^<]*'
 ```
 
-Expect the city-specific title and dozens of city mentions in the raw response, not the generic shell.
+Expect `House Cleaning in Naperville, IL | Shynli Cleaning` and `Deep Cleaning in Aurora, IL | Shynli Cleaning`. The generic shell title means `dist/seo-routes.json` did not load, check the service log for `SEO-маршрутов загружено`.
 
 ## Environment Variables
 
