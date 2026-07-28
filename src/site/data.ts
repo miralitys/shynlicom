@@ -6,6 +6,12 @@ export const businessPhoneSchema = "+1-630-812-7077"
 export const businessEmail = "info@shynli.com"
 export const preferredArrivalWindow = "Preferred arrival slots: 9 AM-4 PM CT"
 
+/** Профиль Google. Число отзывов растёт, сверять время от времени. */
+export const googleRatingValue = "5.0"
+export const googleReviewCount = "44"
+export const googleReviewsUrl = "https://www.google.com/maps/place/?q=place_id:ChIJw5zPGN2Y-GMRTHBrFh1rKYE"
+export const googleWriteReviewUrl = "https://search.google.com/local/writereview?placeid=ChIJw5zPGN2Y-GMRTHBrFh1rKYE"
+
 export const services = [
   {
     value: "standard",
@@ -848,21 +854,27 @@ export const comparison = [
   ["Shynli", "Local service, clear booking, supplies included, and a make-it-right follow-up."],
 ]
 
+/**
+ * Настоящие отзывы из профиля Google, перенесены дословно.
+ * Ничего не сочинять: новый отзыв берётся из профиля по googleReviewsUrl
+ * и переносится как есть. До 2026-07-27 здесь стояли три придуманных
+ * ("Naperville homeowner", "Aurora homeowner", "Plainfield homeowner").
+ */
 export const reviews = [
   {
-    quote: "The team came prepared, moved with care, and left the kitchen and bathrooms feeling genuinely reset.",
-    name: "Naperville homeowner",
-    detail: "Standard cleaning",
+    quote: "Had a really great experience with Shynli for my move-out cleaning. They did an amazing job!! the kitchen and fridge were spotless and looked like new. Everything felt super clean and ready for the next tenant. They were on time, professional, and easy to communicate with. Definitely recommend!",
+    name: "Lina Gonzales",
+    detail: "Move-out cleaning · Google review",
   },
   {
-    quote: "The quote was clear before booking, the timing was clear, and the house felt handled when they left.",
-    name: "Aurora homeowner",
-    detail: "Deep cleaning",
+    quote: "Honestly, I didn't expect such a high level of service. The team was super friendly, quick, and incredibly thorough. Every corner was cleaned perfectly. It feels like a brand-new place now. Highly recommend!",
+    name: "Nataliia Regush",
+    detail: "Whole-home clean · Google review",
   },
   {
-    quote: "It felt like working with a real local service: responsive, organized, and easy to reach after the clean.",
-    name: "Plainfield homeowner",
-    detail: "Recurring cleaning",
+    quote: "We used Shynli Cleaning Service for our move-out cleaning and it was a big relief. The team was on time, worked fast, and left the apartment in great condition. I highly recommend them for anyone who needs cleaning help.",
+    name: "Munisa Toshboeva",
+    detail: "Move-out cleaning · Google review",
   },
 ]
 

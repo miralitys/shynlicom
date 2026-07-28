@@ -38,6 +38,10 @@ import {
   publishedRecurringPrices,
   publicBusinessName,
   publicSeoServices,
+  googleRatingValue,
+  googleReviewCount,
+  googleReviewsUrl,
+  googleWriteReviewUrl,
   reviews,
   roomChecklist,
   serviceAreaGroups,
@@ -2333,6 +2337,24 @@ export function HomePage() {
                 </CardContent>
               </Card>
             ))}
+          </div>
+          <div className="mt-7 flex flex-wrap items-center gap-x-6 gap-y-3">
+            <a
+              href={googleReviewsUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-lg font-black text-[#1976a3] underline decoration-[#1976a3]/40 underline-offset-4 hover:decoration-[#1976a3]"
+            >
+              Read all {googleReviewCount} reviews on Google ({googleRatingValue})
+            </a>
+            <a
+              href={googleWriteReviewUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-lg font-bold text-muted-foreground underline decoration-muted-foreground/30 underline-offset-4 hover:decoration-muted-foreground"
+            >
+              Leave a review
+            </a>
           </div>
         </div>
       </section>
