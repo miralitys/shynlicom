@@ -304,3 +304,47 @@ test("Move-out cleaning proxy is host-scoped and returns a final server 301 with
     }
   }
 })
+
+test("Office redirects preserve commercial intent, exceptions and tracking on public hosts only", async () => {
+  const cases = [
+    ["/", "/services/commercial-cleaning"],
+    ["/OFFICE-CLEANING-NAPERVILLE-IL/", "/services/commercial-cleaning"],
+    ["/medical-office-facility-cleaning-burr-ridge-il", "/services/commercial-cleaning"],
+    ["/post-construction-office-cleaning-plan", "/services/post-construction-cleaning"],
+    ["/service-areas", "/service-areas"],
+    ["/privacy-policy", "/privacy-policy"],
+    ["/booking/new", "/quote"],
+    ["/api/quote/submit", "/quote"],
+    ["/nonexistent-xyz", "/services/commercial-cleaning"],
+    ["/index.html", "/services/commercial-cleaning"],
+    ["/sitemap.xml", "/sitemap.xml"],
+    ["/robots.txt", "/robots.txt"],
+  ]
+  const query = "?gclid=abc%2fDEF&utm_source=google+ads&x=1&x=2&empty=&flag"
+  for (const [source, target] of cases) {
+    for (const host of ["shynliofficecleaning.com", "www.shynliofficecleaning.com", "shynlicom.onrender.com"]) {
+      for (const method of ["GET", "HEAD", "POST"]) {
+        const route = host === "shynlicom.onrender.com" ? `/__office_redirect${source}` : source
+        const result = await new Promise((resolve, reject) => {
+          const request = httpRequest(`${origin}${route}${query}`, { method, headers: { Host: host } }, (response) => {
+            let body = ""
+            response.on("data", (chunk) => { body += chunk })
+            response.once("end", () => resolve({ status: response.statusCode, headers: response.headers, body }))
+          })
+          request.once("error", reject)
+          request.end()
+        })
+        assert.equal(result.status, 301)
+        assert.equal(result.headers.location, `https://shynlicleaningservice.com${target}${query}`)
+        assert.equal(result.headers["x-shynli-redirect-site"], "office")
+        assert.equal(result.headers["x-shynli-redirect-version"], REDIRECT_VERSION)
+        assert.equal(result.headers["x-robots-tag"], undefined)
+        assert.equal(result.headers["content-length"], "0")
+        assert.equal(result.body, "")
+      }
+    }
+    const primary = await fetch(`${origin}/__office_redirect${source}${query}`, { redirect: "manual" })
+    assert.equal(primary.headers.get("location"), `https://shynlicleaningservice.com/${query}`)
+    assert.equal(primary.headers.get("x-shynli-redirect-site"), null)
+  }
+})

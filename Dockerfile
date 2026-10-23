@@ -19,6 +19,7 @@ COPY airbnb-redirects.mjs ./airbnb-redirects.mjs
 COPY apartment-redirects.mjs ./apartment-redirects.mjs
 COPY deep-redirects.mjs ./deep-redirects.mjs
 COPY moveout-redirects.mjs ./moveout-redirects.mjs
+COPY office-redirects.mjs ./office-redirects.mjs
 
 EXPOSE 10000
 

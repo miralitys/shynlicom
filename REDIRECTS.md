@@ -68,3 +68,7 @@ The same Node service handles both shynliairbnbcleaning.com and www.shynliairbnb
 ## Move-out cleaning domain
 
 `moveout-redirects.mjs` is the byte-identical mapping from `miralitys/shynlimoveoutcleaning/redirects.mjs`, version 2026-10-23.1. The apex and www domains use this Node service. `MOVEOUT_REDIRECT_ENABLED=false` disables the handler. The reserved `shynlicom.onrender.com/__moveout_redirect/` prefix supports origin verification. Rollback uses retained Static Site `srv-d810a6vaqgkc73ahfkd0`: restore both bindings, verify TLS, remove its noindex header and retain the empty build command and committed dist directory. Keep DNS unchanged.
+
+## Office cleaning
+
+`office-redirects.mjs` is the byte-identical mapping from `miralitys/shynliofficecleaning/redirects.mjs`, version 2026-10-23.1. The apex and www domains use this Node service. Office city pages retain commercial intent and redirect to `/services/commercial-cleaning`. `OFFICE_REDIRECT_ENABLED=false` disables this hostname handler. The reserved `shynlicom.onrender.com/__office_redirect/` prefix supports origin verification. Rollback uses preserved Static Site `srv-d80vhc9j2pic73bibvg0`: restore both bindings, verify TLS and remove its retained-origin noindex header. Keep its original `npm ci && npm run build` build command and dist publication directory. DNS and the main website remain unchanged.

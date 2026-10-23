@@ -8,6 +8,7 @@ import { getRedirect as getAirbnbRedirect, REDIRECT_VERSION as AIRBNB_REDIRECT_V
 import { getRedirect as getApartmentRedirect, REDIRECT_VERSION as APARTMENT_REDIRECT_VERSION } from "./apartment-redirects.mjs"
 import { getRedirect as getDeepRedirect, REDIRECT_VERSION as DEEP_REDIRECT_VERSION } from "./deep-redirects.mjs"
 import { getRedirect as getMoveOutRedirect, REDIRECT_VERSION as MOVEOUT_REDIRECT_VERSION } from "./moveout-redirects.mjs"
+import { getRedirect as getOfficeRedirect, REDIRECT_VERSION as OFFICE_REDIRECT_VERSION } from "./office-redirects.mjs"
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const distDir = path.join(__dirname, "dist")
@@ -977,6 +978,20 @@ await loadRouteSeoMeta()
 
 createServer(async (request, response) => {
   const requestHost = request.headers.host?.split(":")[0].toLowerCase()
+  const isOfficeDomain = requestHost === "shynliofficecleaning.com" || requestHost === "www.shynliofficecleaning.com"
+  const isOfficeProxy = requestHost === "shynlicom.onrender.com" && request.url?.startsWith("/__office_redirect/")
+  if (process.env.OFFICE_REDIRECT_ENABLED !== "false" && (isOfficeDomain || isOfficeProxy)) {
+    const sourceTarget = isOfficeDomain ? (request.url || "/") : `/${request.url.slice("/__office_redirect/".length)}`
+    response.writeHead(301, {
+      Location: getOfficeRedirect(sourceTarget).location,
+      "Cache-Control": "public, max-age=3600",
+      "X-Shynli-Redirect-Version": OFFICE_REDIRECT_VERSION,
+      "X-Shynli-Redirect-Site": "office",
+      "Content-Length": "0",
+    })
+    response.end()
+    return
+  }
   const isMoveOutDomain = requestHost === "shynlimoveoutcleaning.com" || requestHost === "www.shynlimoveoutcleaning.com"
   const isMoveOutProxy = requestHost === "shynlicom.onrender.com" && request.url?.startsWith("/__moveout_redirect/")
   if (process.env.MOVEOUT_REDIRECT_ENABLED !== "false" && (isMoveOutDomain || isMoveOutProxy)) {
