@@ -14,6 +14,7 @@ WORKDIR /app
 
 COPY --from=build /app/dist ./dist
 COPY server.mjs ./server.mjs
+COPY redirects.mjs ./redirects.mjs
 
 EXPOSE 10000
 

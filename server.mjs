@@ -3,6 +3,7 @@ import { appendFile, mkdir, readFile, stat } from "node:fs/promises"
 import { createReadStream } from "node:fs"
 import path from "node:path"
 import { fileURLToPath } from "node:url"
+import { redirectHeaders } from "./redirects.mjs"
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const distDir = path.join(__dirname, "dist")
@@ -971,6 +972,12 @@ async function serveStatic(request, response) {
 await loadRouteSeoMeta()
 
 createServer(async (request, response) => {
+  if (process.env.SITE_REDIRECT_ENABLED !== "false") {
+    response.writeHead(301, redirectHeaders(request.url || "/"))
+    response.end()
+    return
+  }
+
   if (request.method === "POST" && request.url?.startsWith("/api/leads/callback")) {
     await handleLeadRequest(request, response)
     return
