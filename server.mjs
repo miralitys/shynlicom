@@ -9,6 +9,7 @@ import { getRedirect as getApartmentRedirect, REDIRECT_VERSION as APARTMENT_REDI
 import { getRedirect as getDeepRedirect, REDIRECT_VERSION as DEEP_REDIRECT_VERSION } from "./deep-redirects.mjs"
 import { getRedirect as getMoveOutRedirect, REDIRECT_VERSION as MOVEOUT_REDIRECT_VERSION } from "./moveout-redirects.mjs"
 import { getRedirect as getOfficeRedirect, REDIRECT_VERSION as OFFICE_REDIRECT_VERSION } from "./office-redirects.mjs"
+import { getRedirect as getPostConstructionRedirect, REDIRECT_VERSION as POSTCONSTRUCTION_REDIRECT_VERSION } from "./postconstruction-redirects.mjs"
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const distDir = path.join(__dirname, "dist")
@@ -978,6 +979,20 @@ await loadRouteSeoMeta()
 
 createServer(async (request, response) => {
   const requestHost = request.headers.host?.split(":")[0].toLowerCase()
+  const isPostConstructionDomain = requestHost === "shynlipostconstructioncleaning.com" || requestHost === "www.shynlipostconstructioncleaning.com"
+  const isPostConstructionProxy = requestHost === "shynlicom.onrender.com" && request.url?.startsWith("/__postconstruction_redirect/")
+  if (process.env.POSTCONSTRUCTION_REDIRECT_ENABLED !== "false" && (isPostConstructionDomain || isPostConstructionProxy)) {
+    const sourceTarget = isPostConstructionDomain ? (request.url || "/") : `/${request.url.slice("/__postconstruction_redirect/".length)}`
+    response.writeHead(301, {
+      Location: getPostConstructionRedirect(sourceTarget).location,
+      "Cache-Control": "public, max-age=3600",
+      "X-Shynli-Redirect-Version": POSTCONSTRUCTION_REDIRECT_VERSION,
+      "X-Shynli-Redirect-Site": "postconstruction",
+      "Content-Length": "0",
+    })
+    response.end()
+    return
+  }
   const isOfficeDomain = requestHost === "shynliofficecleaning.com" || requestHost === "www.shynliofficecleaning.com"
   const isOfficeProxy = requestHost === "shynlicom.onrender.com" && request.url?.startsWith("/__office_redirect/")
   if (process.env.OFFICE_REDIRECT_ENABLED !== "false" && (isOfficeDomain || isOfficeProxy)) {

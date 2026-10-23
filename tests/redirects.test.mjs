@@ -348,3 +348,45 @@ test("Office redirects preserve commercial intent, exceptions and tracking on pu
     assert.equal(primary.headers.get("x-shynli-redirect-site"), null)
   }
 })
+
+test("Post-construction host handler applies exceptions and sends excluded city-service pages to the default", async () => {
+  const cases = [
+    ["/", "/services/post-construction-cleaning"],
+    ["/SERVICE-AREAS/BURR-RIDGE/", "/burrridge"],
+    ["/service-areas/naperville/final-cleaning/", "/services/post-construction-cleaning"],
+    ["/FINAL-CLEANING-CHECKLIST/", "/blog/checklists/cleaning-checklist-for-new-construction-dust"],
+    ["/guides/hvac-dust-after-renovation-cleaning", "/blog/seasonal/cleaning-after-renovation-dust-tips"],
+    ["/office-buildout-cleaning", "/services/commercial-cleaning"],
+    ["/request-a-bid", "/quote"],
+    ["/quote", "/services/post-construction-cleaning"],
+    ["/privacy-policy", "/privacy-policy"],
+    ["/sitemap.xml", "/sitemap.xml"],
+    ["/robots.txt", "/robots.txt"],
+  ]
+  const query = "?gclid=abc%2fDEF&utm_source=google+ads&x=1&x=2&empty=&flag"
+  for (const [source, target] of cases) {
+    for (const host of ["shynlipostconstructioncleaning.com", "www.shynlipostconstructioncleaning.com", "shynlicom.onrender.com"]) {
+      for (const method of ["GET", "HEAD", "POST"]) {
+        const route = host === "shynlicom.onrender.com" ? `/__postconstruction_redirect${source}` : source
+        const result = await new Promise((resolve, reject) => {
+          const request = httpRequest(`${origin}${route}${query}`, { method, headers: { Host: host } }, (response) => {
+            let body = ""
+            response.on("data", (chunk) => { body += chunk })
+            response.once("end", () => resolve({ status: response.statusCode, headers: response.headers, body }))
+          })
+          request.once("error", reject)
+          request.end()
+        })
+        assert.equal(result.status, 301)
+        assert.equal(result.headers.location, `https://shynlicleaningservice.com${target}${query}`)
+        assert.equal(result.headers["x-shynli-redirect-site"], "postconstruction")
+        assert.equal(result.headers["x-shynli-redirect-version"], REDIRECT_VERSION)
+        assert.equal(result.headers["x-robots-tag"], undefined)
+        assert.equal(result.body, "")
+      }
+    }
+    const primary = await fetch(`${origin}/__postconstruction_redirect${source}${query}`, { redirect: "manual" })
+    assert.equal(primary.headers.get("location"), `https://shynlicleaningservice.com/${query}`)
+    assert.equal(primary.headers.get("x-shynli-redirect-site"), null)
+  }
+})

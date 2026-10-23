@@ -72,3 +72,7 @@ The same Node service handles both shynliairbnbcleaning.com and www.shynliairbnb
 ## Office cleaning
 
 `office-redirects.mjs` is the byte-identical mapping from `miralitys/shynliofficecleaning/redirects.mjs`, version 2026-10-23.1. The apex and www domains use this Node service. Office city pages retain commercial intent and redirect to `/services/commercial-cleaning`. `OFFICE_REDIRECT_ENABLED=false` disables this hostname handler. The reserved `shynlicom.onrender.com/__office_redirect/` prefix supports origin verification. Rollback uses preserved Static Site `srv-d80vhc9j2pic73bibvg0`: restore both bindings, verify TLS and remove its retained-origin noindex header. Keep its original `npm ci && npm run build` build command and dist publication directory. DNS and the main website remain unchanged.
+
+## Post-construction cleaning
+
+`postconstruction-redirects.mjs` is byte-identical to `miralitys/shynlipostconstructioncleaning/redirects.mjs`, version 2026-10-23.1. Its apex and www hostnames use this Node service. Only the 42 city hubs map to main-site cities. All 210 old city-service pages outside the sitemap use the requested post-construction service fallback. The reserved `/__postconstruction_redirect/` prefix is accepted only on shynlicom.onrender.com. `POSTCONSTRUCTION_REDIRECT_ENABLED=false` disables this handler. Restore old content by moving the apex/www bindings back to retained Static Site `srv-d80uiebbc2fs738h3sdg`, verifying TLS and removing its noindex header. Keep its original build command, dist publication directory and DNS.
