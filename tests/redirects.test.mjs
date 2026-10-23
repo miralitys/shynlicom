@@ -140,5 +140,18 @@ test("Airbnb proxy is host-scoped and returns a final server 301 with tracking i
     const primary = await fetch(url, { redirect: "manual" })
     assert.equal(primary.headers.get("location"), `https://shynlicleaningservice.com/${query}`)
     assert.equal(primary.headers.get("x-shynli-redirect-site"), null)
+    for (const host of ["shynliairbnbcleaning.com", "www.shynliairbnbcleaning.com"]) {
+      const direct = await new Promise((resolve, reject) => {
+        const request = httpRequest(`${origin}${source}${query}`, { headers: { Host: host } }, (response) => {
+          response.resume()
+          response.once("end", () => resolve({ status: response.statusCode, headers: response.headers }))
+        })
+        request.once("error", reject)
+        request.end()
+      })
+      assert.equal(direct.status, 301)
+      assert.equal(direct.headers.location, `https://shynlicleaningservice.com${target}${query}`)
+      assert.equal(direct.headers["x-shynli-redirect-site"], "airbnb")
+    }
   }
 })

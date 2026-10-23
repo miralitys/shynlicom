@@ -973,12 +973,14 @@ async function serveStatic(request, response) {
 await loadRouteSeoMeta()
 
 createServer(async (request, response) => {
-  // Internal Render proxy endpoint for the Airbnb Static Site. Host scoping
-  // keeps every public shynli.com path on its original migration mapping.
+  const requestHost = request.headers.host?.split(":")[0].toLowerCase()
+  const isAirbnbDomain = requestHost === "shynliairbnbcleaning.com" || requestHost === "www.shynliairbnbcleaning.com"
+  const isAirbnbProxy = requestHost === "shynlicom.onrender.com" && request.url?.startsWith("/__airbnb_redirect/")
+  // Both public Airbnb hostnames use their own mapping. The reserved onrender
+  // proxy endpoint is retained for origin checks without changing DNS.
   if (process.env.AIRBNB_REDIRECT_ENABLED !== "false"
-    && request.headers.host?.split(":")[0].toLowerCase() === "shynlicom.onrender.com"
-    && request.url?.startsWith("/__airbnb_redirect/")) {
-    const sourceTarget = `/${request.url.slice("/__airbnb_redirect/".length)}`
+    && (isAirbnbDomain || isAirbnbProxy)) {
+    const sourceTarget = isAirbnbDomain ? (request.url || "/") : `/${request.url.slice("/__airbnb_redirect/".length)}`
     response.writeHead(301, {
       Location: getAirbnbRedirect(sourceTarget).location,
       "Cache-Control": "public, max-age=3600",

@@ -9,3 +9,5 @@ services:
     domains:
       - shynli.com
       - www.shynli.com
+      - shynliairbnbcleaning.com
+      - www.shynliairbnbcleaning.com
