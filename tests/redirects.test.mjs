@@ -119,6 +119,7 @@ test("Airbnb proxy is host-scoped and returns a final server 301 with tracking i
     ["/AiRbNb-ClEaNiNg-ChEcKlIsT/", "/blog/airbnb/airbnb-turnover-cleaning-checklist-with-photos"],
     ["/SERVICE-AREAS/BURR-RIDGE/ANY/NESTED/PAGE/", "/burrridge"],
     ["/booking/start", "/quote"],
+    ["/booking-confirmation", "/quote"],
     ["/robots.txt", "/robots.txt"],
   ]
   for (const [source, target] of cases) {

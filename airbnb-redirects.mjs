@@ -104,7 +104,7 @@ export function getRedirect(input = "/") {
   }
   const root = ROOT_REDIRECTS.get(pathname)
   if (root) return result(root.target, root.group)
-  if (parts.some((part) => /^(?:quote|quotes|booking|bookings|book|book-now|book-online|request-a-quote|schedule)$/.test(part))) {
+  if (parts.some((part) => /(?:^|-)(?:quote|quotes|booking|bookings|book)(?:-|$)/.test(part) || part === "schedule")) {
     return result("/quote", "quote")
   }
   if (parts[0] === "host-problem-guides") return result("/blog/airbnb", "guide-index")
