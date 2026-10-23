@@ -3,6 +3,7 @@ import { spawn } from "node:child_process"
 import { once } from "node:events"
 import { readFile } from "node:fs/promises"
 import { createServer } from "node:net"
+import { request as httpRequest } from "node:http"
 import { after, before, test } from "node:test"
 import { CITY_SLUGS, DESTINATION_ORIGIN, getRedirect, REDIRECT_VERSION } from "../redirects.mjs"
 
@@ -109,5 +110,35 @@ test("live Node handler returns empty server-side 301s before static assets and 
       assert.equal(response.headers.get("x-shynli-redirect-version"), REDIRECT_VERSION)
       assert.equal(await response.text(), "")
     }
+  }
+})
+
+test("Airbnb proxy is host-scoped and returns a final server 301 with tracking intact", async () => {
+  const cases = [
+    ["/", "/services/airbnb-cleaning"],
+    ["/AiRbNb-ClEaNiNg-ChEcKlIsT/", "/blog/airbnb/airbnb-turnover-cleaning-checklist-with-photos"],
+    ["/SERVICE-AREAS/BURR-RIDGE/ANY/NESTED/PAGE/", "/burrridge"],
+    ["/booking/start", "/quote"],
+    ["/robots.txt", "/robots.txt"],
+  ]
+  for (const [source, target] of cases) {
+    const query = "?gclid=abc%2fDEF&utm_source=google+ads&x=1&x=2"
+    const url = `${origin}/__airbnb_redirect${source}${query}`
+    const result = await new Promise((resolve, reject) => {
+      const request = httpRequest(url, { headers: { Host: "shynlicom.onrender.com" } }, (response) => {
+        let body = ""
+        response.on("data", (chunk) => { body += chunk })
+        response.on("end", () => resolve({ status: response.statusCode, headers: response.headers, body }))
+      })
+      request.on("error", reject)
+      request.end()
+    })
+    assert.equal(result.status, 301)
+    assert.equal(result.headers.location, `https://shynlicleaningservice.com${target}${query}`)
+    assert.equal(result.headers["x-shynli-redirect-site"], "airbnb")
+    assert.equal(result.body, "")
+    const primary = await fetch(url, { redirect: "manual" })
+    assert.equal(primary.headers.get("location"), `https://shynlicleaningservice.com/${query}`)
+    assert.equal(primary.headers.get("x-shynli-redirect-site"), null)
   }
 })

@@ -4,6 +4,7 @@ import { createReadStream } from "node:fs"
 import path from "node:path"
 import { fileURLToPath } from "node:url"
 import { redirectHeaders } from "./redirects.mjs"
+import { getRedirect as getAirbnbRedirect, REDIRECT_VERSION as AIRBNB_REDIRECT_VERSION } from "./airbnb-redirects.mjs"
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const distDir = path.join(__dirname, "dist")
@@ -972,6 +973,23 @@ async function serveStatic(request, response) {
 await loadRouteSeoMeta()
 
 createServer(async (request, response) => {
+  // Internal Render proxy endpoint for the Airbnb Static Site. Host scoping
+  // keeps every public shynli.com path on its original migration mapping.
+  if (process.env.AIRBNB_REDIRECT_ENABLED !== "false"
+    && request.headers.host?.split(":")[0].toLowerCase() === "shynlicom.onrender.com"
+    && request.url?.startsWith("/__airbnb_redirect/")) {
+    const sourceTarget = `/${request.url.slice("/__airbnb_redirect/".length)}`
+    response.writeHead(301, {
+      Location: getAirbnbRedirect(sourceTarget).location,
+      "Cache-Control": "public, max-age=3600",
+      "X-Shynli-Redirect-Version": AIRBNB_REDIRECT_VERSION,
+      "X-Shynli-Redirect-Site": "airbnb",
+      "Content-Length": "0",
+    })
+    response.end()
+    return
+  }
+
   if (process.env.SITE_REDIRECT_ENABLED !== "false") {
     response.writeHead(301, redirectHeaders(request.url || "/"))
     response.end()

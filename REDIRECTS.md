@@ -52,3 +52,7 @@ The ten additional audit paths are a fixed, reproducible sample covering unknown
 The original React site, static assets, Node handlers and build remain in the repository. Set `SITE_REDIRECT_ENABLED=false` in the Render service environment and redeploy to serve that site again. Alternatively, roll back to commit `bc1630e7665751fd3861948dcee39a9fbebd49d1` in Render. The flag defaults to enabled and affects all public routes, including the old callback endpoint.
 
 A permanent 301 can be cached by browsers or crawlers after rollback. Responses use a one-hour cache lifetime to limit that operational window.
+
+## Airbnb migration proxy
+
+The same Node service also handles the internal `/__airbnb_redirect/*` endpoint on the `shynlicom.onrender.com` hostname. Render's Airbnb Static Site proxies to it and relays the final HTTP 301. `airbnb-redirects.mjs` is copied from `miralitys/shynliairbnbcleaning/redirects.mjs`; keep the two files byte-identical. This handler is scoped to the onrender hostname, so all paths on shynli.com keep their existing mapping. `AIRBNB_REDIRECT_ENABLED=false` disables only this additional endpoint. The main business website is not modified.
