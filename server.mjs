@@ -6,6 +6,7 @@ import { fileURLToPath } from "node:url"
 import { redirectHeaders } from "./redirects.mjs"
 import { getRedirect as getAirbnbRedirect, REDIRECT_VERSION as AIRBNB_REDIRECT_VERSION } from "./airbnb-redirects.mjs"
 import { getRedirect as getApartmentRedirect, REDIRECT_VERSION as APARTMENT_REDIRECT_VERSION } from "./apartment-redirects.mjs"
+import { getRedirect as getDeepRedirect, REDIRECT_VERSION as DEEP_REDIRECT_VERSION } from "./deep-redirects.mjs"
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const distDir = path.join(__dirname, "dist")
@@ -975,6 +976,20 @@ await loadRouteSeoMeta()
 
 createServer(async (request, response) => {
   const requestHost = request.headers.host?.split(":")[0].toLowerCase()
+  const isDeepDomain = requestHost === "shynlideepcleaning.com" || requestHost === "www.shynlideepcleaning.com"
+  const isDeepProxy = requestHost === "shynlicom.onrender.com" && request.url?.startsWith("/__deep_redirect/")
+  if (process.env.DEEP_REDIRECT_ENABLED !== "false" && (isDeepDomain || isDeepProxy)) {
+    const sourceTarget = isDeepDomain ? (request.url || "/") : `/${request.url.slice("/__deep_redirect/".length)}`
+    response.writeHead(301, {
+      Location: getDeepRedirect(sourceTarget).location,
+      "Cache-Control": "public, max-age=3600",
+      "X-Shynli-Redirect-Version": DEEP_REDIRECT_VERSION,
+      "X-Shynli-Redirect-Site": "deep",
+      "Content-Length": "0",
+    })
+    response.end()
+    return
+  }
   const isApartmentDomain = requestHost === "shynliapartmentcleaning.com" || requestHost === "www.shynliapartmentcleaning.com"
   const isApartmentProxy = requestHost === "shynlicom.onrender.com" && request.url?.startsWith("/__apartment_redirect/")
   if (process.env.APARTMENT_REDIRECT_ENABLED !== "false"

@@ -206,3 +206,52 @@ test("Apartment proxy is host-scoped and returns a final server 301 with trackin
     }
   }
 })
+
+test("Deep cleaning proxy is host-scoped and returns a final server 301 with tracking intact", async () => {
+  const cases = [
+    ["/", "/services/deep-cleaning"],
+    ["/NAPERVILLE/", "/naperville/deep-cleaning"],
+    ["/AURORA/move-out-deep-cleaning", "/aurora/move-out-cleaning"],
+    ["/BURR-RIDGE/ANY/NESTED/PAGE/", "/burrridge"],
+    ["/deep-cleaning-cost", "/pricing"],
+    ["/blog/declutter-before-deep-cleaning", "/blog/cleaning-hacks/how-to-declutter-before-deep-cleaning"],
+    ["/booking/new", "/services/deep-cleaning"],
+    ["/robots.txt", "/robots.txt"],
+  ]
+  for (const [source, target] of cases) {
+    const query = "?gclid=abc%2fDEF&utm_source=google+ads&x=1&x=2"
+    const url = `${origin}/__deep_redirect${source}${query}`
+    const result = await new Promise((resolve, reject) => {
+      const request = httpRequest(url, { headers: { Host: "shynlicom.onrender.com" } }, (response) => {
+        let body = ""
+        response.on("data", (chunk) => { body += chunk })
+        response.on("end", () => resolve({ status: response.statusCode, headers: response.headers, body }))
+      })
+      request.on("error", reject)
+      request.end()
+    })
+    assert.equal(result.status, 301)
+    assert.equal(result.headers.location, `https://shynlicleaningservice.com${target}${query}`)
+    assert.equal(result.headers["x-shynli-redirect-site"], "deep")
+    assert.equal(result.body, "")
+    const primary = await fetch(url, { redirect: "manual" })
+    assert.equal(primary.headers.get("location"), `https://shynlicleaningservice.com/${query}`)
+    assert.equal(primary.headers.get("x-shynli-redirect-site"), null)
+    for (const host of ["shynlideepcleaning.com", "www.shynlideepcleaning.com"]) {
+      for (const method of ["GET", "HEAD", "POST"]) {
+      const direct = await new Promise((resolve, reject) => {
+        const request = httpRequest(`${origin}${source}${query}`, { method, headers: { Host: host } }, (response) => {
+          response.resume()
+          response.once("end", () => resolve({ status: response.statusCode, headers: response.headers }))
+        })
+        request.once("error", reject)
+        request.end()
+      })
+      assert.equal(direct.status, 301)
+      assert.equal(direct.headers.location, `https://shynlicleaningservice.com${target}${query}`)
+      assert.equal(direct.headers["x-shynli-redirect-site"], "deep")
+      assert.equal(direct.headers["x-robots-tag"], undefined)
+      }
+    }
+  }
+})

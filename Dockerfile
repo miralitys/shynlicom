@@ -17,6 +17,7 @@ COPY server.mjs ./server.mjs
 COPY redirects.mjs ./redirects.mjs
 COPY airbnb-redirects.mjs ./airbnb-redirects.mjs
 COPY apartment-redirects.mjs ./apartment-redirects.mjs
+COPY deep-redirects.mjs ./deep-redirects.mjs
 
 EXPOSE 10000
 

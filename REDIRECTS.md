@@ -60,3 +60,7 @@ The same Node service handles both shynliairbnbcleaning.com and www.shynliairbnb
 ## Apartment domain
 
 `apartment-redirects.mjs` is the byte-identical mapping from `miralitys/shynliapartmentcleaning/redirects.mjs`, version 2026-10-23.1. Its apex and www hostnames use this Node service. `APARTMENT_REDIRECT_ENABLED=false` disables the handler. The reserved `shynlicom.onrender.com/__apartment_redirect/` endpoint permits origin checks. Restore old apartment content by moving its domain bindings back to Static Site `srv-d812br6gvqtc73e16bag`, verifying www and TLS and removing its retained-origin noindex header. DNS remains unchanged.
+
+## Deep cleaning domain
+
+`deep-redirects.mjs` is the byte-identical mapping from `miralitys/shynlideepcleaning/redirects.mjs`, version 2026-10-23.1. The apex and www domains use this Node service. `DEEP_REDIRECT_ENABLED=false` disables the handler. The reserved `shynlicom.onrender.com/__deep_redirect/` prefix supports origin verification. Rollback uses the preserved deep Static Site `srv-d811p1nlk1mc73a1lh50`: restore both domain bindings, verify TLS and remove its retained-origin noindex header. Keep DNS unchanged.
