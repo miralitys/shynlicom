@@ -64,3 +64,7 @@ The same Node service handles both shynliairbnbcleaning.com and www.shynliairbnb
 ## Deep cleaning domain
 
 `deep-redirects.mjs` is the byte-identical mapping from `miralitys/shynlideepcleaning/redirects.mjs`, version 2026-10-23.1. The apex and www domains use this Node service. `DEEP_REDIRECT_ENABLED=false` disables the handler. The reserved `shynlicom.onrender.com/__deep_redirect/` prefix supports origin verification. Rollback uses the preserved deep Static Site `srv-d811p1nlk1mc73a1lh50`: restore both domain bindings, verify TLS and remove its retained-origin noindex header. Keep DNS unchanged.
+
+## Move-out cleaning domain
+
+`moveout-redirects.mjs` is the byte-identical mapping from `miralitys/shynlimoveoutcleaning/redirects.mjs`, version 2026-10-23.1. The apex and www domains use this Node service. `MOVEOUT_REDIRECT_ENABLED=false` disables the handler. The reserved `shynlicom.onrender.com/__moveout_redirect/` prefix supports origin verification. Rollback uses retained Static Site `srv-d810a6vaqgkc73ahfkd0`: restore both bindings, verify TLS, remove its noindex header and retain the empty build command and committed dist directory. Keep DNS unchanged.

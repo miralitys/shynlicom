@@ -7,6 +7,7 @@ import { redirectHeaders } from "./redirects.mjs"
 import { getRedirect as getAirbnbRedirect, REDIRECT_VERSION as AIRBNB_REDIRECT_VERSION } from "./airbnb-redirects.mjs"
 import { getRedirect as getApartmentRedirect, REDIRECT_VERSION as APARTMENT_REDIRECT_VERSION } from "./apartment-redirects.mjs"
 import { getRedirect as getDeepRedirect, REDIRECT_VERSION as DEEP_REDIRECT_VERSION } from "./deep-redirects.mjs"
+import { getRedirect as getMoveOutRedirect, REDIRECT_VERSION as MOVEOUT_REDIRECT_VERSION } from "./moveout-redirects.mjs"
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const distDir = path.join(__dirname, "dist")
@@ -976,6 +977,20 @@ await loadRouteSeoMeta()
 
 createServer(async (request, response) => {
   const requestHost = request.headers.host?.split(":")[0].toLowerCase()
+  const isMoveOutDomain = requestHost === "shynlimoveoutcleaning.com" || requestHost === "www.shynlimoveoutcleaning.com"
+  const isMoveOutProxy = requestHost === "shynlicom.onrender.com" && request.url?.startsWith("/__moveout_redirect/")
+  if (process.env.MOVEOUT_REDIRECT_ENABLED !== "false" && (isMoveOutDomain || isMoveOutProxy)) {
+    const sourceTarget = isMoveOutDomain ? (request.url || "/") : `/${request.url.slice("/__moveout_redirect/".length)}`
+    response.writeHead(301, {
+      Location: getMoveOutRedirect(sourceTarget).location,
+      "Cache-Control": "public, max-age=3600",
+      "X-Shynli-Redirect-Version": MOVEOUT_REDIRECT_VERSION,
+      "X-Shynli-Redirect-Site": "moveout",
+      "Content-Length": "0",
+    })
+    response.end()
+    return
+  }
   const isDeepDomain = requestHost === "shynlideepcleaning.com" || requestHost === "www.shynlideepcleaning.com"
   const isDeepProxy = requestHost === "shynlicom.onrender.com" && request.url?.startsWith("/__deep_redirect/")
   if (process.env.DEEP_REDIRECT_ENABLED !== "false" && (isDeepDomain || isDeepProxy)) {
