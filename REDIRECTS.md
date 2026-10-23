@@ -56,3 +56,7 @@ A permanent 301 can be cached by browsers or crawlers after rollback. Responses 
 ## Airbnb migration proxy
 
 The same Node service handles both shynliairbnbcleaning.com and www.shynliairbnbcleaning.com with their own Airbnb mapping. Only their web bindings move between Render services; DNS stays unchanged. The internal `/__airbnb_redirect/*` endpoint on shynlicom.onrender.com is retained for origin verification. `airbnb-redirects.mjs` is copied from `miralitys/shynliairbnbcleaning/redirects.mjs`; keep the files byte-identical. Host scoping keeps all paths on shynli.com on their original mapping. `AIRBNB_REDIRECT_ENABLED=false` disables the Airbnb handler. The main business website is not modified.
+
+## Apartment domain
+
+`apartment-redirects.mjs` is the byte-identical mapping from `miralitys/shynliapartmentcleaning/redirects.mjs`, version 2026-10-23.1. Its apex and www hostnames use this Node service. `APARTMENT_REDIRECT_ENABLED=false` disables the handler. The reserved `shynlicom.onrender.com/__apartment_redirect/` endpoint permits origin checks. Restore old apartment content by moving its domain bindings back to Static Site `srv-d812br6gvqtc73e16bag`, verifying www and TLS and removing its retained-origin noindex header. DNS remains unchanged.

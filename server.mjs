@@ -5,6 +5,7 @@ import path from "node:path"
 import { fileURLToPath } from "node:url"
 import { redirectHeaders } from "./redirects.mjs"
 import { getRedirect as getAirbnbRedirect, REDIRECT_VERSION as AIRBNB_REDIRECT_VERSION } from "./airbnb-redirects.mjs"
+import { getRedirect as getApartmentRedirect, REDIRECT_VERSION as APARTMENT_REDIRECT_VERSION } from "./apartment-redirects.mjs"
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const distDir = path.join(__dirname, "dist")
@@ -974,6 +975,21 @@ await loadRouteSeoMeta()
 
 createServer(async (request, response) => {
   const requestHost = request.headers.host?.split(":")[0].toLowerCase()
+  const isApartmentDomain = requestHost === "shynliapartmentcleaning.com" || requestHost === "www.shynliapartmentcleaning.com"
+  const isApartmentProxy = requestHost === "shynlicom.onrender.com" && request.url?.startsWith("/__apartment_redirect/")
+  if (process.env.APARTMENT_REDIRECT_ENABLED !== "false"
+    && (isApartmentDomain || isApartmentProxy)) {
+    const sourceTarget = isApartmentDomain ? (request.url || "/") : `/${request.url.slice("/__apartment_redirect/".length)}`
+    response.writeHead(301, {
+      Location: getApartmentRedirect(sourceTarget).location,
+      "Cache-Control": "public, max-age=3600",
+      "X-Shynli-Redirect-Version": APARTMENT_REDIRECT_VERSION,
+      "X-Shynli-Redirect-Site": "apartment",
+      "Content-Length": "0",
+    })
+    response.end()
+    return
+  }
   const isAirbnbDomain = requestHost === "shynliairbnbcleaning.com" || requestHost === "www.shynliairbnbcleaning.com"
   const isAirbnbProxy = requestHost === "shynlicom.onrender.com" && request.url?.startsWith("/__airbnb_redirect/")
   // Both public Airbnb hostnames use their own mapping. The reserved onrender
